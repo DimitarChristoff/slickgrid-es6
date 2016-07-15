@@ -3,7 +3,7 @@ import Slick from './slick.core';
 import $ from 'jquery';
 import keyCode from 'jquery-ui/ui/keycode';
 
-/***
+/** *
  * Contains basic SlickGrid editors.
  * @module Editors
  * @namespace Slick
@@ -30,7 +30,7 @@ function TextEditor(args){
   this.init = function(){
     $input = $("<INPUT type=text class='editor-text' />")
       .appendTo(args.container)
-      .bind("keydown.nav", function(e){
+      .bind('keydown.nav', function(e){
         if (e.keyCode === keyCode.LEFT || e.keyCode === keyCode.RIGHT){
           e.stopImmediatePropagation();
         }
@@ -56,7 +56,7 @@ function TextEditor(args){
   };
 
   this.loadValue = function(item){
-    defaultValue = item[args.column.field] || "";
+    defaultValue = item[args.column.field] || '';
     $input.val(defaultValue);
     $input[0].defaultValue = defaultValue;
     $input.select();
@@ -71,7 +71,7 @@ function TextEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+    return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
   };
 
   this.validate = function(){
@@ -98,7 +98,7 @@ function IntegerEditor(args){
   this.init = function(){
     $input = $("<INPUT type=text class='editor-text' />");
 
-    $input.bind("keydown.nav", function(e){
+    $input.bind('keydown.nav', function(e){
       if (e.keyCode === keyCode.LEFT || e.keyCode === keyCode.RIGHT){
         e.stopImmediatePropagation();
       }
@@ -132,14 +132,14 @@ function IntegerEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+    return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
   };
 
   this.validate = function(){
     if (isNaN($input.val())){
       return {
         valid: false,
-        msg: "Please enter a valid integer"
+        msg: 'Please enter a valid integer'
       };
     }
 
@@ -167,7 +167,7 @@ function FloatEditor(args){
   this.init = function(){
     $input = $("<INPUT type=text class='editor-text' />");
 
-    $input.bind("keydown.nav", function(e){
+    $input.bind('keydown.nav', function(e){
       if (e.keyCode === keyCode.LEFT || e.keyCode === keyCode.RIGHT){
         e.stopImmediatePropagation();
       }
@@ -227,14 +227,14 @@ function FloatEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+    return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
   };
 
   this.validate = function(){
     if (isNaN($input.val())){
       return {
         valid: false,
-        msg: "Please enter a valid number"
+        msg: 'Please enter a valid number'
       };
     }
 
@@ -267,14 +267,14 @@ function DateEditor(args){
     $input.appendTo(args.container);
     $input.focus().select();
     $input.datepicker({
-      showOn: "button",
+      showOn: 'button',
       buttonImageOnly: true,
-      buttonImage: "../images/calendar.gif",
+      buttonImage: '../images/calendar.gif',
       beforeShow: function(){
-        calendarOpen = true
+        calendarOpen = true;
       },
       onClose: function(){
-        calendarOpen = false
+        calendarOpen = false;
       }
     });
     $input.width($input.width() - 18);
@@ -282,8 +282,8 @@ function DateEditor(args){
 
   this.destroy = function(){
     $.datepicker.dpDiv.stop(true, true);
-    $input.datepicker("hide");
-    $input.datepicker("destroy");
+    $input.datepicker('hide');
+    $input.datepicker('destroy');
     $input.remove();
   };
 
@@ -304,8 +304,8 @@ function DateEditor(args){
       return;
     }
     $.datepicker.dpDiv
-      .css("top", position.top + 30)
-      .css("left", position.left);
+      .css('top', position.top + 30)
+      .css('left', position.left);
   };
 
   this.focus = function(){
@@ -328,7 +328,7 @@ function DateEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+    return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
   };
 
   this.validate = function(){
@@ -368,12 +368,12 @@ function YesNoSelectEditor(args){
   };
 
   this.loadValue = function(item){
-    $select.val((defaultValue = item[args.column.field]) ? "yes" : "no");
+    $select.val((defaultValue = item[args.column.field]) ? 'yes' : 'no');
     $select.select();
   };
 
   this.serializeValue = function(){
-    return ($select.val() == "yes");
+    return ($select.val() == 'yes');
   };
 
   this.applyValue = function(item, state){
@@ -457,23 +457,23 @@ function PercentCompleteEditor(args){
     $picker = $("<div class='editor-percentcomplete-picker' />").appendTo(args.container);
     $picker.append("<div class='editor-percentcomplete-helper'><div class='editor-percentcomplete-wrapper'><div class='editor-percentcomplete-slider' /><div class='editor-percentcomplete-buttons' /></div></div>");
 
-    $picker.find(".editor-percentcomplete-buttons").append("<button val=0>Not started</button><br/><button val=50>In Progress</button><br/><button val=100>Complete</button>");
+    $picker.find('.editor-percentcomplete-buttons').append('<button val=0>Not started</button><br/><button val=50>In Progress</button><br/><button val=100>Complete</button>');
 
     $input.focus().select();
 
-    $picker.find(".editor-percentcomplete-slider").slider({
-      orientation: "vertical",
-      range: "min",
+    $picker.find('.editor-percentcomplete-slider').slider({
+      orientation: 'vertical',
+      range: 'min',
       value: defaultValue,
       slide: function(event, ui){
-        $input.val(ui.value)
+        $input.val(ui.value);
       }
     });
 
-    $picker.find(".editor-percentcomplete-buttons button").bind("click", function(e){
-      $input.val($(this).attr("val"));
-      $picker.find(".editor-percentcomplete-slider").slider("value", $(this).attr("val"));
-    })
+    $picker.find('.editor-percentcomplete-buttons button').bind('click', function(e){
+      $input.val($(this).attr('val'));
+      $picker.find('.editor-percentcomplete-slider').slider('value', $(this).attr('val'));
+    });
   };
 
   this.destroy = function(){
@@ -499,14 +499,14 @@ function PercentCompleteEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == "" && defaultValue == null)) && ((parseInt($input.val(), 10) || 0) != defaultValue);
+    return (!($input.val() == '' && defaultValue == null)) && ((parseInt($input.val(), 10) || 0) != defaultValue);
   };
 
   this.validate = function(){
     if (isNaN(parseInt($input.val(), 10))){
       return {
         valid: false,
-        msg: "Please enter a valid positive number"
+        msg: 'Please enter a valid positive number'
       };
     }
 
@@ -530,7 +530,7 @@ function LongTextEditor(args){
   var scope = this;
 
   this.init = function(){
-    var $container = $("body");
+    var $container = $('body');
 
     $wrapper = $("<DIV style='z-index:10000;position:absolute;background:white;padding:5px;border:3px solid gray; -moz-border-radius:10px; border-radius:10px;'/>")
       .appendTo($container);
@@ -541,9 +541,9 @@ function LongTextEditor(args){
     $("<DIV style='text-align:right'><BUTTON>Save</BUTTON><BUTTON>Cancel</BUTTON></DIV>")
       .appendTo($wrapper);
 
-    $wrapper.find("button:first").bind("click", this.save);
-    $wrapper.find("button:last").bind("click", this.cancel);
-    $input.bind("keydown", this.handleKeyDown);
+    $wrapper.find('button:first').bind('click', this.save);
+    $wrapper.find('button:last').bind('click', this.cancel);
+    $input.bind('keydown', this.handleKeyDown);
 
     scope.position(args.position);
     $input.focus().select();
@@ -583,8 +583,8 @@ function LongTextEditor(args){
 
   this.position = function(position){
     $wrapper
-      .css("top", position.top - 5)
-      .css("left", position.left - 5);
+      .css('top', position.top - 5)
+      .css('left', position.left - 5);
   };
 
   this.destroy = function(){
@@ -609,7 +609,7 @@ function LongTextEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+    return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
   };
 
   this.validate = function(){

@@ -16,7 +16,7 @@ const Data = {
 export default Data;
 Slick.Data = Data;
 
-/***
+/** *
  * A sample Model implementation.
  * Provides a filtered view of the underlying data.
  *
@@ -31,7 +31,7 @@ function DataView(options){
   };
 
   // private
-  var idProperty = "id";  // property holding a unique row id
+  var idProperty = 'id';  // property holding a unique row id
   var items = [];         // data by index
   var rows = [];          // data by row
   var idxById = {};       // indexes by id
@@ -174,7 +174,7 @@ function DataView(options){
     refresh();
   }
 
-  /***
+  /** *
    * Provides a workaround for the extremely slow sorting in IE.
    * Does a [lexicographic] sort on a give column by temporarily overriding Object.prototype.toString
    * to return the value of that field and then doing a native Array.sort().
@@ -184,8 +184,8 @@ function DataView(options){
     fastSortField = field;
     sortComparer = null;
     var oldToString = Object.prototype.toString;
-    Object.prototype.toString = (typeof field == "function") ? field : function(){
-      return this[field]
+    Object.prototype.toString = (typeof field == 'function') ? field : function(){
+      return this[field];
     };
     // an extra reversal for descending sort keeps the sort stable
     // (assuming a stable native sort implementation, which isn't true in some cases)
@@ -235,7 +235,7 @@ function DataView(options){
 
     for (var i = 0; i < groupingInfos.length; i++){
       var gi = groupingInfos[i] = $.extend(true, {}, groupingInfoDefaults, groupingInfos[i]);
-      gi.getterIsAFn = typeof gi.getter === "function";
+      gi.getterIsAFn = typeof gi.getter === 'function';
 
       // pre-compile accumulator loops
       gi.compiledAccumulators = [];
@@ -271,7 +271,7 @@ function DataView(options){
    */
   function setAggregators(groupAggregators, includeCollapsed){
     if (!groupingInfos.length){
-      throw new Error("At least one grouping must be specified before calling setAggregators().");
+      throw new Error('At least one grouping must be specified before calling setAggregators().');
     }
 
     groupingInfos[0].aggregators = groupAggregators;
@@ -330,7 +330,7 @@ function DataView(options){
 
   function updateItem(id, item){
     if (idxById[id] === undefined || id !== item[idProperty]){
-      throw "Invalid or non-matching id";
+      throw 'Invalid or non-matching id';
     }
     items[idxById[id]] = item;
     if (!updated){
@@ -355,7 +355,7 @@ function DataView(options){
   function deleteItem(id){
     var idx = idxById[id];
     if (idx === undefined){
-      throw "Invalid id";
+      throw 'Invalid id';
     }
     delete idxById[id];
     items.splice(idx, 1);
@@ -616,7 +616,7 @@ function DataView(options){
     var fnRegex = /^function[^(]*\(([^)]*)\)\s*{([\s\S]*)}$/;
     var matches = fn.toString().match(fnRegex);
     return {
-      params: matches[1].split(","),
+      params: matches[1].split(','),
       body: matches[2]
     };
   }
@@ -624,21 +624,21 @@ function DataView(options){
   function compileAccumulatorLoop(aggregator){
     var accumulatorInfo = getFunctionInfo(aggregator.accumulate);
     var fn = new Function(
-      "_items",
-      "for (var " + accumulatorInfo.params[0] + ", _i=0, _il=_items.length; _i<_il; _i++) {" +
-      accumulatorInfo.params[0] + " = _items[_i]; " +
+      '_items',
+      'for (var ' + accumulatorInfo.params[0] + ', _i=0, _il=_items.length; _i<_il; _i++) {' +
+      accumulatorInfo.params[0] + ' = _items[_i]; ' +
       accumulatorInfo.body +
-      "}"
+      '}'
     );
-    fn.displayName = "compiledAccumulatorLoop";
+    fn.displayName = 'compiledAccumulatorLoop';
     return fn;
   }
 
   function compileFilter(){
     var filterInfo = getFunctionInfo(filter);
 
-    var filterPath1 = "{ continue _coreloop; }$1";
-    var filterPath2 = "{ _retval[_idx++] = $item$; continue _coreloop; }$1";
+    var filterPath1 = '{ continue _coreloop; }$1';
+    var filterPath2 = '{ _retval[_idx++] = $item$; continue _coreloop; }$1';
     // make some allowances for minification - there's only so far we can go with RegEx
     var filterBody = filterInfo.body
       .replace(/return false\s*([;}]|\}|$)/gi, filterPath1)
@@ -646,28 +646,28 @@ function DataView(options){
       .replace(/return true\s*([;}]|\}|$)/gi, filterPath2)
       .replace(/return!0([;}]|\}|$)/gi, filterPath2)
       .replace(/return ([^;}]+?)\s*([;}]|$)/gi,
-        "{ if ($1) { _retval[_idx++] = $item$; }; continue _coreloop; }$2");
+        '{ if ($1) { _retval[_idx++] = $item$; }; continue _coreloop; }$2');
 
     // This preserves the function template code after JS compression,
     // so that replace() commands still work as expected.
     var tpl = [
-      //"function(_items, _args) { ",
-      "var _retval = [], _idx = 0; ",
-      "var $item$, $args$ = _args; ",
-      "_coreloop: ",
-      "for (var _i = 0, _il = _items.length; _i < _il; _i++) { ",
-      "$item$ = _items[_i]; ",
-      "$filter$; ",
-      "} ",
-      "return _retval; "
-      //"}"
-    ].join("");
+      // "function(_items, _args) { ",
+      'var _retval = [], _idx = 0; ',
+      'var $item$, $args$ = _args; ',
+      '_coreloop: ',
+      'for (var _i = 0, _il = _items.length; _i < _il; _i++) { ',
+      '$item$ = _items[_i]; ',
+      '$filter$; ',
+      '} ',
+      'return _retval; '
+      // "}"
+    ].join('');
     tpl = tpl.replace(/\$filter\$/gi, filterBody);
     tpl = tpl.replace(/\$item\$/gi, filterInfo.params[0]);
     tpl = tpl.replace(/\$args\$/gi, filterInfo.params[1]);
 
-    var fn = new Function("_items,_args", tpl);
-    fn.displayName = fn.name = "compiledFilter";
+    var fn = new Function('_items,_args', tpl);
+    fn.displayName = fn.name = 'compiledFilter';
 
     return fn;
   }
@@ -675,8 +675,8 @@ function DataView(options){
   function compileFilterWithCaching(){
     var filterInfo = getFunctionInfo(filter);
 
-    var filterPath1 = "{ continue _coreloop; }$1";
-    var filterPath2 = "{ _cache[_i] = true;_retval[_idx++] = $item$; continue _coreloop; }$1";
+    var filterPath1 = '{ continue _coreloop; }$1';
+    var filterPath2 = '{ _cache[_i] = true;_retval[_idx++] = $item$; continue _coreloop; }$1';
     // make some allowances for minification - there's only so far we can go with RegEx
     var filterBody = filterInfo.body
       .replace(/return false\s*([;}]|\}|$)/gi, filterPath1)
@@ -684,32 +684,32 @@ function DataView(options){
       .replace(/return true\s*([;}]|\}|$)/gi, filterPath2)
       .replace(/return!0([;}]|\}|$)/gi, filterPath2)
       .replace(/return ([^;}]+?)\s*([;}]|$)/gi,
-        "{ if ((_cache[_i] = $1)) { _retval[_idx++] = $item$; }; continue _coreloop; }$2");
+        '{ if ((_cache[_i] = $1)) { _retval[_idx++] = $item$; }; continue _coreloop; }$2');
 
     // This preserves the function template code after JS compression,
     // so that replace() commands still work as expected.
     var tpl = [
-      //"function(_items, _args, _cache) { ",
-      "var _retval = [], _idx = 0; ",
-      "var $item$, $args$ = _args; ",
-      "_coreloop: ",
-      "for (var _i = 0, _il = _items.length; _i < _il; _i++) { ",
-      "$item$ = _items[_i]; ",
-      "if (_cache[_i]) { ",
-      "_retval[_idx++] = $item$; ",
-      "continue _coreloop; ",
-      "} ",
-      "$filter$; ",
-      "} ",
-      "return _retval; "
-      //"}"
-    ].join("");
+      // "function(_items, _args, _cache) { ",
+      'var _retval = [], _idx = 0; ',
+      'var $item$, $args$ = _args; ',
+      '_coreloop: ',
+      'for (var _i = 0, _il = _items.length; _i < _il; _i++) { ',
+      '$item$ = _items[_i]; ',
+      'if (_cache[_i]) { ',
+      '_retval[_idx++] = $item$; ',
+      'continue _coreloop; ',
+      '} ',
+      '$filter$; ',
+      '} ',
+      'return _retval; '
+      // "}"
+    ].join('');
     tpl = tpl.replace(/\$filter\$/gi, filterBody);
     tpl = tpl.replace(/\$item\$/gi, filterInfo.params[0]);
     tpl = tpl.replace(/\$args\$/gi, filterInfo.params[1]);
 
-    var fn = new Function("_items,_args,_cache", tpl);
-    fn.displayName = "compiledFilterWithCaching";
+    var fn = new Function('_items,_args,_cache', tpl);
+    fn.displayName = 'compiledFilterWithCaching';
     return fn;
   }
 
@@ -873,7 +873,7 @@ function DataView(options){
     }
   }
 
-  /***
+  /** *
    * Wires the grid and the DataView together to keep row selection tied to item ids.
    * This is useful since, without it, the grid only knows about rows, so if the items
    * move around, the same rows stay selected instead of the selection moving along
@@ -899,16 +899,16 @@ function DataView(options){
     var onSelectedRowIdsChanged = new Slick.Event();
 
     function setSelectedRowIds(rowIds){
-      if (selectedRowIds.join(",") == rowIds.join(",")){
+      if (selectedRowIds.join(',') == rowIds.join(',')){
         return;
       }
 
       selectedRowIds = rowIds;
 
       onSelectedRowIdsChanged.notify({
-        "grid": grid,
-        "ids": selectedRowIds,
-        "dataView": self
+        'grid': grid,
+        'ids': selectedRowIds,
+        'dataView': self
       }, new Slick.EventData(), self);
     }
 
@@ -999,50 +999,50 @@ function DataView(options){
 
   $.extend(this, {
     // methods
-    "beginUpdate": beginUpdate,
-    "endUpdate": endUpdate,
-    "setPagingOptions": setPagingOptions,
-    "getPagingInfo": getPagingInfo,
-    "getItems": getItems,
-    "setItems": setItems,
-    "setFilter": setFilter,
-    "sort": sort,
-    "fastSort": fastSort,
-    "reSort": reSort,
-    "setGrouping": setGrouping,
-    "getGrouping": getGrouping,
-    "groupBy": groupBy,
-    "setAggregators": setAggregators,
-    "collapseAllGroups": collapseAllGroups,
-    "expandAllGroups": expandAllGroups,
-    "collapseGroup": collapseGroup,
-    "expandGroup": expandGroup,
-    "getGroups": getGroups,
-    "getIdxById": getIdxById,
-    "getRowById": getRowById,
-    "getItemById": getItemById,
-    "getItemByIdx": getItemByIdx,
-    "mapRowsToIds": mapRowsToIds,
-    "mapIdsToRows": mapIdsToRows,
-    "setRefreshHints": setRefreshHints,
-    "setFilterArgs": setFilterArgs,
-    "refresh": refresh,
-    "updateItem": updateItem,
-    "insertItem": insertItem,
-    "addItem": addItem,
-    "deleteItem": deleteItem,
-    "syncGridSelection": syncGridSelection,
-    "syncGridCellCssStyles": syncGridCellCssStyles,
+    'beginUpdate': beginUpdate,
+    'endUpdate': endUpdate,
+    'setPagingOptions': setPagingOptions,
+    'getPagingInfo': getPagingInfo,
+    'getItems': getItems,
+    'setItems': setItems,
+    'setFilter': setFilter,
+    'sort': sort,
+    'fastSort': fastSort,
+    'reSort': reSort,
+    'setGrouping': setGrouping,
+    'getGrouping': getGrouping,
+    'groupBy': groupBy,
+    'setAggregators': setAggregators,
+    'collapseAllGroups': collapseAllGroups,
+    'expandAllGroups': expandAllGroups,
+    'collapseGroup': collapseGroup,
+    'expandGroup': expandGroup,
+    'getGroups': getGroups,
+    'getIdxById': getIdxById,
+    'getRowById': getRowById,
+    'getItemById': getItemById,
+    'getItemByIdx': getItemByIdx,
+    'mapRowsToIds': mapRowsToIds,
+    'mapIdsToRows': mapIdsToRows,
+    'setRefreshHints': setRefreshHints,
+    'setFilterArgs': setFilterArgs,
+    'refresh': refresh,
+    'updateItem': updateItem,
+    'insertItem': insertItem,
+    'addItem': addItem,
+    'deleteItem': deleteItem,
+    'syncGridSelection': syncGridSelection,
+    'syncGridCellCssStyles': syncGridCellCssStyles,
 
     // data provider methods
-    "getLength": getLength,
-    "getItem": getItem,
-    "getItemMetadata": getItemMetadata,
+    'getLength': getLength,
+    'getItem': getItem,
+    'getItemMetadata': getItemMetadata,
 
     // events
-    "onRowCountChanged": onRowCountChanged,
-    "onRowsChanged": onRowsChanged,
-    "onPagingInfoChanged": onPagingInfoChanged
+    'onRowCountChanged': onRowCountChanged,
+    'onRowsChanged': onRowsChanged,
+    'onPagingInfoChanged': onPagingInfoChanged
   });
 }
 
@@ -1058,7 +1058,7 @@ function AvgAggregator(field){
   this.accumulate = function(item){
     var val = item[this.field_];
     this.count_++;
-    if (val != null && val !== "" && !isNaN(val)){
+    if (val != null && val !== '' && !isNaN(val)){
       this.nonNullCount_++;
       this.sum_ += parseFloat(val);
     }
@@ -1083,7 +1083,7 @@ function MinAggregator(field){
 
   this.accumulate = function(item){
     var val = item[this.field_];
-    if (val != null && val !== "" && !isNaN(val)){
+    if (val != null && val !== '' && !isNaN(val)){
       if (this.min_ == null || val < this.min_){
         this.min_ = val;
       }
@@ -1095,7 +1095,7 @@ function MinAggregator(field){
       groupTotals.min = {};
     }
     groupTotals.min[this.field_] = this.min_;
-  }
+  };
 }
 
 function MaxAggregator(field){
@@ -1107,7 +1107,7 @@ function MaxAggregator(field){
 
   this.accumulate = function(item){
     var val = item[this.field_];
-    if (val != null && val !== "" && !isNaN(val)){
+    if (val != null && val !== '' && !isNaN(val)){
       if (this.max_ == null || val > this.max_){
         this.max_ = val;
       }
@@ -1119,7 +1119,7 @@ function MaxAggregator(field){
       groupTotals.max = {};
     }
     groupTotals.max[this.field_] = this.max_;
-  }
+  };
 }
 
 function SumAggregator(field){
@@ -1131,7 +1131,7 @@ function SumAggregator(field){
 
   this.accumulate = function(item){
     var val = item[this.field_];
-    if (val != null && val !== "" && !isNaN(val)){
+    if (val != null && val !== '' && !isNaN(val)){
       this.sum_ += parseFloat(val);
     }
   };
@@ -1141,5 +1141,5 @@ function SumAggregator(field){
       groupTotals.sum = {};
     }
     groupTotals.sum[this.field_] = this.sum_;
-  }
+  };
 }
