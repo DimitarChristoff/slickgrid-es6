@@ -27,6 +27,7 @@ import 'jquery-ui';
 
 // Slick.Grid
 Slick.Grid = SlickGrid;
+global.Slick = Slick;
 
 export default SlickGrid;
 

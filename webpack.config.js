@@ -1,10 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   context: __dirname,
 
-  entry: './src/slick.build.js',
+  entry: {
+    slick: './src/index.js',
+    plugins: ['./plugins']
+  },
 
   output: {
     path: path.join(__dirname, 'dist'),
@@ -12,6 +16,27 @@ module.exports = {
     filename: 'slick.es6.min.js',
     libraryTarget: 'umd'
   },
+
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    }),
+    new CopyWebpackPlugin([
+      {
+        flatten: true,
+        from: 'src/*.less'
+      }
+    ]),
+    new webpack.optimize.CommonsChunkPlugin('plugins', 'slick.plugins.es6.min.js')
+  ],
 
   module: {
     loaders: [
@@ -44,20 +69,6 @@ module.exports = {
       }
     ]
   },
-
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    })
-  ],
 
   devServer: {
     contentBase: path.join(__dirname, 'dist')
