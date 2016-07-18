@@ -1,53 +1,31 @@
-const path = require("path");
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
-  entry: "./src/slick.build.js",
+
+  entry: './src/slick.build.js',
+
   output: {
-    path: path.join(__dirname, "build"),
-    publicPath: "/",
-    filename: "slick.es6.min.js"
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/',
+    filename: 'slick.es6.min.js',
+    libraryTarget: 'umd'
   },
+
   module: {
     loaders: [
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader"
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.less$/,
-        loader: "style-loader!css-loader!less-loader"
-      },
-      {
-        test: /\.woff/,
-        loader: 'url-loader?prefix=font/&limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.woff2/,
-        loader: 'url-loader?prefix=font/&limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.ttf/,
-        loader: 'file-loader?prefix=font/'
-      },
-      {
-        test: /\.eot/,
-        loader: 'file-loader?prefix=font/'
-      },
-      {
-        test: /\.svg/,
-        loader: 'file-loader?prefix=font/'
-      }, {
-        test: /\.rawhtml$/,
-        loader: "raw-loader"
-      },
-      {
-        test: /\.html$/,
-        loader: "ngtemplate-loader!html-loader"
+        loader: 'style-loader!css-loader!less-loader'
       },
       {
         test: /\.(js|jsx)$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
         query: {
           presets: ['es2015', 'stage-0'],
@@ -62,12 +40,29 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: "json-loader"
+        loader: 'json-loader'
       }
     ]
   },
+
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    })
+  ],
+
   devServer: {
-    contentBase: path.join(__dirname, "build")
+    contentBase: path.join(__dirname, 'dist')
   },
+
   devtool: 'source-map'
+
 };
