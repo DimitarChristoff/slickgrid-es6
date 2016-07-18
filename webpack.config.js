@@ -5,10 +5,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   context: __dirname,
 
-  entry: {
-    slick: './src/index.js',
-    // plugins: ['./plugins']
-  },
+  // entry: {
+  //   slick: './src/index.js',
+  //   plugins: ['./plugins']
+  // },
+
+  entry: './src/index.js',
 
   output: {
     path: path.join(__dirname, 'dist'),
