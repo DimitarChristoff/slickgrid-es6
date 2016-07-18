@@ -7,7 +7,7 @@ module.exports = {
 
   entry: {
     slick: './src/index.js',
-    plugins: ['./plugins']
+    // plugins: ['./plugins']
   },
 
   output: {
@@ -35,7 +35,7 @@ module.exports = {
         from: 'src/*.less'
       }
     ]),
-    new webpack.optimize.CommonsChunkPlugin('plugins', 'slick.plugins.es6.min.js')
+    // new webpack.optimize.CommonsChunkPlugin('plugins', 'slick.plugins.es6.min.js')
   ],
 
   module: {
