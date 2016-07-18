@@ -1,6 +1,6 @@
 {
   "name": "slickgrid-es6",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Non-tracking fork of slickgrid fork by 6pac to be used via npm - https://github.com/6pac/SlickGrid",
   "main": "dist/slick.es6.min.js",
   "scripts": {
