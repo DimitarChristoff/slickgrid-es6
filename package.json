@@ -2,7 +2,7 @@
   "name": "slickgrid-es6",
   "version": "1.0.0",
   "description": "Non-tracking fork of slickgrid fork by 6pac to be used via npm - https://github.com/6pac/SlickGrid",
-  "main": "index.js",
+  "main": "dist/slick.es6.min.js",
   "scripts": {
     "start": "webpack-dev-server --optimize-occurence-order --optimize-dedupe --hot --inline --debug --compress --port 8888",
     "build": "webpack",
