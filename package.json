@@ -6,7 +6,6 @@
   "scripts": {
     "start": "webpack-dev-server --optimize-occurence-order --optimize-dedupe --hot --inline --debug --compress --port 8888",
     "build": "webpack",
-    "postinstall": "npm run-script build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint ./src --fix"
