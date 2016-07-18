@@ -20,7 +20,7 @@ import $ from 'jquery';
 import Slick from './slick.core';
 
 // jquery stuff loves to touch the globals
-import './jquery.event.drag-2.2';
+import 'jquery.event.drag';
 
 // for sorting
 import 'jquery-ui';
