@@ -9,4 +9,4 @@ export Editors from './slick.editors';
 export Formatters from './slick.formatters';
 export Data from './slick.dataview';
 export Grid from './slick.grid';
-export Plugins from '../plugins';
+// export Plugins from '../plugins';

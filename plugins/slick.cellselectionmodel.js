@@ -1,6 +1,5 @@
-import Slick from '../src/slick.core';
+import { Range } from '../src/slick.core';
 
-Slick.CellSelectionModel = CellSelectionModel;
 export default CellSelectionModel;
 
 function CellSelectionModel(options = {
