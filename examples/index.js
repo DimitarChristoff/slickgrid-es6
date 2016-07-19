@@ -1,9 +1,48 @@
 import './examples.less';
 
-// all examples we need
-import Example1 from './example1.js';
+import { createHistory } from 'history'
 
-//todo: behind router
-console.log(Example1.title);
-document.title = Example1.title;
-Example1.init('#myGrid');
+
+const history = createHistory();
+const router = {};
+
+const examples = 2;
+let count = 1;
+
+
+const nav = ({pathname}) => {
+  const route = router[pathname] || router[Object.keys(router)[0]];
+  if (route){
+    route.init('#myGrid');
+    document.title = route.title;
+  }
+};
+
+history.listen(nav);
+
+while(count <= examples){
+
+  const example = require(`./example${count}`).default;
+
+  router[example.route] = example;
+
+  const link = document.createElement('a');
+  link.href = '#';
+  link.className = 'demo-link';
+  link.innerHTML = example.title;
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    history.push({
+      pathname: example.route,
+      state: {
+        title: example.title
+      }
+    })
+  });
+
+  document.body.appendChild(link);
+
+  count++;
+}
+
+nav(history.getCurrentLocation());
