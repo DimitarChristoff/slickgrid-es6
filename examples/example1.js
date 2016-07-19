@@ -30,5 +30,6 @@ export default {
   init: (id) => {
     new Grid(id, data, columns, options);
   },
-  title: 'Simple Example'
+  title: 'Simple Example',
+  route: '/example1'
 }
