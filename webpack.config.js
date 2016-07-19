@@ -9,11 +9,6 @@ const config = {
     slick: './src/index.js',
   },
 
-  // entry: {
-  //   slick: './src/index.js',
-  //   plugins: ['./plugins']
-  // },
-
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
