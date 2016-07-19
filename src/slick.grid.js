@@ -367,7 +367,7 @@ function SlickGrid(container, data, columns, options){
 
   function cacheCssForHiddenInit(){
     // handle display:none on container or container parents
-    $hiddenParents = $container.parents().andSelf().not(':visible');
+    $hiddenParents = $container.parents().addBack().not(':visible');
     $hiddenParents.each(function(){
       var old = {};
       for (var name in cssShow){

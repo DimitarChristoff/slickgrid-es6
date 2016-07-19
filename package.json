@@ -4,8 +4,8 @@
   "description": "Non-tracking fork of slickgrid fork by 6pac to be used via npm - https://github.com/6pac/SlickGrid",
   "main": "dist/slick.es6.min.js",
   "scripts": {
-    "start": "webpack-dev-server --optimize-occurence-order --optimize-dedupe --hot --inline --debug --compress --port 8888",
-    "build": "webpack",
+    "start": "NODE_ENV=development webpack-dev-server --optimize-occurence-order --optimize-dedupe --hot --inline --debug --compress --port 8888",
+    "build": "rimraf dist && NODE_ENV=production webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint ./src --fix"
@@ -13,7 +13,7 @@
   "author": "Michael Leibman",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^1.12.4",
+    "jquery": "^3.1.0",
     "jquery-ui": "^1.12.0",
     "jquery.event.drag": "^2.2.2"
   },
@@ -38,6 +38,7 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "rimraf": "^2.5.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",

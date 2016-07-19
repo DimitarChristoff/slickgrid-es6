@@ -2,12 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
+const config = {
   context: __dirname,
 
   entry: {
     slick: './src/index.js',
-    examples: ['./examples']
   },
 
   // entry: {
@@ -40,7 +39,6 @@ module.exports = {
         from: 'src/*.less'
       }
     ]),
-    new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js')
   ],
 
   module: {
@@ -82,3 +80,10 @@ module.exports = {
   devtool: 'source-map'
 
 };
+
+if (process.env.NODE_ENV === 'development'){
+  config.entry.examples = ['./examples/index.js'];
+  config.plugins.push(new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js'));
+}
+
+module.exports = config;
