@@ -39,7 +39,6 @@
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "navigo": "^2.1.2",
     "rimraf": "^2.5.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
