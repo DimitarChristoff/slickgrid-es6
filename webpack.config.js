@@ -1,16 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: __dirname,
+
+  entry: './src/index.js',
 
   // entry: {
   //   slick: './src/index.js',
   //   plugins: ['./plugins']
   // },
-
-  entry: './src/index.js',
 
   output: {
     path: path.join(__dirname, 'dist'),
@@ -37,7 +37,7 @@ module.exports = {
         from: 'src/*.less'
       }
     ]),
-    // new webpack.optimize.CommonsChunkPlugin('plugins', 'slick.plugins.es6.min.js')
+    // new webpack.optimize.CommonsChunkPlugin('plugins', 'slick.plugins.es6.min.js', Infinity)
   ],
 
   module: {

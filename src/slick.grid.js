@@ -23,7 +23,7 @@ import Slick from './slick.core';
 import 'jquery.event.drag';
 
 // for sorting
-import 'jquery-ui';
+import 'jquery-ui/ui/widgets/sortable';
 
 // Slick.Grid
 Slick.Grid = SlickGrid;
