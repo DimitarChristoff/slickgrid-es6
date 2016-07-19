@@ -5,7 +5,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   context: __dirname,
 
-  entry: './src/index.js',
+  entry: {
+    slick: './src/index.js',
+    examples: ['./examples']
+  },
 
   // entry: {
   //   slick: './src/index.js',
@@ -37,7 +40,7 @@ module.exports = {
         from: 'src/*.less'
       }
     ]),
-    // new webpack.optimize.CommonsChunkPlugin('plugins', 'slick.plugins.es6.min.js', Infinity)
+    new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js')
   ],
 
   module: {
@@ -73,7 +76,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'examples')
   },
 
   devtool: 'source-map'
