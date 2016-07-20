@@ -6,8 +6,10 @@ import { createHistory } from 'history'
 const history = createHistory();
 const router = {};
 
-const examples = 3;
+const examples = 4;
 let count = 1;
+
+const examplesList = ['./example1','./example2','./example3'];
 
 
 const nav = ({pathname}) => {
@@ -23,7 +25,6 @@ history.listen(nav);
 while(count <= examples){
 
   const example = require(`./example${count}`).default;
-
   router[example.route] = example;
 
   const link = document.createElement('a');
@@ -46,3 +47,4 @@ while(count <= examples){
 }
 
 nav(history.getCurrentLocation());
+

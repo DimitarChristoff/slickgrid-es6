@@ -1,4 +1,5 @@
 import { Grid } from '../src/';
+import data from './example-data';
 
 const columns = [
   {id: 'title', name: 'Title', field: 'title'},
@@ -13,18 +14,6 @@ const options = {
   enableCellNavigation: true,
   enableColumnReorder: false
 };
-
-const data = [];
-for (let i = 0; i < 500; i++) {
-  data[i] = {
-    title: 'Task ' + i,
-    duration: '5 days',
-    percentComplete: Math.round(Math.random() * 100),
-    start: '01/01/2009',
-    finish: '01/05/2009',
-    effortDriven: (i % 5 == 0)
-  };
-}
 
 export default {
   init: (id) => {
