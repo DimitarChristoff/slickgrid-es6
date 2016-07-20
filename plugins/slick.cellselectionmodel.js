@@ -1,21 +1,22 @@
-import { Range } from '../src/slick.core';
+import Slick              from '../src/slick.core';
+import CellRangeSelector  from './slick.cellrangeselector';
 
 export default CellSelectionModel;
 
 function CellSelectionModel(options = {
     selectActiveCell: true
   }){
-  var _grid;
-  var _canvas;
-  var _ranges = [];
-  var _self = this;
-  var _selector = new Slick.CellRangeSelector({
+  let _grid;
+  let _canvas;
+  let _ranges = [];
+  const _self = this;
+  const _selector = new CellRangeSelector({
     selectionCss: {
       border: "2px solid black"
     }
   });
-  var _options;
-  var _defaults = {
+  let _options;
+  const _defaults = {
     selectActiveCell: true
   };
 
@@ -25,6 +26,7 @@ function CellSelectionModel(options = {
     _canvas = _grid.getCanvasNode();
     _grid.onActiveCellChanged.subscribe(handleActiveCellChange);
     _grid.onKeyDown.subscribe(handleKeyDown);
+    debugger;
     grid.registerPlugin(_selector);
     _selector.onCellRangeSelected.subscribe(handleCellRangeSelected);
     _selector.onBeforeCellRangeSelected.subscribe(handleBeforeCellRangeSelected);
@@ -39,10 +41,10 @@ function CellSelectionModel(options = {
   }
 
   function removeInvalidRanges(ranges){
-    var result = [];
+    const result = [];
 
-    for (var i = 0; i < ranges.length; i++){
-      var r = ranges[i];
+    for (let i = 0; i < ranges.length; i++){
+      const r = ranges[i];
       if (_grid.canCellBeSelected(r.fromRow, r.fromCell) && _grid.canCellBeSelected(r.toRow, r.toCell)){
         result.push(r);
       }
@@ -90,8 +92,8 @@ function CellSelectionModel(options = {
      * 39 right
      * 40 down
      */
-    var ranges, last;
-    var active = _grid.getActiveCell();
+    let ranges, last;
+    const active = _grid.getActiveCell();
 
     if (active && e.shiftKey && !e.ctrlKey && !e.altKey &&
       (e.which == 37 || e.which == 39 || e.which == 38 || e.which == 40)){
@@ -107,7 +109,7 @@ function CellSelectionModel(options = {
       if (!last.contains(active.row, active.cell))
         last = new Slick.Range(active.row, active.cell);
 
-      var dRow = last.toRow - last.fromRow,
+      let dRow = last.toRow - last.fromRow,
         dCell = last.toCell - last.fromCell,
         // walking direction
         dirRow = active.row == last.fromRow ? 1 : -1,
@@ -124,11 +126,11 @@ function CellSelectionModel(options = {
       }
 
       // define new selection range
-      var new_last = new Slick.Range(active.row, active.cell, active.row + dirRow * dRow, active.cell + dirCell * dCell);
+      const new_last = new Slick.Range(active.row, active.cell, active.row + dirRow * dRow, active.cell + dirCell * dCell);
       if (removeInvalidRanges([new_last]).length){
         ranges.push(new_last);
-        var viewRow = dirRow > 0 ? new_last.toRow : new_last.fromRow;
-        var viewCell = dirCell > 0 ? new_last.toCell : new_last.fromCell;
+        const viewRow = dirRow > 0 ? new_last.toRow : new_last.fromRow;
+        const viewCell = dirCell > 0 ? new_last.toCell : new_last.fromCell;
         _grid.scrollRowIntoView(viewRow);
         _grid.scrollCellIntoView(viewRow, viewCell);
       }
@@ -142,13 +144,13 @@ function CellSelectionModel(options = {
     }
   }
 
-  Object.extend(this, {
-    "getSelectedRanges": getSelectedRanges,
-    "setSelectedRanges": setSelectedRanges,
+  Object.assign(this, {
+    getSelectedRanges,
+    setSelectedRanges,
 
-    "init": init,
-    "destroy": destroy,
+    init,
+    destroy,
 
-    "onSelectedRangesChanged": new Slick.Event()
+    onSelectedRangesChanged: new Slick.Event()
   });
 }

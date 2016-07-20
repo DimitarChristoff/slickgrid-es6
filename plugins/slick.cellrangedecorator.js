@@ -1,66 +1,63 @@
-(function ($) {
-  // register namespace
-  $.extend(true, window, {
-    "Slick": {
-      "CellRangeDecorator": CellRangeDecorator
+import $        from 'jquery';
+import Slick    from '../src/slick.core';
+
+Slick.CellRangeDecorator = CellRangeDecorator;
+
+export default CellRangeDecorator;
+
+/***
+ * Displays an overlay on top of a given cell range.
+ *
+ * TODO:
+ * Currently, it blocks mouse events to DOM nodes behind it.
+ * Use FF and WebKit-specific 'pointer-events' CSS style, or some kind of event forwarding.
+ * Could also construct the borders separately using 4 individual DIVs.
+ *
+ * @param {Grid} grid
+ * @param {Object} options
+ */
+function CellRangeDecorator(grid, options){
+  let _elem;
+  const _defaults = {
+    selectionCssClass: 'slick-range-decorator',
+    selectionCss: {
+      zIndex: '9999',
+      border: '2px dashed red'
     }
-  });
+  };
 
-  /***
-   * Displays an overlay on top of a given cell range.
-   *
-   * TODO:
-   * Currently, it blocks mouse events to DOM nodes behind it.
-   * Use FF and WebKit-specific "pointer-events" CSS style, or some kind of event forwarding.
-   * Could also construct the borders separately using 4 individual DIVs.
-   *
-   * @param {Grid} grid
-   * @param {Object} options
-   */
-  function CellRangeDecorator(grid, options) {
-    var _elem;
-    var _defaults = {
-      selectionCssClass: 'slick-range-decorator',
-      selectionCss: {
-        "zIndex": "9999",
-        "border": "2px dashed red"
-      }
-    };
+  options = Object.assign({}, _defaults, options);
 
-    options = $.extend(true, {}, _defaults, options);
-
-
-    function show(range) {
-      if (!_elem) {
-        _elem = $("<div></div>", {css: options.selectionCss})
-            .addClass(options.selectionCssClass)
-            .css("position", "absolute")
-            .appendTo(grid.getCanvasNode());
-      }
-
-      var from = grid.getCellNodeBox(range.fromRow, range.fromCell);
-      var to = grid.getCellNodeBox(range.toRow, range.toCell);
-
-      _elem.css({
-        top: from.top - 1,
-        left: from.left - 1,
-        height: to.bottom - from.top - 2,
-        width: to.right - from.left - 2
-      });
-
-      return _elem;
+  function show(range){
+    if (!_elem){
+      _elem = $('<div></div>', {css: options.selectionCss})
+        .addClass(options.selectionCssClass)
+        .css('position', 'absolute')
+        .appendTo(grid.getCanvasNode());
     }
 
-    function hide() {
-      if (_elem) {
-        _elem.remove();
-        _elem = null;
-      }
-    }
+    const from = grid.getCellNodeBox(range.fromRow, range.fromCell);
+    const to = grid.getCellNodeBox(range.toRow, range.toCell);
 
-    $.extend(this, {
-      "show": show,
-      "hide": hide
+    _elem.css({
+      top: from.top - 1,
+      left: from.left - 1,
+      height: to.bottom - from.top - 2,
+      width: to.right - from.left - 2
     });
+
+    return _elem;
   }
-})(jQuery);
+
+  function hide(){
+    if (_elem){
+      _elem.remove();
+      _elem = null;
+    }
+  }
+
+  Object.assign(this, {
+    show,
+    hide
+  });
+}

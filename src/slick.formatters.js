@@ -9,6 +9,8 @@
  */
 
 import Slick from './slick.core';
+import tick from '../images/tick.png';
+
 
 const Formatters = {
   PercentComplete: PercentCompleteFormatter,
@@ -53,5 +55,5 @@ function YesNoFormatter(row, cell, value, columnDef, dataContext){
 }
 
 function CheckmarkFormatter(row, cell, value, columnDef, dataContext){
-  return value ? "<img src='../images/tick.png'>" : '';
+  return value ? `<img src=${tick}>` : '';
 }

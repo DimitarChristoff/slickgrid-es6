@@ -2,6 +2,7 @@ import Slick from './slick.core';
 
 import $ from 'jquery';
 import keyCode from 'jquery-ui/ui/keycode';
+import 'jquery-ui/ui/widgets/slider';
 
 /** *
  * Contains basic SlickGrid editors.

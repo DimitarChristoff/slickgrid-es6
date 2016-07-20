@@ -6,7 +6,7 @@ import { createHistory } from 'history'
 const history = createHistory();
 const router = {};
 
-const examples = 2;
+const examples = 3;
 let count = 1;
 
 

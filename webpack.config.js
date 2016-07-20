@@ -70,7 +70,10 @@ const config = {
 
   devServer: {
     contentBase: path.join(__dirname, 'examples'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    staticOptions: {
+
+    },
   },
 
   devtool: 'source-map'
