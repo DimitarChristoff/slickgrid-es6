@@ -1,155 +1,269 @@
 /*
-IMPORTANT:
-In order to preserve the uniform grid appearance, all cell styles need to have padding, margin and border sizes.
-No built-in (selected, editable, highlight, flashing, invalid, loading, :focus) or user-specified CSS
-classes should alter those!
-*/
+ * IMPORTANT:
+ * In order to preserve the uniform grid appearance, all cell styles need to have padding, margin and border sizes.
+ * No built-in (selected, editable, highlight, flashing, invalid, loading, :focus) or user-specified CSS
+ * classes should alter those!
+ */
 
-.slick-header {
-  box-shadow: 0 1px 1px rgba(0,0,0,.3);
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.slick-header-columns {
-  /*background: url('./images/header-columns-bg.gif') repeat-x center bottom;*/
-  border-bottom: 1px solid @grid-border-color;
-  box-shadow: 0 1px 1px rgba(0,0,0,.3);
-}
-
-.slick-header-column {
-  //background: url('./images/header-columns-bg.gif') repeat-x center bottom;
-  border-right: 1px solid @grid-border-color;
-}
-
-.slick-header-column:hover, .slick-header-column-active {
-  //background: white url('./images/header-columns-over-bg.gif') repeat-x center bottom;
-}
-
-.slick-headerrow {
-  box-shadow: 0 1px 1px rgba(0,0,0,.3);
-  border-bottom: 1px solid @grid-border-color;
-  //background: #fafafa;
-}
-
-.slick-headerrow-column {
-  //background: #fafafa;
-  border-bottom: 0;
-  height: 100%;
-  &.ui-state-default {
-    padding: 0;
-    height: 100%;
+.slickgrid-container {
+  .slick-header-columns,
+  .slick-header-column {
+    background: @grid-header-background;
+    // background-color: #EBECEE;
   }
-}
 
-.slick-row.ui-state-active {
-  /*background: #F5F7D7;*/
-}
+  .slick-header-columns {
+    border-bottom: 1px @grid-border-style fade(black, 50%);
+    //box-shadow: 0 1px 1px rgba(0,0,0,.3);
+  }
 
-.slick-row {
-  position: absolute;
-  /*background: white;*/
-  border: 0px;
-  line-height: 20px;
-}
+  .slick-header-column {
+    border-right: 1px solid @grid-border-color;
+    border-bottom: 1px solid @grid-border-color;
+  }
 
-.slick-row.selected {
-  z-index: 10;
-  background: #DFE8F6;
-}
+  .slick-header-column:hover,
+  .slick-header-column-active {
+    background: darken(@grid-header-background, 5%);
+  }
 
-.slick-cell {
-  box-sizing: border-box;
-  padding-left: 4px;
-}
+  .slick-headerrow {
+    background: @grid-header-background;
+  }
 
-.slick-group {
-  border-bottom: 2px solid silver;
-}
+  .slick-headerrow-column {
+    background: #fafafa;
+    border-bottom: 0;
+  }
 
-.slick-group-toggle {
-  width: 9px;
-  height: 9px;
-  margin-right: 5px;
-}
+  .grid-canvas {
+    background: white;
+  }
 
-.slick-group-toggle.expanded {
-  background: url(../images/collapse.gif) no-repeat center center;
-}
+  .slick-row {
+    background: white;
+    border: 0;
+    line-height: 20px;
 
-.slick-group-toggle.collapsed {
-  background: url(../images/expand.gif) no-repeat center center;
-}
+    .slick-cell {
+      background: white;
 
-.slick-group-totals {
-  color: gray;
-  background: white;
-}
+      padding-top: 3px;
+      padding-bottom: 4px;
+      padding-left: 4px;
+      padding-right: 4px;
 
-.slick-cell.selected {
-  background-color: beige;
-}
+      &.invalid {
+        border-color: red;
+        -moz-animation-duration: 0.2s;
+        -webkit-animation-duration: 0.2s;
+        -moz-animation-name: slickgrid-invalid-hilite;
+        -webkit-animation-name: slickgrid-invalid-hilite;
+      }
 
-.slick-cell.active {
-  /*position: relative;*/
-  background: rgba(0,0,0,.3);
-}
+      &.selected {
+        background: #DFE8F6;
+      }
 
-.slick-cell.active .editor-text {
-  width: 100%;
-  position: absolute;
-  border: none;
-  outline: none !important;
-  /*padding: 0;*/
-  padding-left: 0px;
-  padding-top: 0px;
-  font-weight: inherit;
-}
+      &.active {
+        border-color: gray;
+        border-style: solid;
+        border-width: 1px;
 
-.slick-sortable-placeholder {
-  background: silver !important;
-}
+        // We compensate for the all-around border (now 1px at top and left too!) by reducing the padding:
+        padding-top: 2px;
+        padding-left: 3px;
+      }
+    }
 
-.slick-row.odd {
-  /*background: #fafafa;*/
-}
+    &.odd .slick-cell {
+      background: darken(@grid-cell-color, 3%);
 
-.slick-row.ui-state-active {
-  background: #F5F7D7;
-}
+      // make sure we override the regular background color:
+      &.selected {
+        background-color: rgb(231, 231, 195); // beige
+      }
+    }
 
-.slick-row.loading {
-  opacity: 0.5;
-}
+    &.active-row .slick-cell {
+      background-color: rgb(226, 255, 253);
 
-.slick-cell.invalid {
-  border-color: red;
-  animation-name: slickgrid-invalid-hilite;
-}
+      // make sure we override the regular background color:
+      &.selected {
+        background-color: red; // beige
+      }
+    }
 
-@-moz-keyframes slickgrid-invalid-hilite {
-  from { box-shadow: 0 0 6px red; }
-  to { box-shadow: none; }
-}
+    &.active-row.odd .slick-cell {
+      background-color: rgb(226, 255, 253);
 
-@-webkit-keyframes slickgrid-invalid-hilite {
-  from { box-shadow: 0 0 6px red; }
-  to { box-shadow: none; }
-}
+      // make sure we override the regular background color:
+      &.selected {
+        background-color: green; // beige
+      }
+    }
 
+    &.loading {
+      opacity: 0.5;
+    }
+  }
 
-.filter-input {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border: none;
-  outline: none !important;
-  /*padding: 0;*/
-  padding-left: 4px;
-  padding-top: 0px;
-  font-weight: inherit;
-  box-shadow: inset 0 0 2px rgba(0,0,0,.3);
-  &:focus {
-    background: rgba(0,0,0,.3);
+  .slick-group {
+    border-bottom: 2px solid silver;
+  }
+
+  .slick-group-toggle {
+    width: 9px;
+    height: 9px;
+    margin-right: 5px;
+
+    &.expanded {
+      background: url('../images/collapse.gif') no-repeat center center;
+    }
+
+    &.collapsed {
+      background: url('../images/expand.gif') no-repeat center center;
+    }
+  }
+
+  .slick-group-totals {
+    color: gray;
+    background: white;
+  }
+
+  .slick-sortable-placeholder {
+    background: silver !important;
+  }
+
+  @-moz-keyframes slickgrid-invalid-hilite {
+    from {
+      box-shadow: 0 0 6px red;
+    }
+    to {
+      box-shadow: none;
+    }
+  }
+
+  @-webkit-keyframes slickgrid-invalid-hilite {
+    from {
+      box-shadow: 0 0 6px red;
+    }
+    to {
+      box-shadow: none;
+    }
+  }
+
+  // ----------------------------------------------
+  // Excel-like header
+  // ----------------------------------------------
+
+  .slick-header-menubutton {
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-left: thin ridge silver;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+
+    // The next few items are already defined in the slick-headermenu.less file and it should stay that way, *unless* you also replace the button image included there.
+    //bottom: 0;
+    //right: 0;
+    //top: 0;
+    //width: 14px;
+  }
+
+  .slick-header-menu {
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #BFBDBD;
+    min-width: 175px;
+    padding: 4px;
+    z-index: 100000;
+    cursor: default;
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+
+    button {
+      border: 1px solid #BFBDBD;
+      background-color: white;
+      width: 45px;
+      padding: 4px;
+      margin: 4px 4px 4px 0;
+    }
+
+    .filter {
+      border: 1px solid #BFBDBD;
+      font-size: 8pt;
+      height: 400px;
+      margin-top: 6px;
+      overflow: scroll;
+      padding: 4px;
+      white-space: nowrap;
+      width: 200px;
+    }
+
+    .textfilter {
+      & > label {
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 10px;
+      }
+
+      & > input[type=text] {
+        width: 70%;
+      }
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .slick-header-menuitem {
+    border: 1px solid transparent;
+    padding: 2px 4px;
+    cursor: pointer;
+    list-style: none outside none;
+    margin: 0;
+  }
+
+  .slick-header-menuicon {
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: middle;
+    width: 16px;
+  }
+
+  .slick-header-menucontent {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .slick-header-menuitem:hover {
+    border-color: #BFBDBD;
+  }
+
+  .header-overlay,
+  .cell-overlay,
+  .selection-cell-overlay {
+    display: block;
+    position: absolute;
+    z-index: 999;
+  }
+
+  .slick-cell > .editor-select {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: auto;
+    top: 0;
+    bottom: 0;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
   }
 }
