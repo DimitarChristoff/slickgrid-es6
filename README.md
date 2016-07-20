@@ -39,7 +39,7 @@ const gridColumns = [{
   formatter: Formatters.PercentCompleteBar
 }, ...columns]; // some column def
 
-const dataView = new Data();
+const dataView = new Data.DataView();
 dataView.setItems([ ... ]); // some data
 
 const grid = new Grid('someid', dataView, columns, options);
