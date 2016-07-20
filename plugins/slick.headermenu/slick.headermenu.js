@@ -1,6 +1,7 @@
 import $      from 'jquery';
 import Slick  from '../../src/slick.core';
-import HeaderMenuCSS from './slick.headermenu.css';
+
+import './slick.headermenu.css';
 
 Slick.HeaderMenu = HeaderMenu;
 export default HeaderMenu;
@@ -81,12 +82,13 @@ function HeaderMenu(options) {
     buttonCssClass: null,
     buttonImage: null
   };
+
   let $menu;
   let $activeHeaderColumn;
 
 
   function init(grid) {
-    options = $.extend(true, {}, _defaults, options);
+    options = Object.assign({}, _defaults, options);
     _grid = grid;
     _handler
       .subscribe(_grid.onHeaderCellRendered, handleHeaderCellRendered)
