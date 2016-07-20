@@ -55,6 +55,28 @@ To import stylesheets in LESS (for now):
 ...
 ```
 
+## Examples and development
+
+Currently, the examples are being ported. You can start a webpack-dev-server with hot reload like this:
+
+```sh
+$ npm start
+```
+
+Then point your browser to [http://localhost:8888/](http://localhost:8888/).
+
+To create a new build for `dist`, run:
+
+```sh
+$ npm run build
+```
+
+## Contributing
+
+Any pull requests and help with this are appreciated - both from conversion stand point and from slickgrid bug fixes or 
+feature additions. 
+
+
 # Original mleibman README follows:
 
 
