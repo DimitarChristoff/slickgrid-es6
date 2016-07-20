@@ -20,6 +20,8 @@ The goal is to keep the grid API of the 6pac repository unchanged. Howe
 * jquery-ui ^1.12.0
 * move to LESS (SCSS soon)
 
+![Imgur](http://i.imgur.com/cDQ9SVt.png)
+
 ## Installing and use
 
 ```sh
