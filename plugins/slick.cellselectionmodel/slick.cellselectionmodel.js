@@ -1,5 +1,5 @@
-import Slick              from '../src/slick.core';
-import CellRangeSelector  from './slick.cellrangeselector';
+import Slick              from '../../src/slick.core';
+import CellRangeSelector  from '../slick.cellrangeselector/slick.cellrangeselector';
 
 export default CellSelectionModel;
 

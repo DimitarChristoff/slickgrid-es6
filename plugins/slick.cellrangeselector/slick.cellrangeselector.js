@@ -1,6 +1,6 @@
 import $                  from 'jquery';
-import Slick              from '../src/slick.core';
-import CellRangeDecorator from './slick.cellrangedecorator';
+import Slick              from '../../src/slick.core';
+import CellRangeDecorator from '../slick.cellrangedecorator/slick.cellrangedecorator';
 
 Slick.CellRangeSelector = CellRangeSelector;
 export default CellRangeSelector;
