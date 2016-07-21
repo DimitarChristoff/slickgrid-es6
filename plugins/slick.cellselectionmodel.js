@@ -26,7 +26,6 @@ function CellSelectionModel(options = {
     _canvas = _grid.getCanvasNode();
     _grid.onActiveCellChanged.subscribe(handleActiveCellChange);
     _grid.onKeyDown.subscribe(handleKeyDown);
-    debugger;
     grid.registerPlugin(_selector);
     _selector.onCellRangeSelected.subscribe(handleCellRangeSelected);
     _selector.onBeforeCellRangeSelected.subscribe(handleBeforeCellRangeSelected);
