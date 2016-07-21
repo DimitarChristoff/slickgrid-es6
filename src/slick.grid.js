@@ -845,24 +845,6 @@ function SlickGrid(container, data, columns, options){
         event.target.classList.remove('interact-drop-active');
         event.relatedTarget.classList.remove('interact-can-drop');
         $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
-
-
-        //todo: serialize
-        // if (!getEditorLock().commitCurrentEdit()){
-        //   $(this).sortable('cancel');
-        //   return;
-        // }
-        //
-        // var reorderedIds = $headers.sortable('toArray');
-        // var reorderedColumns = [];
-        // for (var i = 0; i < reorderedIds.length; i++){
-        //   reorderedColumns.push(columns[getColumnIndex(reorderedIds[i].replace(uid, ''))]);
-        // }
-        // setColumns(reorderedColumns);
-        //
-        // trigger(self.onColumnsReordered, {grid: self});
-        // e.stopPropagation();
-        // setupColumnResize();
       }
     });
   }
@@ -892,10 +874,6 @@ function SlickGrid(container, data, columns, options){
       $handle.appendTo(e);
 
       const activeColumn = columns[i];
-      const restrict = function(x, y, el){
-        console.log(x, y, el);
-      };
-
       if (activeColumn.resizable){
         interact(e).resizable({
           preserveAspectRatio: false,
@@ -1329,7 +1307,6 @@ function SlickGrid(container, data, columns, options){
       console.log(h[0]);
       console.log(columns[i]);
       if (jQueryNewWidthBehaviour){
-        console.log(headers);
         if (h.outerWidth() !== columns[i].width){
           h.outerWidth(columns[i].width);
         }
