@@ -21,9 +21,6 @@ import Slick from './slick.core';
 
 import interact from 'interact.js';
 
-// for sorting
-import 'jquery-ui/ui/widgets/sortable';
-
 // Slick.Grid
 Slick.Grid = SlickGrid;
 global.Slick = Slick;
@@ -220,11 +217,6 @@ function SlickGrid(container, data, columns, options){
       if (m.maxWidth && m.width > m.maxWidth){
         m.width = m.maxWidth;
       }
-    }
-
-    // validate loaded JavaScript modules against requested options
-    if (options.enableColumnReorder && !$.fn.sortable){
-      throw new Error("SlickGrid's 'enableColumnReorder = true' option requires jquery-ui.sortable module to be loaded");
     }
 
     editController = {
@@ -776,38 +768,87 @@ function SlickGrid(container, data, columns, options){
   }
 
   function setupColumnReorder(){
-    $headers.filter(':ui-sortable').sortable('destroy');
-    $headers.sortable({
-      containment: 'parent',
-      distance: 3,
+    let x = 0,
+      delta = 0,
+      placeholder = document.createElement('div');
+    placeholder.className = 'interact-placeholder';
+
+    interact('.slick-header-column').ignoreFrom('.slick-resizable-handle').draggable({
+      // enable inertial throwing
+      inertia: true,
+      // keep the element within the area of it's parent
+      restrict: {
+        restriction: function(){
+          console.log(arguments);
+        },
+        endOnly: true,
+        elementRect: {top: 0, left: 0, bottom: 0, right: 0}
+      },
+      // enable autoScroll
+      autoScroll: true,
       axis: 'x',
-      cursor: 'default',
-      tolerance: 'intersection',
-      helper: 'clone',
-      placeholder: 'slick-sortable-placeholder ui-state-default slick-header-column',
-      start: function(e, ui){
-        ui.placeholder.width(ui.helper.outerWidth() - headerColumnWidthDiff);
-        $(ui.helper).addClass('slick-header-column-active');
-      },
-      beforeStop: function(e, ui){
-        $(ui.helper).removeClass('slick-header-column-active');
-      },
-      stop: function(e){
-        if (!getEditorLock().commitCurrentEdit()){
-          $(this).sortable('cancel');
-          return;
-        }
+      onstart: event =>{
+        x = 0;
+        delta = event.target.offsetWidth;
 
-        var reorderedIds = $headers.sortable('toArray');
-        var reorderedColumns = [];
-        for (var i = 0; i < reorderedIds.length; i++){
-          reorderedColumns.push(columns[getColumnIndex(reorderedIds[i].replace(uid, ''))]);
-        }
-        setColumns(reorderedColumns);
+        placeholder.style.height = event.target.offsetHeight + 'px';
+        placeholder.style.width = delta + 'px';
 
-        trigger(self.onColumnsReordered, {grid: self});
-        e.stopPropagation();
-        setupColumnResize();
+        $(event.target).after(placeholder).css({
+          position: 'absolute',
+          zIndex: 1000,
+          marginLeft: $(event.target).offset().left
+        });
+      },
+      onmove: function(event){
+        x += event.dx;
+        event.target.style.transform = `translate3d(${x}px, 0, 100px)`;
+      },
+      onend: (event) =>{
+        x = 0;
+        delta = 0;
+        $(event.target).css({
+          position: 'relative',
+          zIndex: null,
+          marginLeft: 0,
+          transform: 'none'
+        });
+
+        placeholder.parentNode.removeChild(placeholder);
+      }
+    }).dropzone({
+      accept: '.slick-header-column',
+      ondragenter: function(event){
+        console.log(event.target);
+        console.log(event.relatedTarget);
+
+        // add active dropzone feedback
+        event.target.classList.add('interact-drop-active');
+        event.relatedTarget.classList.add('interact-can-drop');
+      },
+      ondragleave: function(event){
+        event.target.classList.remove('interact-drop-active');
+        event.relatedTarget.classList.remove('interact-can-drop');
+      },
+      ondrop: function(event){
+        event.target.classList.remove('interact-drop-active');
+        event.relatedTarget.classList.remove('interact-can-drop');
+
+        // if (!getEditorLock().commitCurrentEdit()){
+        //   $(this).sortable('cancel');
+        //   return;
+        // }
+        //
+        // var reorderedIds = $headers.sortable('toArray');
+        // var reorderedColumns = [];
+        // for (var i = 0; i < reorderedIds.length; i++){
+        //   reorderedColumns.push(columns[getColumnIndex(reorderedIds[i].replace(uid, ''))]);
+        // }
+        // setColumns(reorderedColumns);
+        //
+        // trigger(self.onColumnsReordered, {grid: self});
+        // e.stopPropagation();
+        // setupColumnResize();
       }
     });
   }
@@ -832,8 +873,54 @@ function SlickGrid(container, data, columns, options){
         return;
       }
       $col = $(e);
-      $("<div class='slick-resizable-handle' />")
-        .appendTo(e)
+      const $handle = $("<div class='slick-resizable-handle' />");
+
+      $handle.appendTo(e);
+
+      const activeColumn = columns[i];
+      const restrict = function(x, y, el){
+        console.log(x, y, el);
+      };
+
+      if (activeColumn.resizable){
+        interact(e).resizable({
+          preserveAspectRatio: false,
+          edges: { left: true, right: true, bottom: false, top: false }
+        }).on('resizestart', function(event){
+          if (!getEditorLock().commitCurrentEdit()){
+            return false;
+          }
+          activeColumn.previousWidth = event.rect.width;
+          event.target.classList.add('slick-header-column-active');
+        }).on('resizemove', function(event){
+          let x = event.dx;
+          let width = activeColumn.width += x;
+
+          if (activeColumn.minWidth > 0 && activeColumn.minWidth > width)
+            width = activeColumn.minWidth;
+          else if (activeColumn.maxWidth > 0 && activeColumn.maxWidth < width)
+            width = activeColumn.maxWidth;
+
+          activeColumn.width = width;
+
+          if (options.forceFitColumns){
+            autosizeColumns();
+          }
+          applyColumnHeaderWidths();
+          if (options.syncColumnCellResize){
+            applyColumnWidths();
+          }
+
+        }).on('resizeend', function(event){
+          event.target.classList.remove('slick-header-column-active');
+          invalidateAllRows();
+          updateCanvasWidth(true);
+          render();
+          trigger(self.onColumnsResized, {grid: self});
+        });
+      }
+
+      $handle
         .bind('dragstart', function(e, dd){
           if (!getEditorLock().commitCurrentEdit()){
             return false;
@@ -1223,9 +1310,12 @@ function SlickGrid(container, data, columns, options){
       return;
     }
     var h;
-    for (var i = 0, headers = $headers.children(), ii = headers.length; i < ii; i++){
+    for (var i = 0, headers = $headers.children('[id]'), ii = headers.length; i < ii; i++){
       h = $(headers[i]);
+      console.log(h[0]);
+      console.log(columns[i]);
       if (jQueryNewWidthBehaviour){
+        console.log(headers);
         if (h.outerWidth() !== columns[i].width){
           h.outerWidth(columns[i].width);
         }

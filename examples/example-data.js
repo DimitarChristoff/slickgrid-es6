@@ -1,4 +1,4 @@
-let data = [];
+const data = [];
 
 for (let i = 0; i < 500; i++){
   const d = (data[i] = {});

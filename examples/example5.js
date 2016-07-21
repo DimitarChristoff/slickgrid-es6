@@ -1,11 +1,11 @@
 import { Grid, Formatters } from '../src/';
-import data from './example-data';
 import HeaderButtonsPlugin from '../plugins/slick.headerbuttons'
 import Help from '../images/help.png'
 import TagRed from '../images/tag_red.png'
 import CommentYellow from '../images/comment_yellow.gif'
 import Info from '../images/info.gif'
-let grid;
+
+let grid, data = [];
 const options = {
   enableCellNavigation: true
 };

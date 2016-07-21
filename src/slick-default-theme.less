@@ -22,9 +22,12 @@
     border-bottom: 1px solid @grid-border-color;
   }
 
-  .slick-header-column:hover,
+  .slick-header-column:hover {
+    background: darken(@grid-header-background, 2%);
+  }
+
   .slick-header-column-active {
-    background: darken(@grid-header-background, 5%);
+    background: darken(@grid-header-background, 5%) !important;
   }
 
   .slick-headerrow {
