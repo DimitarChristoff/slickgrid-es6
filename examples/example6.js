@@ -13,8 +13,8 @@ import HeaderMenu from '../plugins/slick.headermenu'
 import sortASC from '../images/sort-asc.gif';
 import sortDSC from '../images/sort-desc.gif';
 
-var grid;
-var columns = [
+let grid;
+const columns = [
   {id: "title", name: "Title", field: "title"},
   {id: "duration", name: "Duration", field: "duration"},
   {id: "%", name: "% Complete", field: "percentComplete"},
@@ -23,7 +23,7 @@ var columns = [
   {id: "effort-driven", name: "Effort Driven", field: "effortDriven"}
 ];
 
-for (var i = 0; i < columns.length; i++) {
+for (let i = 0; i < columns.length; i++) {
   columns[i].header = {
     menu: {
       items: [
@@ -54,7 +54,7 @@ for (var i = 0; i < columns.length; i++) {
 }
 
 
-var options = {
+const options = {
   enableColumnReorder: false
 };
 
@@ -63,13 +63,13 @@ export default {
   init: id => {
     grid = new Grid(id, data, columns, options);
 
-    var headerMenuPlugin = new HeaderMenu({});
+    const headerMenuPlugin = new HeaderMenu({});
 
     headerMenuPlugin.onBeforeMenuShow.subscribe(function(e, args) {
-      var menu = args.menu;
+      const menu = args.menu;
 
       // We can add or modify the menu here, or cancel it by returning false.
-      var i = menu.items.length;
+      const i = menu.items.length;
       menu.items.push({
         title: "Menu item " + i,
         command: "item" + i

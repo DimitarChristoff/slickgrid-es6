@@ -6,7 +6,7 @@ import { createHistory } from 'history'
 const history = createHistory();
 const router = {};
 
-const examples = 6;
+const examples = 7;
 let count = 1;
 
 const nav = ({pathname}) => {
