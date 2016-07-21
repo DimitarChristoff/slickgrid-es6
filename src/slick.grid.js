@@ -19,8 +19,7 @@
 import $ from 'jquery';
 import Slick from './slick.core';
 
-// jquery stuff loves to touch the globals
-(require('jquery.event.drag/jquery.event.drag'))($);
+import interact from 'interact.js';
 
 // for sorting
 import 'jquery-ui/ui/widgets/sortable';
