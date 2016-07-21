@@ -16,12 +16,12 @@
  *     and do proper cleanup.
  */
 
-import $ from 'jquery';
-import Slick from './slick.core';
-
+import $        from 'jquery';
 import interact from 'interact.js';
 
-// Slick.Grid
+import Slick    from './slick.core';
+
+// Slick.Grid globals pretense
 Slick.Grid = SlickGrid;
 global.Slick = Slick;
 
@@ -778,9 +778,7 @@ function SlickGrid(container, data, columns, options){
       inertia: true,
       // keep the element within the area of it's parent
       restrict: {
-        restriction: function(){
-          console.log(arguments);
-        },
+        restriction: 'parent',
         endOnly: true,
         elementRect: {top: 0, left: 0, bottom: 0, right: 0}
       },
@@ -819,9 +817,6 @@ function SlickGrid(container, data, columns, options){
     }).dropzone({
       accept: '.slick-header-column',
       ondragenter: function(event){
-        console.log(event.target);
-        console.log(event.relatedTarget);
-
         // add active dropzone feedback
         event.target.classList.add('interact-drop-active');
         event.relatedTarget.classList.add('interact-can-drop');
@@ -834,6 +829,7 @@ function SlickGrid(container, data, columns, options){
         event.target.classList.remove('interact-drop-active');
         event.relatedTarget.classList.remove('interact-can-drop');
 
+        //todo: serialize
         // if (!getEditorLock().commitCurrentEdit()){
         //   $(this).sortable('cancel');
         //   return;
