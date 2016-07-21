@@ -770,7 +770,9 @@ function SlickGrid(container, data, columns, options){
   function setupColumnReorder(){
     let x = 0,
       delta = 0,
-      placeholder = document.createElement('div');
+      placeholder = document.createElement('div'),
+      order;
+
     placeholder.className = 'interact-placeholder';
 
     interact('.slick-header-column').ignoreFrom('.slick-resizable-handle').draggable({
@@ -788,6 +790,10 @@ function SlickGrid(container, data, columns, options){
       onstart: event =>{
         x = 0;
         delta = event.target.offsetWidth;
+        // get old order
+        $headers.find('.slick-header-column').each(function(index){
+          $(this).data('index', index);
+        });
 
         placeholder.style.height = event.target.offsetHeight + 'px';
         placeholder.style.width = delta + 'px';
@@ -813,6 +819,16 @@ function SlickGrid(container, data, columns, options){
         });
 
         placeholder.parentNode.removeChild(placeholder);
+        const newColumns = [];
+
+        $headers.find('.slick-header-column').each(function(index){
+          newColumns.push(columns[$(this).data('index')]);
+          // console.log($(this).data('index'), index);
+        });
+
+        setColumns(newColumns);
+        trigger(self.onColumnsReordered, {grid: self});
+        setupColumnResize();
       }
     }).dropzone({
       accept: '.slick-header-column',
@@ -828,6 +844,8 @@ function SlickGrid(container, data, columns, options){
       ondrop: function(event){
         event.target.classList.remove('interact-drop-active');
         event.relatedTarget.classList.remove('interact-can-drop');
+        $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
+
 
         //todo: serialize
         // if (!getEditorLock().commitCurrentEdit()){
