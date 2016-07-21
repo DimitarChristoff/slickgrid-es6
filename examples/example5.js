@@ -1,5 +1,5 @@
 import { Grid, Formatters } from '../src/';
-import data from './example-data';
+import origData from './example-data';
 import HeaderButtonsPlugin from '../plugins/slick.headerbuttons'
 import Help from '../images/help.png'
 import TagRed from '../images/tag_red.png'
@@ -12,6 +12,7 @@ const options = {
 const columns = [];
 const columnsWithHighlightingById = {};
 
+let data = origData.slice();
 
 // Set up some test columns.
 for (let i = 0; i < 10; i++) {
