@@ -3,7 +3,7 @@ import {Grid} from '../src/';
 import data from './example-data'
 
 import HeaderMenu from '../plugins/slick.headermenu'
-import HeaderMenuExampleCSS from './slick.headermenu-example.css';
+import './slick.headermenu-example.css';
 
 import sortASC from '../images/sort-asc.gif';
 import sortDSC from '../images/sort-desc.gif';

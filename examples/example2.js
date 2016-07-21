@@ -18,9 +18,9 @@ const columns = [
 const options = {
   editable: false,
   enableAddRow: false,
-  enableCellNavigation: true
+  enableCellNavigation: true,
+  enableColumnReorder: false
 };
-
 
 export default {
   init: id => {
