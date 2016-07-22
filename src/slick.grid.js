@@ -1304,8 +1304,6 @@ function SlickGrid(container, data, columns, options){
     var h;
     for (var i = 0, headers = $headers.children('[id]'), ii = headers.length; i < ii; i++){
       h = $(headers[i]);
-      console.log(h[0]);
-      console.log(columns[i]);
       if (jQueryNewWidthBehaviour){
         if (h.outerWidth() !== columns[i].width){
           h.outerWidth(columns[i].width);
