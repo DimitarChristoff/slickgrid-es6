@@ -65,6 +65,7 @@ const config = {
   devServer: {
     contentBase: path.join(__dirname, 'examples'),
     historyApiFallback: true,
+    host: '0.0.0.0',
     staticOptions: {
 
     },

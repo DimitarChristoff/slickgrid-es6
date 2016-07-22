@@ -17,7 +17,7 @@
  */
 
 import $        from 'jquery';
-import interact from 'interact.js';
+import interact from './interact.js';
 
 import Slick    from './slick.core';
 
@@ -340,12 +340,15 @@ function SlickGrid(container, data, columns, options){
         .bind('click', handleClick)
         .bind('dblclick', handleDblClick)
         .bind('contextmenu', handleContextMenu)
-        .bind('draginit', handleDragInit)
-        .bind('dragstart', {distance: 3}, handleDragStart)
-        .bind('drag', handleDrag)
-        .bind('dragend', handleDragEnd)
         .delegate('.slick-cell', 'mouseenter', handleMouseEnter)
         .delegate('.slick-cell', 'mouseleave', handleMouseLeave);
+
+      // legacy support for drag events
+      interact($canvas[0]).allowFrom('div.slick-cell').draggable({
+        onmove: handleDrag,
+        onstart: handleDragStart,
+        onend: handleDragEnd
+      });
 
       // Work around http://crbug.com/312427.
       if (navigator.userAgent.toLowerCase().match(/webkit/) &&
@@ -767,86 +770,102 @@ function SlickGrid(container, data, columns, options){
     });
   }
 
+  /**
+   * Refactored to use interactjs
+   */
   function setupColumnReorder(){
-    let x = 0,
-      delta = 0,
-      placeholder = document.createElement('div'),
-      order;
+    let x = 0;
+    let delta = 0;
+    let placeholder = document.createElement('div');
 
     placeholder.className = 'interact-placeholder';
 
-    interact('.slick-header-column').ignoreFrom('.slick-resizable-handle').draggable({
-      // enable inertial throwing
-      inertia: true,
-      // keep the element within the area of it's parent
-      restrict: {
-        restriction: 'parent',
-        endOnly: true,
-        elementRect: {top: 0, left: 0, bottom: 0, right: 0}
-      },
-      // enable autoScroll
-      autoScroll: true,
-      axis: 'x',
-      onstart: event =>{
-        x = 0;
-        delta = event.target.offsetWidth;
-        // get old order
-        $headers.find('.slick-header-column').each(function(index){
-          $(this).data('index', index);
-        });
+    interact('.slick-header-column')
+      .ignoreFrom('.slick-resizable-handle')
+      .draggable({
+        inertia: true,
+        // keep the element within the area of it's parent
+        restrict: {
+          restriction: 'parent',
+          endOnly: true,
+          elementRect: {top: 0, left: 0, bottom: 0, right: 0}
+        },
+        // enable autoScroll
+        autoScroll: true,
+        axis: 'x',
+        onstart: event =>{
+          x = 0;
+          delta = event.target.offsetWidth;
 
-        placeholder.style.height = event.target.offsetHeight + 'px';
-        placeholder.style.width = delta + 'px';
+          // get old order
+          $headers.find('.slick-header-column').each(function(index){
+            $(this).data('index', index);
+          });
 
-        $(event.target).after(placeholder).css({
-          position: 'absolute',
-          zIndex: 1000,
-          marginLeft: $(event.target).offset().left
-        });
-      },
-      onmove: function(event){
-        x += event.dx;
-        event.target.style.transform = `translate3d(${x}px, 0, 100px)`;
-      },
-      onend: (event) =>{
-        x = 0;
-        delta = 0;
-        $(event.target).css({
-          position: 'relative',
-          zIndex: null,
-          marginLeft: 0,
-          transform: 'none'
-        });
+          placeholder.style.height = event.target.offsetHeight + 'px';
+          placeholder.style.width = delta + 'px';
 
-        placeholder.parentNode.removeChild(placeholder);
-        const newColumns = [];
+          $(event.target).after(placeholder).css({
+            position: 'absolute',
+            zIndex: 1000,
+            marginLeft: $(event.target).offset().left
+          });
+        },
 
-        $headers.find('.slick-header-column').each(function(index){
-          newColumns.push(columns[$(this).data('index')]);
-          // console.log($(this).data('index'), index);
-        });
+        onmove: event => {
+          x += event.dx;
+          event.target.style.transform = `translate3d(${x}px, 0, 100px)`;
+        },
 
-        setColumns(newColumns);
-        trigger(self.onColumnsReordered, {grid: self});
-        setupColumnResize();
-      }
-    }).dropzone({
-      accept: '.slick-header-column',
-      ondragenter: function(event){
-        // add active dropzone feedback
-        event.target.classList.add('interact-drop-active');
-        event.relatedTarget.classList.add('interact-can-drop');
-      },
-      ondragleave: function(event){
-        event.target.classList.remove('interact-drop-active');
-        event.relatedTarget.classList.remove('interact-can-drop');
-      },
-      ondrop: function(event){
-        event.target.classList.remove('interact-drop-active');
-        event.relatedTarget.classList.remove('interact-can-drop');
-        $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
-      }
-    });
+        onend: event => {
+          x = 0;
+          delta = 0;
+          $(event.target).css({
+            position: 'relative',
+            zIndex: null,
+            marginLeft: 0,
+            transform: 'none'
+          });
+
+          placeholder.parentNode.removeChild(placeholder);
+          const newColumns = [];
+
+          $headers.find('.slick-header-column').each(function(index){
+            newColumns.push(columns[$(this).data('index')]);
+            $(this).removeData('index');
+          });
+
+          setColumns(newColumns);
+          trigger(self.onColumnsReordered, {grid: self});
+          setupColumnResize();
+        }
+      })
+      .dropzone({
+        accept: '.slick-header-column',
+
+        ondragenter: event => {
+          // add active dropzone feedback
+          requestAnimationFrame(function(){
+            event.target.classList.add('interact-drop-active');
+            event.relatedTarget.classList.add('interact-can-drop');
+          });
+        },
+
+        ondragleave: event => {
+          requestAnimationFrame(function(){
+            event.target.classList.remove('interact-drop-active');
+            event.relatedTarget.classList.remove('interact-can-drop');
+          });
+        },
+
+        ondrop: event => {
+          requestAnimationFrame(function(){
+            event.target.classList.remove('interact-drop-active');
+            event.relatedTarget.classList.remove('interact-can-drop');
+            $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
+          });
+        }
+      });
   }
 
   function setupColumnResize(){
@@ -2509,38 +2528,24 @@ function SlickGrid(container, data, columns, options){
     }
   }
 
-  function handleDragInit(e, dd){
-    var cell = getCellFromEvent(e);
+  function handleDragStart(interactEvent){
+    var event = $.Event(interactEvent.originalEvent.type, interactEvent.originalEvent);
+    var cell = getCellFromEvent(event);
     if (!cell || !cellExists(cell.row, cell.cell)){
       return false;
     }
 
-    var retval = trigger(self.onDragInit, dd, e);
-    if (e.isImmediatePropagationStopped()){
-      return retval;
-    }
-
-    // if nobody claims to be handling drag'n'drop by stopping immediate propagation,
-    // cancel out of it
-    return false;
-  }
-
-  function handleDragStart(e, dd){
-    var cell = getCellFromEvent(e);
-    if (!cell || !cellExists(cell.row, cell.cell)){
-      return false;
-    }
-
-    var retval = trigger(self.onDragStart, dd, e);
-    if (e.isImmediatePropagationStopped()){
+    var retval = trigger(self.onDragStart, interactEvent, event);
+    if (event.isImmediatePropagationStopped()){
       return retval;
     }
 
     return false;
   }
 
-  function handleDrag(e, dd){
-    return trigger(self.onDrag, dd, e);
+  function handleDrag(interactEvent){
+    var event = $.Event(interactEvent.originalEvent.type, interactEvent.originalEvent);
+    return trigger(self.onDrag, interactEvent, event);
   }
 
   function handleDragEnd(e, dd){

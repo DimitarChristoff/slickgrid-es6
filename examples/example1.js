@@ -10,6 +10,8 @@ const columns = [
   {id: 'effort-driven', name: 'Effort Driven', field: 'effortDriven'}
 ];
 
+let grid;
+
 const options = {
   enableCellNavigation: true,
   enableColumnReorder: !false,
@@ -18,7 +20,10 @@ const options = {
 
 export default {
   init: (id) => {
-    new Grid(id, data, columns, options);
+    grid = new Grid(id, data, columns, options);
+    grid.onDragStart.subscribe(function(){
+      console.log('drag init');
+    });
   },
   title: 'Simple Example',
   route: '/example1'
