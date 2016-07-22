@@ -239,7 +239,7 @@ function SlickGrid(container, data, columns, options){
     $focusSink = $("<div tabIndex='0' hideFocus style='position:fixed;width:0;height:0;top:0;left:0;outline:0;'></div>").appendTo($container);
 
     $headerScroller = $("<div class='slick-header ui-state-default' style='overflow:hidden;position:relative;' />").appendTo($container);
-    $headers = $("<div class='slick-header-columns' style='left:-1000px' />").appendTo($headerScroller);
+    $headers = $("<div class='slick-header-columns' />").appendTo($headerScroller);
     $headers.width(getHeadersWidth());
 
     $headerRowScroller = $("<div class='slick-headerrow ui-state-default' style='overflow:hidden;position:relative;' />").appendTo($container);
@@ -814,7 +814,7 @@ function SlickGrid(container, data, columns, options){
 
         onmove: event => {
           x += event.dx;
-          event.target.style.transform = `translate3d(${x}px, 0, 100px)`;
+          event.target.style.transform = `translate3d(${x}px, -3px, 100px)`;
         },
 
         onend: event => {
@@ -822,7 +822,7 @@ function SlickGrid(container, data, columns, options){
           delta = 0;
           $(event.target).css({
             position: 'relative',
-            zIndex: null,
+            zIndex: '',
             marginLeft: 0,
             transform: 'none'
           });
@@ -844,26 +844,19 @@ function SlickGrid(container, data, columns, options){
         accept: '.slick-header-column',
 
         ondragenter: event => {
-          // add active dropzone feedback
-          requestAnimationFrame(function(){
-            event.target.classList.add('interact-drop-active');
-            event.relatedTarget.classList.add('interact-can-drop');
-          });
+          event.target.classList.add('interact-drop-active');
+          event.relatedTarget.classList.add('interact-can-drop');
         },
 
         ondragleave: event => {
-          requestAnimationFrame(function(){
-            event.target.classList.remove('interact-drop-active');
-            event.relatedTarget.classList.remove('interact-can-drop');
-          });
+          event.target.classList.remove('interact-drop-active');
+          event.relatedTarget.classList.remove('interact-can-drop');
         },
 
         ondrop: event => {
-          requestAnimationFrame(function(){
-            event.target.classList.remove('interact-drop-active');
-            event.relatedTarget.classList.remove('interact-can-drop');
-            $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
-          });
+          event.target.classList.remove('interact-drop-active');
+          event.relatedTarget.classList.remove('interact-can-drop');
+          $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
         }
       });
   }
@@ -1131,7 +1124,7 @@ function SlickGrid(container, data, columns, options){
     $style = $("<style type='text/css' rel='stylesheet' />").appendTo($('head'));
     var rowHeight = (options.rowHeight - cellHeightDiff);
     var rules = [
-      '.' + uid + ' .slick-header-column { left: 1000px; }',
+      '.' + uid + ' .slick-header-column { left: 0; }',
       '.' + uid + ' .slick-top-panel { height:' + options.topPanelHeight + 'px; }',
       '.' + uid + ' .slick-headerrow-columns { height:' + options.headerRowHeight + 'px; }',
       '.' + uid + ' .slick-footerrow-columns { height:' + options.footerRowHeight + 'px; }',
