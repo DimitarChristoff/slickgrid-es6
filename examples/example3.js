@@ -1,5 +1,5 @@
 import {Grid, Formatters, Editors} from '../src/';
-import CellSelectionModel from '../plugins/slick.cellselectionmodel';
+import CellSelectionModel from '../plugins/slick.cellselectionmodel/slick.cellselectionmodel';
 import data from './example-data';
 
 function requiredFieldValidator(value){
@@ -55,7 +55,6 @@ const options = {
   autoEdit: false
 };
 
-
 export default {
   init: id => {
     grid = new Grid(id, data, columns, options);
@@ -72,4 +71,4 @@ export default {
   },
   route: '/example3',
   title: 'Example 3: Editing'
-}
+};

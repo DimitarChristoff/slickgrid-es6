@@ -27,4 +27,4 @@ export default {
   },
   title: 'Simple Example',
   route: '/example1'
-}
+};

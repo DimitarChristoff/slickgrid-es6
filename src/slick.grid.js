@@ -16,10 +16,10 @@
  *     and do proper cleanup.
  */
 
-import $        from 'jquery';
+import $ from 'jquery';
 import interact from './interact.js';
 
-import Slick    from './slick.core';
+import Slick from './slick.core';
 
 // Slick.Grid globals pretense
 Slick.Grid = SlickGrid;
@@ -793,7 +793,7 @@ function SlickGrid(container, data, columns, options){
         // enable autoScroll
         autoScroll: true,
         axis: 'x',
-        onstart: event =>{
+        onstart: event => {
           x = 0;
           delta = event.target.offsetWidth;
 
@@ -914,7 +914,6 @@ function SlickGrid(container, data, columns, options){
           if (options.syncColumnCellResize){
             applyColumnWidths();
           }
-
         }).on('resizeend', function(event){
           event.target.classList.remove('slick-header-column-active');
           invalidateAllRows();

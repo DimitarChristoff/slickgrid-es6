@@ -1,15 +1,20 @@
-import {Grid} from '../src/';
+import { Grid } from '../src/';
+import Help from '../images/help.png';
+import TagRed from '../images/tag_red.png';
+import CommentYellow from '../images/comment_yellow.gif';
+import Info from '../images/info.gif';
 
 import data from './example-data';
 
-import HeaderMenu from '../plugins/slick.headermenu';
 import './slick.headermenu-example.css';
+
+import HeaderMenu from '../plugins/slick.headermenu';
 
 import sortASC from '../images/sort-asc.gif';
 import sortDSC from '../images/sort-desc.gif';
 
 let grid;
-let columns = [
+const columns = [
   {id: 'title', name: 'Title', field: 'title'},
   {id: 'duration', name: 'Duration', field: 'duration'},
   {id: '%', name: '% Complete', field: 'percentComplete'},
@@ -75,6 +80,8 @@ export default {
 
     grid.registerPlugin(headerMenuPlugin);
   },
-  route: '/example4',
-  title: 'Example 4: Header Menu Plugin'
+  title: 'Example 6: Header Menu Plugin',
+  route: '/example6',
+  description: '<p>This example demonstrates using the <b>Slick.Plugins.HeaderMenu</b> plugin to add drop-down menus to column' +
+               ' headers.  (Hover over the headers.)</p>'
 };

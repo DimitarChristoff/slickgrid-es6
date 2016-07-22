@@ -12,4 +12,4 @@ for (let i = 0; i < 500; i++){
   d['effortDriven'] = (i % 5 == 0);
 }
 
-export default data
+export default data;

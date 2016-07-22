@@ -1,2 +1,2 @@
-import HeaderButtons from './slick.headerbuttons'
-export default HeaderButtons
+import HeaderButtons from './slick.headerbuttons';
+export default HeaderButtons;

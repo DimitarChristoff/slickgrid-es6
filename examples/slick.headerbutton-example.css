@@ -1,0 +1,34 @@
+/**
+  * Style the drop-down menu here since the plugin stylesheet mostly contains structural CSS.
+  */
+
+.slick-header-menu {
+    border: 1px solid #718BB7;
+    background: #f0f0f0;
+    padding: 2px;
+    -moz-box-shadow: 2px 2px 2px silver;
+    -webkit-box-shadow: 2px 2px 2px silver;
+    min-width: 100px;
+    z-index: 20;
+}
+
+
+.slick-header-menuitem {
+    padding: 2px 4px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.slick-header-menuitem:hover {
+    border-color: silver;
+    background: white;
+}
+
+.slick-header-menuitem-disabled {
+    border-color: transparent !important;
+    background: inherit !important;
+}
+
+.icon-help {
+    background-image: url(../images/help.png);
+}

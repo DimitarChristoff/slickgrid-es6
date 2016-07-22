@@ -1,6 +1,6 @@
-import $                  from 'jquery';
-import Slick              from '../src/slick.core';
-import CellRangeDecorator from './slick.cellrangedecorator';
+import $ from 'jquery';
+import Slick from '../../src/slick.core';
+import CellRangeDecorator from '../slick.cellrangedecorator/slick.cellrangedecorator';
 
 Slick.CellRangeSelector = CellRangeSelector;
 export default CellRangeSelector;
@@ -15,7 +15,7 @@ function CellRangeSelector(options){
   const _handler = new Slick.EventHandler();
   const _defaults = {
     selectionCss: {
-      "border": "2px dashed blue"
+      'border': '2px dashed blue'
     }
   };
 

@@ -11,7 +11,6 @@
 import Slick from './slick.core';
 import tick from '../images/tick.png';
 
-
 const Formatters = {
   PercentComplete: PercentCompleteFormatter,
   PercentCompleteBar: PercentCompleteBarFormatter,

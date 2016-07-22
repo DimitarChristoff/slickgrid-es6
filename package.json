@@ -8,7 +8,7 @@
     "build": "rimraf dist && NODE_ENV=production webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint ./src",
-    "eslint:fix": "eslint ./src --fix"
+    "eslint:fix": "eslint ./src ./examples ./plugins --fix"
   },
   "author": "Michael Leibman",
   "license": "MIT",
