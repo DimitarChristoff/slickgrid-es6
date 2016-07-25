@@ -65,7 +65,7 @@
       }
 
       &.selected {
-        background: #DFE8F6;
+        background-color: rgb(231, 231, 195); // beige
       }
 
       &.active {
@@ -84,7 +84,7 @@
 
       // make sure we override the regular background color:
       &.selected {
-        background-color: rgb(231, 231, 195); // beige
+        background-color: rgb(214, 214, 178); // beige
       }
     }
 
@@ -268,5 +268,13 @@
     max-width: 100%;
     min-width: 0;
     margin: 0;
+  }
+
+  .slick-range-decorator {
+    z-index: 100;
+    pointer-events: none;
+    background: transparent;
+    border: none;
+    outline: black;
   }
 }
