@@ -1,3 +1,4 @@
+import 'bulma/css/bulma.css';
 import './examples.less';
 
 import { createHistory } from 'history';
@@ -17,11 +18,13 @@ const nav = ({pathname}) => {
 };
 
 history.listen(nav);
+const menuEl = document.querySelector('ul.menu-list');
 
 while (count <= examples){
   const example = require(`./example${count}`).default;
   router[example.route] = example;
 
+  const li = document.createElement('li');
   const link = document.createElement('a');
   link.href = '#';
   link.className = 'demo-link';
@@ -36,7 +39,8 @@ while (count <= examples){
     });
   });
 
-  document.body.appendChild(link);
+  li.appendChild(link);
+  menuEl.appendChild(li);
 
   count++;
 }

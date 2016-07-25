@@ -808,13 +808,14 @@ function SlickGrid(container, data, columns, options){
           $(event.target).after(placeholder).css({
             position: 'absolute',
             zIndex: 1000,
-            marginLeft: $(event.target).offset().left
+            marginLeft: $(event.target).position().left
           });
         },
 
         onmove: event => {
           x += event.dx;
           event.target.style.transform = `translate3d(${x}px, -3px, 100px)`;
+          // event.target.style.marginLeft = x + 'px';
         },
 
         onend: event => {
