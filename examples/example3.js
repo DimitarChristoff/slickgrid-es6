@@ -29,8 +29,7 @@ const columns = [
     field: 'percentComplete',
     width: 80,
     resizable: false,
-    formatter: Formatters.PercentCompleteBar,
-    editor: Editors.PercentComplete
+    formatter: Formatters.PercentCompleteBar
   },
   {id: 'start', name: 'Start', field: 'start', minWidth: 60, editor: Editors.Date},
   {id: 'finish', name: 'Finish', field: 'finish', minWidth: 60, editor: Editors.Date},

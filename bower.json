@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "name": "slickgrid-es6",
+  "description": "Non-tracking fork of slickgrid fork by 6pac to be used via npm - https://github.com/6pac/SlickGrid",
+  "main": "dist/slick.es6.min.js",
+  "authors": [
+    "Michael Leibman"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/DimitarChristoff/slickgrid-es6",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "examples"
+  ],
+  "dependencies": {
+    "flatpickr": "1.9.1",
+    "jquery": "3.1.0"
+  }
+}
