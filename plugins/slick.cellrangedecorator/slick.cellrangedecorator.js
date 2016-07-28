@@ -1,11 +1,11 @@
-import $        from 'jquery';
-import Slick    from '../src/slick.core';
+import $ from 'jquery';
+import Slick from '../../src/slick.core';
 
 Slick.CellRangeDecorator = CellRangeDecorator;
 
 export default CellRangeDecorator;
 
-/***
+/** *
  * Displays an overlay on top of a given cell range.
  *
  * TODO:

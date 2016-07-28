@@ -22,12 +22,6 @@ const config = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
     new CopyWebpackPlugin([
       {
         flatten: true,
@@ -51,7 +45,7 @@ const config = {
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
         query: {
-          presets: ['es2015', 'stage-0'],
+          presets: ['react', 'es2015', 'stage-0'],
         }
       },
       {
@@ -71,6 +65,7 @@ const config = {
   devServer: {
     contentBase: path.join(__dirname, 'examples'),
     historyApiFallback: true,
+    host: '0.0.0.0',
     staticOptions: {
 
     },
@@ -84,5 +79,12 @@ if (process.env.NODE_ENV === 'development'){
   config.entry.examples = ['./examples/index.js'];
   config.plugins.push(new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js'));
 }
-
+else {
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compressor: {
+      screw_ie8: true,
+      warnings: false
+    }
+  }));
+}
 module.exports = config;

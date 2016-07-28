@@ -13,8 +13,8 @@
   }
 
   .slick-header-columns {
-    border-bottom: 1px @grid-border-style fade(black, 50%);
-    //box-shadow: 0 1px 1px rgba(0,0,0,.3);
+    border-bottom: 1px solid @grid-border-color;
+    background: linear-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,.1));
   }
 
   .slick-header-column {
@@ -22,9 +22,12 @@
     border-bottom: 1px solid @grid-border-color;
   }
 
-  .slick-header-column:hover,
+  .slick-header-column:hover {
+    background: darken(@grid-header-background, 2%);
+  }
+
   .slick-header-column-active {
-    background: darken(@grid-header-background, 5%);
+    background: darken(@grid-header-background, 5%) !important;
   }
 
   .slick-headerrow {
@@ -52,6 +55,7 @@
       padding-bottom: 4px;
       padding-left: 4px;
       padding-right: 4px;
+      box-sizing: border-box;
 
       &.invalid {
         border-color: red;
@@ -62,17 +66,33 @@
       }
 
       &.selected {
-        background: #DFE8F6;
+        background-color: rgb(231, 231, 195); // beige
+        padding: 0;
+
       }
 
       &.active {
-        border-color: gray;
+        border-color: black;
         border-style: solid;
         border-width: 1px;
 
         // We compensate for the all-around border (now 1px at top and left too!) by reducing the padding:
         padding-top: 2px;
         padding-left: 3px;
+        input.editor-text {
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          position: absolute;
+          height: 100%;
+          border: 0;
+          margin: 0;
+          background: transparent;
+          outline: 0;
+          padding: @cell-padding-top @cell-padding-right @cell-padding-bottom @cell-padding-left;
+        }
+
       }
     }
 
@@ -81,7 +101,7 @@
 
       // make sure we override the regular background color:
       &.selected {
-        background-color: rgb(231, 231, 195); // beige
+        background-color: rgb(214, 214, 178); // beige
       }
     }
 
@@ -265,5 +285,13 @@
     max-width: 100%;
     min-width: 0;
     margin: 0;
+  }
+
+  .slick-range-decorator {
+    z-index: 100;
+    pointer-events: none;
+    background: transparent;
+    border: none;
+    outline: black;
   }
 }

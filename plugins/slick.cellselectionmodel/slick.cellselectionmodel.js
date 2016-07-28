@@ -1,18 +1,18 @@
-import Slick              from '../src/slick.core';
-import CellRangeSelector  from './slick.cellrangeselector';
+import Slick from '../../src/slick.core';
+import CellRangeSelector from '../slick.cellrangeselector/slick.cellrangeselector';
 
 export default CellSelectionModel;
 
 function CellSelectionModel(options = {
-    selectActiveCell: true
-  }){
+  selectActiveCell: true
+}){
   let _grid;
   let _canvas;
   let _ranges = [];
   const _self = this;
   const _selector = new CellRangeSelector({
     selectionCss: {
-      border: "2px solid black"
+      border: '2px solid black'
     }
   });
   let _options;
@@ -26,7 +26,6 @@ function CellSelectionModel(options = {
     _canvas = _grid.getCanvasNode();
     _grid.onActiveCellChanged.subscribe(handleActiveCellChange);
     _grid.onKeyDown.subscribe(handleKeyDown);
-    debugger;
     grid.registerPlugin(_selector);
     _selector.onCellRangeSelected.subscribe(handleCellRangeSelected);
     _selector.onBeforeCellRangeSelected.subscribe(handleBeforeCellRangeSelected);
@@ -85,7 +84,7 @@ function CellSelectionModel(options = {
   }
 
   function handleKeyDown(e){
-    /***
+    /** *
      * Кey codes
      * 37 left
      * 38 up
@@ -97,7 +96,6 @@ function CellSelectionModel(options = {
 
     if (active && e.shiftKey && !e.ctrlKey && !e.altKey &&
       (e.which == 37 || e.which == 39 || e.which == 38 || e.which == 40)){
-
       ranges = getSelectedRanges();
       if (!ranges.length)
         ranges.push(new Slick.Range(active.row, active.cell));

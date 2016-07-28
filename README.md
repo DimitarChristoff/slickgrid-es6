@@ -17,7 +17,8 @@ The goal is to keep the grid API of the 6pac repository unchanged. Howe
 * converted to ES6
 * dropped IE8 support
 * jquery 3.1.0
-* jquery-ui ^1.12.0
+* dropped jquery-ui (replaced with interact.js)
+* dropped event.drag (replaced with interact.js)
 * move to LESS (SCSS soon)
 
 ![Imgur](http://i.imgur.com/cDQ9SVt.png)

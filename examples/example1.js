@@ -1,35 +1,30 @@
 import { Grid } from '../src/';
+import data from './example-data';
 
 const columns = [
-  {id: 'title', name: 'Title', field: 'title'},
-  {id: 'duration', name: 'Duration', field: 'duration'},
+  {id: 'title', name: 'Title', field: 'title', maxWidth: 100, minWidth: 80},
+  {id: 'duration', name: 'Duration', field: 'duration', resizable: false},
   {id: '%', name: '% Complete', field: 'percentComplete'},
   {id: 'start', name: 'Start', field: 'start'},
   {id: 'finish', name: 'Finish', field: 'finish'},
   {id: 'effort-driven', name: 'Effort Driven', field: 'effortDriven'}
 ];
 
+let grid;
+
 const options = {
   enableCellNavigation: true,
-  enableColumnReorder: false
+  enableColumnReorder: !false,
+  forceFitColumns: !true
 };
-
-const data = [];
-for (let i = 0; i < 500; i++) {
-  data[i] = {
-    title: 'Task ' + i,
-    duration: '5 days',
-    percentComplete: Math.round(Math.random() * 100),
-    start: '01/01/2009',
-    finish: '01/05/2009',
-    effortDriven: (i % 5 == 0)
-  };
-}
 
 export default {
   init: (id) => {
-    new Grid(id, data, columns, options);
+    grid = new Grid(id, data, columns, options);
+    grid.onDragStart.subscribe(function(){
+      console.log('drag init');
+    });
   },
   title: 'Simple Example',
   route: '/example1'
-}
+};

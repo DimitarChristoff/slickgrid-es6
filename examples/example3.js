@@ -1,5 +1,6 @@
 import {Grid, Formatters, Editors} from '../src/';
-import CellSelectionModel from '../plugins/slick.cellselectionmodel';
+import CellSelectionModel from '../plugins/slick.cellselectionmodel/slick.cellselectionmodel';
+import data from './example-data';
 
 function requiredFieldValidator(value){
   if (value == null || value == undefined || !value.length){
@@ -10,7 +11,6 @@ function requiredFieldValidator(value){
 }
 
 let grid;
-const data = [];
 const columns = [
   {
     id: 'title',
@@ -29,8 +29,7 @@ const columns = [
     field: 'percentComplete',
     width: 80,
     resizable: false,
-    formatter: Formatters.PercentCompleteBar,
-    editor: Editors.PercentComplete
+    formatter: Formatters.PercentCompleteBar
   },
   {id: 'start', name: 'Start', field: 'start', minWidth: 60, editor: Editors.Date},
   {id: 'finish', name: 'Finish', field: 'finish', minWidth: 60, editor: Editors.Date},
@@ -46,6 +45,7 @@ const columns = [
     editor: Editors.Checkbox
   }
 ];
+
 const options = {
   editable: true,
   enableAddRow: true,
@@ -53,18 +53,6 @@ const options = {
   asyncEditorLoading: false,
   autoEdit: false
 };
-
-for (let i = 0; i < 500; i++){
-  const d = (data[i] = {});
-
-  d['title'] = 'Task ' + i;
-  d['description'] = 'This is a sample task description.\n  It can be multiline';
-  d['duration'] = '5 days';
-  d['percentComplete'] = Math.round(Math.random() * 100);
-  d['start'] = '01/01/2009';
-  d['finish'] = '01/05/2009';
-  d['effortDriven'] = (i % 5 == 0);
-}
 
 export default {
   init: id => {
@@ -82,4 +70,4 @@ export default {
   },
   route: '/example3',
   title: 'Example 3: Editing'
-}
+};

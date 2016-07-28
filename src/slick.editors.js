@@ -1,8 +1,10 @@
 import Slick from './slick.core';
-
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 import $ from 'jquery';
-import keyCode from 'jquery-ui/ui/keycode';
-import 'jquery-ui/ui/widgets/slider';
+
+const { keyCode } = Slick;
+
 
 /** *
  * Contains basic SlickGrid editors.
@@ -17,7 +19,6 @@ const Editors = {
   Date: DateEditor,
   YesNoSelect: YesNoSelectEditor,
   Checkbox: CheckboxEditor,
-  PercentComplete: PercentCompleteEditor,
   LongText: LongTextEditor
 };
 
@@ -259,6 +260,7 @@ FloatEditor.DefaultDecimalPlaces = null;
 
 function DateEditor(args){
   var $input;
+  var flatInstance;
   var defaultValue;
   var scope = this;
   var calendarOpen = false;
@@ -267,46 +269,26 @@ function DateEditor(args){
     $input = $("<INPUT type=text class='editor-text' />");
     $input.appendTo(args.container);
     $input.focus().select();
-    $input.datepicker({
-      showOn: 'button',
-      buttonImageOnly: true,
-      buttonImage: '../images/calendar.gif',
-      beforeShow: function(){
-        calendarOpen = true;
-      },
-      onClose: function(){
-        calendarOpen = false;
-      }
-    });
-    $input.width($input.width() - 18);
+    flatInstance = flatpickr($input[0], args.options);
   };
 
   this.destroy = function(){
-    $.datepicker.dpDiv.stop(true, true);
-    $input.datepicker('hide');
-    $input.datepicker('destroy');
+    // $.datepicker.dpDiv.stop(true, true);
+    // $input.datepicker('hide');
+    // $input.datepicker('destroy');
     $input.remove();
+    flatInstance.destroy();
   };
 
   this.show = function(){
-    if (calendarOpen){
-      $.datepicker.dpDiv.stop(true, true).show();
-    }
+    flatInstance.open();
   };
 
   this.hide = function(){
-    if (calendarOpen){
-      $.datepicker.dpDiv.stop(true, true).hide();
-    }
+    flatInstance.close();
   };
 
   this.position = function(position){
-    if (!calendarOpen){
-      return;
-    }
-    $.datepicker.dpDiv
-      .css('top', position.top + 30)
-      .css('left', position.left);
   };
 
   this.focus = function(){
@@ -446,78 +428,79 @@ function CheckboxEditor(args){
 }
 
 function PercentCompleteEditor(args){
-  var $input, $picker;
-  var defaultValue;
-  var scope = this;
-
-  this.init = function(){
-    $input = $("<INPUT type=text class='editor-percentcomplete' />");
-    $input.width($(args.container).innerWidth() - 25);
-    $input.appendTo(args.container);
-
-    $picker = $("<div class='editor-percentcomplete-picker' />").appendTo(args.container);
-    $picker.append("<div class='editor-percentcomplete-helper'><div class='editor-percentcomplete-wrapper'><div class='editor-percentcomplete-slider' /><div class='editor-percentcomplete-buttons' /></div></div>");
-
-    $picker.find('.editor-percentcomplete-buttons').append('<button val=0>Not started</button><br/><button val=50>In Progress</button><br/><button val=100>Complete</button>');
-
-    $input.focus().select();
-
-    $picker.find('.editor-percentcomplete-slider').slider({
-      orientation: 'vertical',
-      range: 'min',
-      value: defaultValue,
-      slide: function(event, ui){
-        $input.val(ui.value);
-      }
-    });
-
-    $picker.find('.editor-percentcomplete-buttons button').bind('click', function(e){
-      $input.val($(this).attr('val'));
-      $picker.find('.editor-percentcomplete-slider').slider('value', $(this).attr('val'));
-    });
-  };
-
-  this.destroy = function(){
-    $input.remove();
-    $picker.remove();
-  };
-
-  this.focus = function(){
-    $input.focus();
-  };
-
-  this.loadValue = function(item){
-    $input.val(defaultValue = item[args.column.field]);
-    $input.select();
-  };
-
-  this.serializeValue = function(){
-    return parseInt($input.val(), 10) || 0;
-  };
-
-  this.applyValue = function(item, state){
-    item[args.column.field] = state;
-  };
-
-  this.isValueChanged = function(){
-    return (!($input.val() == '' && defaultValue == null)) && ((parseInt($input.val(), 10) || 0) != defaultValue);
-  };
-
-  this.validate = function(){
-    if (isNaN(parseInt($input.val(), 10))){
-      return {
-        valid: false,
-        msg: 'Please enter a valid positive number'
-      };
-    }
-
-    return {
-      valid: true,
-      msg: null
-    };
-  };
-
-  this.init();
+  console.error('PercentCompleteEditor is derecated');
+  // var $input, $picker;
+  // var defaultValue;
+  // var scope = this;
+  //
+  // this.init = function(){
+  //   $input = $("<INPUT type=text class='editor-percentcomplete' />");
+  //   $input.width($(args.container).innerWidth() - 25);
+  //   $input.appendTo(args.container);
+  //
+  //   $picker = $("<div class='editor-percentcomplete-picker' />").appendTo(args.container);
+  //   $picker.append("<div class='editor-percentcomplete-helper'><div class='editor-percentcomplete-wrapper'><div class='editor-percentcomplete-slider' /><div class='editor-percentcomplete-buttons' /></div></div>");
+  //
+  //   $picker.find('.editor-percentcomplete-buttons').append('<button val=0>Not started</button><br/><button val=50>In Progress</button><br/><button val=100>Complete</button>');
+  //
+  //   $input.focus().select();
+  //
+  //   $picker.find('.editor-percentcomplete-slider').slider({
+  //     orientation: 'vertical',
+  //     range: 'min',
+  //     value: defaultValue,
+  //     slide: function(event, ui){
+  //       $input.val(ui.value);
+  //     }
+  //   });
+  //
+  //   $picker.find('.editor-percentcomplete-buttons button').bind('click', function(e){
+  //     $input.val($(this).attr('val'));
+  //     $picker.find('.editor-percentcomplete-slider').slider('value', $(this).attr('val'));
+  //   });
+  // };
+  //
+  // this.destroy = function(){
+  //   $input.remove();
+  //   $picker.remove();
+  // };
+  //
+  // this.focus = function(){
+  //   $input.focus();
+  // };
+  //
+  // this.loadValue = function(item){
+  //   $input.val(defaultValue = item[args.column.field]);
+  //   $input.select();
+  // };
+  //
+  // this.serializeValue = function(){
+  //   return parseInt($input.val(), 10) || 0;
+  // };
+  //
+  // this.applyValue = function(item, state){
+  //   item[args.column.field] = state;
+  // };
+  //
+  // this.isValueChanged = function(){
+  //   return (!($input.val() == '' && defaultValue == null)) && ((parseInt($input.val(), 10) || 0) != defaultValue);
+  // };
+  //
+  // this.validate = function(){
+  //   if (isNaN(parseInt($input.val(), 10))){
+  //     return {
+  //       valid: false,
+  //       msg: 'Please enter a valid positive number'
+  //     };
+  //   }
+  //
+  //   return {
+  //     valid: true,
+  //     msg: null
+  //   };
+  // };
+  //
+  // this.init();
 }
 
 /*
