@@ -23,19 +23,6 @@ const menuEl = document.querySelector('.menu-container .menu');
 
 class Menu extends React.Component {
 
-  handleClickFactory(example){
-    return function handleClick(event){
-      return;
-      event.preventDefault();
-      history.push({
-        pathname: example.route,
-        state: {
-          title: example.title
-        }
-      });
-    };
-  }
-
   render(){
     return <ul className="menu-list">
       {this.props.examples.map((item, index) =>{
@@ -44,7 +31,7 @@ class Menu extends React.Component {
         router[example.route] = example;
 
         return <li key={count}>
-          <a className="demo-link" href={example.route} onClick={this.handleClickFactory(example)}>{example.title}</a>
+          <a className="demo-link" href={example.route}>{example.title}</a>
         </li>;
       })}
     </ul>

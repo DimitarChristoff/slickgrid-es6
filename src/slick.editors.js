@@ -280,13 +280,11 @@ function DateEditor(args){
   };
 
   this.show = function(){
-    console.log(flatInstance, arguments)
     flatInstance.open()
     flatInstance.positionCalendar();
   };
 
   this.hide = function(){
-    console.count('hide');
     flatInstance.close();
   };
 
