@@ -1,4 +1,3 @@
-import 'bulma/css/bulma.css';
 import './examples.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -20,12 +19,13 @@ const nav = ({pathname}) => {
 
 history.listen(nav);
 
-const menuEl = document.querySelector('.menu-container');
+const menuEl = document.querySelector('.menu-container .menu');
 
 class Menu extends React.Component {
 
   handleClickFactory(example){
     return function handleClick(event){
+      return;
       event.preventDefault();
       history.push({
         pathname: example.route,
@@ -44,7 +44,7 @@ class Menu extends React.Component {
         router[example.route] = example;
 
         return <li key={count}>
-          <a className="demo-link" onClick={this.handleClickFactory(example)}>{example.title}</a>
+          <a className="demo-link" href={example.route} onClick={this.handleClickFactory(example)}>{example.title}</a>
         </li>;
       })}
     </ul>

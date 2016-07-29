@@ -6,7 +6,7 @@ import Info from '../images/info.gif';
 
 import data from './example-data';
 
-import './slick.headermenu-example.css';
+// import './slick.headermenu-example.css';
 
 import HeaderMenu from '../plugins/slick.headermenu';
 
@@ -54,7 +54,7 @@ for (let i = 0; i < columns.length; i++){
 }
 
 const options = {
-  enableColumnReorder: false
+  enableColumnReorder: !false
 };
 
 export default {

@@ -275,19 +275,23 @@ function DateEditor(args){
     // $.datepicker.dpDiv.stop(true, true);
     // $input.datepicker('hide');
     // $input.datepicker('destroy');
-    $input.remove();
     flatInstance.destroy();
+    $input.remove();
   };
 
   this.show = function(){
-    flatInstance.open();
+    console.log(flatInstance, arguments)
+    flatInstance.open()
+    flatInstance.positionCalendar();
   };
 
   this.hide = function(){
+    console.count('hide');
     flatInstance.close();
   };
 
   this.position = function(position){
+    //todo: fix how scrolling is affected
   };
 
   this.focus = function(){
