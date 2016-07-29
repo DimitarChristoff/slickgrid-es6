@@ -877,18 +877,22 @@ function SlickGrid(container, data, columns, options){
     if (firstResizable === undefined){
       return;
     }
-    columnElements.each(function(i, e){
+    columnElements.each(function(i, element){
       if (i < firstResizable || (options.forceFitColumns && i >= lastResizable)){
         return;
       }
-      $col = $(e);
-      const $handle = $("<div class='slick-resizable-handle' />");
+      $col = $(element);
 
-      $handle.appendTo(e);
+      const $handle = $("<div class='slick-resizable-handle' />");
+      $handle.appendTo(element);
+
+      if ($col.data('resizable'))
+        return;
 
       const activeColumn = columns[i];
       if (activeColumn.resizable){
-        interact(e).resizable({
+        $col.data('resizable', true);
+        interact(element).resizable({
           preserveAspectRatio: false,
           edges: { left: true, right: true, bottom: false, top: false }
         }).on('resizestart', function(event){

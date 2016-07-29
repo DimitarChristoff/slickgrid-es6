@@ -21,9 +21,6 @@ const options = {
 export default {
   init: (id) => {
     grid = new Grid(id, data, columns, options);
-    grid.onDragStart.subscribe(function(){
-      console.log('drag init');
-    });
   },
   title: 'Simple Example',
   route: '/example1'

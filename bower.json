@@ -2,13 +2,6 @@
   "version": "0.2.1",
   "name": "slickgrid-es6",
   "description": "Non-tracking fork of slickgrid fork by 6pac to be used via npm - https://github.com/6pac/SlickGrid",
-  "main": [
-    "dist/slick.es6.min.js",
-    "dist/slick.es6.min.js.map",
-    "dist/slick.grid.less",
-    "dist/slick.grid.variables.less",
-    "dist/slick-default-theme.less"
-  ],
   "authors": [
     "Michael Leibman"
   ],

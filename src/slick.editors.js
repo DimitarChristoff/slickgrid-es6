@@ -5,7 +5,6 @@ import $ from 'jquery';
 
 const { keyCode } = Slick;
 
-
 /** *
  * Contains basic SlickGrid editors.
  * @module Editors

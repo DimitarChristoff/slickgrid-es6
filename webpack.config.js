@@ -19,9 +19,6 @@ const config = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
     new CopyWebpackPlugin([
       {
         flatten: true,
@@ -80,6 +77,7 @@ if (process.env.NODE_ENV === 'development'){
   config.plugins.push(new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js'));
 }
 else {
+  config.plugins.push(new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}));
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
     compressor: {
       screw_ie8: true,
@@ -87,4 +85,5 @@ else {
     }
   }));
 }
+
 module.exports = config;
