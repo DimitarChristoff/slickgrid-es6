@@ -7,7 +7,7 @@ import { createHistory } from 'history';
 const history = createHistory();
 const router = {};
 
-const examples = new Array(7).join(',').split(',');
+const examples = new Array(8).join(',').split(',');
 
 const nav = ({pathname}) => {
   const route = router[pathname] || router[Object.keys(router)[0]];

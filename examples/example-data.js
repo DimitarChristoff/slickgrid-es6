@@ -3,6 +3,7 @@ const data = [];
 for (let i = 0; i < 500; i++){
   const d = (data[i] = {});
 
+  d.id = i;
   d['title'] = 'Task ' + i;
   d['description'] = 'This is a sample task description.\n  It can be multiline';
   d['duration'] = '5 days';
