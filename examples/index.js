@@ -8,11 +8,14 @@ const history = createHistory();
 const router = {};
 
 const examples = new Array(8).join(',').split(',');
+let grid;
+
+window.addEventListener('resize', () => grid.resizeCanvas());
 
 const nav = ({pathname}) => {
   const route = router[pathname] || router[Object.keys(router)[0]];
   if (route){
-    route.init('#myGrid');
+    grid = route.init('#myGrid');
     document.title = route.title;
   }
 };

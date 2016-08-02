@@ -22,6 +22,7 @@ const options = {
 export default {
   init: (id) => {
     grid = new Grid(id, data, columns, options);
+    return grid;
   },
   title: 'Simple Example',
   route: '/example1'

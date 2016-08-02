@@ -29,6 +29,7 @@ const options = {
 export default {
   init: id =>{
     grid = new Grid(id, dv, columns, options);
+    return grid;
   },
   route: '/example8',
   title: 'Example 8: Frozen Row'

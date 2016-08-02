@@ -572,12 +572,13 @@ function SlickGrid(container, data, columns, options){
   }
 
   function measureScrollbar(){
-    var $c = $("<div class='scrollbar-fix' style='position:absolute; top:-10000px; left:-10000px; width:100px; height:100px; overflow:scroll;'></div>").appendTo("body");
+    var $c = $("<div class='scrollbar-fix' style='position:absolute; top:-10000px; left:-10000px; width:100px; height:100px; overflow:scroll;'></div>").appendTo(document.body);
     var dim = {
       width: $c.width() - $c[0].clientWidth,
       height: $c.height() - $c[0].clientHeight
     };
     $c.remove();
+    console.log(dim);
     return dim;
   }
 

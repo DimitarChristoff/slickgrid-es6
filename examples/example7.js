@@ -26,6 +26,8 @@ export default {
 
     grid.registerPlugin(autoTooltips);
     grid.render();
+
+    return grid;
   },
   title: 'Example 7: AutoTooltips plugin',
   route: '/example7',

@@ -79,6 +79,8 @@ export default {
     });
 
     grid.registerPlugin(headerMenuPlugin);
+
+    return grid;
   },
   title: 'Example 6: Header Menu Plugin',
   route: '/example6',

@@ -67,6 +67,8 @@ export default {
       grid.updateRowCount();
       grid.render();
     });
+
+    return grid;
   },
   route: '/example3',
   title: 'Example 3: Editing'
