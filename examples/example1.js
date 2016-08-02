@@ -15,12 +15,14 @@ let grid;
 const options = {
   enableCellNavigation: true,
   enableColumnReorder: !false,
-  forceFitColumns: !true
+  forceFitColumns: !true,
+  frozenColumn: 0
 };
 
 export default {
   init: (id) => {
     grid = new Grid(id, data, columns, options);
+    return grid;
   },
   title: 'Simple Example',
   route: '/example1'

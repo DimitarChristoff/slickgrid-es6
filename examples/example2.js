@@ -25,6 +25,7 @@ const options = {
 export default {
   init: id => {
     grid = new Grid(id, data, columns, options);
+    return grid;
   },
   title: 'Example 2: Formatters',
   route: '/example2'

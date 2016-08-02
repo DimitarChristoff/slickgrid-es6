@@ -7,12 +7,15 @@ import { createHistory } from 'history';
 const history = createHistory();
 const router = {};
 
-const examples = new Array(7).join(',').split(',');
+const examples = new Array(8).join(',').split(',');
+let grid;
+
+window.addEventListener('resize', () => grid.resizeCanvas());
 
 const nav = ({pathname}) => {
   const route = router[pathname] || router[Object.keys(router)[0]];
   if (route){
-    route.init('#myGrid');
+    grid = route.init('#myGrid');
     document.title = route.title;
   }
 };
@@ -23,19 +26,6 @@ const menuEl = document.querySelector('.menu-container .menu');
 
 class Menu extends React.Component {
 
-  handleClickFactory(example){
-    return function handleClick(event){
-      return;
-      event.preventDefault();
-      history.push({
-        pathname: example.route,
-        state: {
-          title: example.title
-        }
-      });
-    };
-  }
-
   render(){
     return <ul className="menu-list">
       {this.props.examples.map((item, index) =>{
@@ -44,7 +34,7 @@ class Menu extends React.Component {
         router[example.route] = example;
 
         return <li key={count}>
-          <a className="demo-link" href={example.route} onClick={this.handleClickFactory(example)}>{example.title}</a>
+          <a className="demo-link" href={example.route}>{example.title}</a>
         </li>;
       })}
     </ul>

@@ -1,6 +1,6 @@
 # SlickGrid ES6 
 
-> This is a clone of the [6pac fork](https://github.com/6pac/SlickGrid/) of SlickGrid
+> This is a clone of the [6pac fork](https://github.com/6pac/SlickGrid/) of SlickGrid for some parts and [X-SlickGrid](https://github.com/ddomingues/X-SlickGrid) for the grid itself
 
 ## Goals: 
 
@@ -9,6 +9,12 @@
 * Attempt to keep things consistent and backwards compatible by exporting onto the global `Slick` object
 * Speed improvements where possible, move to `requestAnimationFrame` where makes sense
 * Create adapters for mobx / rxjs as DataViews 
+
+## Changes as per `0.2.3`
+
+* moved to using `slick.frozen.grid.js` from X-SlickGrid for FrozenRows/Columns feature, converted to ES6 and with deprecated jquery-ui
+* Styling fixes, moved to `box-sizing: border-box` for `.slick-cell`
+* Updated examples to use React but grid has no dependency on React
 
 ## Changes completed as per `0.1.1`:
 

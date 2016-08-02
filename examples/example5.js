@@ -113,6 +113,8 @@ export default {
     });
 
     grid.registerPlugin(headerButtonsPlugin);
+
+    return grid;
   },
   title: 'Example 5: Header Button Plugin',
   route: '/example5',
