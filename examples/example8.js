@@ -30,6 +30,6 @@ export default {
   init: id =>{
     grid = new Grid(id, dv, columns, options);
   },
-  route: '/example3',
+  route: '/example8',
   title: 'Example 8: Frozen Row'
 };
