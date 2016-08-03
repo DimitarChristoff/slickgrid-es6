@@ -24,9 +24,9 @@ const config = {
         flatten: true,
         from: 'src/*.less'
       },
-      {
-        from: 'examples/index.html'
-      }
+      // {
+      //   from: 'examples/index.html'
+      // }
     ]),
   ],
 
@@ -87,7 +87,7 @@ else {
       warnings: false
     }
   }));
-  config.plugins.push(new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js'));
+  // config.plugins.push(new webpack.optimize.CommonsChunkPlugin('examples', 'examples.js'));
 }
 
 module.exports = config;
