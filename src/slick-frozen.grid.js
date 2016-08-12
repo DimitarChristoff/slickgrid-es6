@@ -22,7 +22,7 @@ import interact from './interact.js';
 import Slick from './slick.core';
 
 // Slick.Grid globals pretense
-Slick.Grid = SlickGrid;
+Slick.FrozenGrid = SlickGrid;
 global.Slick = Slick;
 
 export default SlickGrid;
@@ -578,7 +578,6 @@ function SlickGrid(container, data, columns, options){
       height: $c.height() - $c[0].clientHeight
     };
     $c.remove();
-    console.log(dim);
     return dim;
   }
 
@@ -2940,6 +2939,7 @@ function SlickGrid(container, data, columns, options){
   function _handleScroll(isMouseWheel){
     var maxScrollDistanceY = $viewportScrollContainerY[0].scrollHeight - $viewportScrollContainerY[0].clientHeight;
     var maxScrollDistanceX = $viewportScrollContainerY[0].scrollWidth - $viewportScrollContainerY[0].clientWidth;
+    var hasFrozenCols = hasFrozenColumns();
 
     // Ceiling the max scroll values
     if (scrollTop > maxScrollDistanceY){
@@ -2961,7 +2961,7 @@ function SlickGrid(container, data, columns, options){
       $headerRowScrollContainer[0].scrollLeft = scrollLeft;
       $footerRowScrollContainer[0].scrollLeft = scrollLeft;
 
-      if (hasFrozenColumns()){
+      if (hasFrozenCols){
         if (hasFrozenRows){
           $viewportTopR[0].scrollLeft = scrollLeft;
         }
@@ -2980,7 +2980,7 @@ function SlickGrid(container, data, columns, options){
         $viewportScrollContainerY[0].scrollTop = scrollTop;
       }
 
-      if (hasFrozenColumns()){
+      if (hasFrozenCols){
         if (hasFrozenRows && !options.frozenBottom){
           $viewportBottomL[0].scrollTop = scrollTop;
         } else {
@@ -3509,6 +3509,7 @@ function SlickGrid(container, data, columns, options){
       scrollRowIntoView(row, doPaging);
     }
 
+    debugger;
     var colspan = getColspan(row, cell);
     var left = columnPosLeft[cell],
       right = columnPosRight[cell + (colspan > 1 ? colspan - 1 : 0)],
@@ -4153,6 +4154,7 @@ function SlickGrid(container, data, columns, options){
     };
     var stepFn = stepFunctions[dir];
     var pos = stepFn(activeRow, activeCell, activePosX);
+    debugger;
     if (pos){
       if (hasFrozenRows && options.frozenBottom & pos.row == getDataLength()){
         return;

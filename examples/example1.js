@@ -14,7 +14,7 @@ let grid;
 
 const options = {
   enableCellNavigation: true,
-  enableColumnReorder: !false,
+  enableColumnReorder: false,
   forceFitColumns: !true,
   frozenColumn: 0
 };
