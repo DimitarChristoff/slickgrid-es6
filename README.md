@@ -10,6 +10,12 @@
 * Speed improvements where possible, move to `requestAnimationFrame` where makes sense
 * Create adapters for mobx / rxjs as DataViews 
 
+## Changes as per `0.3.0`
+
+* Added X-SlickGrid to exports, available via `Slick.FrozenGrid` or `import { FrozenGrid as Grid } from 'slickgrid-es6'`
+* Added validator support for some editors
+* Fixed plugins yet to be converted
+
 ## Changes as per `0.2.3`
 
 * moved to using `slick.frozen.grid.js` from X-SlickGrid for FrozenRows/Columns feature, converted to ES6 and with deprecated jquery-ui
