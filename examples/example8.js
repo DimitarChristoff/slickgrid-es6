@@ -1,4 +1,4 @@
-import {Grid, Formatters, Editors, Data} from '../src/';
+import {FrozenGrid as Grid, Formatters, Editors, Data} from '../src/';
 import data from './example-data';
 
 const dv = new Data.DataView();

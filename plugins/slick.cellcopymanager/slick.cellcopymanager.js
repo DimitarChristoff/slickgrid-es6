@@ -1,10 +1,10 @@
-(function($){
-  // register namespace
-  $.extend(true, window, {
-    'Slick': {
-      'CellCopyManager': CellCopyManager
-    }
-  });
+import $ from 'jquery';
+import Slick from '../../src/slick.core';
+const { keyCode } = Slick;
+
+Slick.CellRangeDecorator = CellCopyManager;
+
+export default CellCopyManager;
 
   function CellCopyManager(){
     var _grid;
@@ -23,7 +23,7 @@
     function handleKeyDown(e, args){
       var ranges;
       if (!_grid.getEditorLock().isActive()){
-        if (e.which == $.ui.keyCode.ESCAPE){
+        if (e.which == keyCode.ESCAPE){
           if (_copiedRanges){
             e.preventDefault();
             clearCopySelection();
@@ -72,14 +72,13 @@
       _grid.removeCellCssStyles('copy-manager');
     }
 
-    $.extend(this, {
-      'init': init,
-      'destroy': destroy,
-      'clearCopySelection': clearCopySelection,
+    Object.assign(this, {
+      init,
+      destroy,
+      clearCopySelection,
 
-      'onCopyCells': new Slick.Event(),
-      'onCopyCancelled': new Slick.Event(),
-      'onPasteCells': new Slick.Event()
+      onCopyCells: new Slick.Event(),
+      onCopyCancelled: new Slick.Event(),
+      onPasteCells: new Slick.Event()
     });
   }
-})(jQuery);
