@@ -1,4 +1,4 @@
-import { Grid } from '../src/';
+import { FrozenGrid as Grid } from '../src/';
 import data from './example-data';
 
 const columns = [
@@ -14,9 +14,10 @@ let grid;
 
 const options = {
   enableCellNavigation: true,
-  enableColumnReorder: !false,
+  enableColumnReorder: false,
   forceFitColumns: !true,
-  frozenColumn: 0
+  frozenColumn: 0,
+  frozenRow: 1
 };
 
 export default {
