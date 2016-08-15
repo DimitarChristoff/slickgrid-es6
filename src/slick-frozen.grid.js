@@ -2091,7 +2091,7 @@ function SlickGrid(container, data, columns, options){
   function appendRowHtml(stringArrayL, stringArrayR, row, range, dataLength){
     var d = getDataItem(row);
     var dataLoading = row < dataLength && !d;
-    var rowCss = "slick-row" + (hasFrozenRows && row <= options.frozenRow ? ' frozen' : '') + (dataLoading ? " loading" : "") + (row === activeRow ? " active" : "") + (row % 2 == 1 ? " odd" : " even");
+    var rowCss = "slick-row" + (hasFrozenRows && row < options.frozenRow ? ' frozen' : '') + (dataLoading ? " loading" : "") + (row === activeRow ? " active" : "") + (row % 2 == 1 ? " odd" : " even");
 
     if (!d){
       rowCss += " " + options.addNewRowCssClass;
