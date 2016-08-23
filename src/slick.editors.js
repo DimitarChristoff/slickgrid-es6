@@ -258,30 +258,33 @@ function FloatEditor(args){
 
 FloatEditor.DefaultDecimalPlaces = null;
 
+/**
+ * see https://chmln.github.io/flatpickr/#options - pass as column.options.date = {}
+ * @param args
+ * @constructor
+ */
 function DateEditor(args){
-  var $input;
-  var flatInstance;
-  var defaultValue;
-  var scope = this;
-  var calendarOpen = false;
+  var $input,
+    flatInstance,
+    defaultDate,
+    options = args.column.options && args.column.options.date ? args.column.options.date : {};
 
   this.init = function(){
-    $input = $("<INPUT type=text class='editor-text' />");
+    defaultDate = options.defaultDate = args.item[args.column.field];
+
+    $input = $('<input type=text data-default-date="'+defaultDate+'" class="editor-text" />');
     $input.appendTo(args.container);
-    $input.focus().select();
-    flatInstance = flatpickr($input[0], args.options);
+    $input.focus().val(defaultDate).select();
+    flatInstance = flatpickr($input[0], options);
   };
 
   this.destroy = function(){
-    // $.datepicker.dpDiv.stop(true, true);
-    // $input.datepicker('hide');
-    // $input.datepicker('destroy');
     flatInstance.destroy();
     $input.remove();
   };
 
   this.show = function(){
-    flatInstance.open()
+    flatInstance.open();
     flatInstance.positionCalendar();
   };
 
@@ -291,6 +294,7 @@ function DateEditor(args){
 
   this.position = function(position){
     //todo: fix how scrolling is affected
+    flatInstance.positionCalendar();
   };
 
   this.focus = function(){
@@ -298,9 +302,8 @@ function DateEditor(args){
   };
 
   this.loadValue = function(item){
-    defaultValue = item[args.column.field];
-    $input.val(defaultValue);
-    $input[0].defaultValue = defaultValue;
+    defaultDate = item[args.column.field];
+    $input.val(defaultDate);
     $input.select();
   };
 
@@ -313,7 +316,7 @@ function DateEditor(args){
   };
 
   this.isValueChanged = function(){
-    return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
+    return (!($input.val() == '' && defaultDate == null)) && ($input.val() != defaultDate);
   };
 
   this.validate = function(){
@@ -339,7 +342,7 @@ function YesNoSelectEditor(args){
   var scope = this;
 
   this.init = function(){
-    $select = $("<SELECT tabIndex='0' class='editor-yesno'><OPTION value='yes'>Yes</OPTION><OPTION value='no'>No</OPTION></SELECT>");
+    $select = $("<select tabIndex='0' class='editor-yesno'><option value='yes'>Yes</option><option value='no'>No</option></select>");
     $select.appendTo(args.container);
     $select.focus();
   };

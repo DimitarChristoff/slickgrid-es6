@@ -11,6 +11,14 @@ function requiredFieldValidator(value){
 }
 
 let grid;
+const flatPickrOptions = {
+  dateFormat: 'd/m/Y', // see https://chmln.github.io/flatpickr/#options,
+  parseDate: function(input){
+    var split = input.split('/');
+    return new Date(split[1] + '-' + split[0] + '-' + split[2]);
+  }
+};
+
 const columns = [
   {
     id: 'title',
@@ -31,7 +39,9 @@ const columns = [
     resizable: false,
     formatter: Formatters.PercentCompleteBar
   },
-  {id: 'start', name: 'Start', field: 'start', minWidth: 60, editor: Editors.Date},
+  {id: 'start', name: 'Start', field: 'start', minWidth: 60, editor: Editors.Date, options: {
+    date: flatPickrOptions
+  }},
   {id: 'finish', name: 'Finish', field: 'finish', minWidth: 60, editor: Editors.Date},
   {
     id: 'effort-driven',
@@ -68,6 +78,7 @@ export default {
       grid.render();
     });
 
+    return grid;
     return grid;
   },
   route: '/example3',
