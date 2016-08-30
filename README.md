@@ -10,6 +10,10 @@
 * Speed improvements where possible, move to `requestAnimationFrame` where makes sense
 * Create adapters for mobx / rxjs as DataViews 
 
+## Changes as per `0.4.0`
+
+* Enabled group header code (issues with reorder known)
+
 ## Changes as per `0.3.0`
 
 * Added X-SlickGrid to exports, available via `Slick.FrozenGrid` or `import { FrozenGrid as Grid } from 'slickgrid-es6'`
