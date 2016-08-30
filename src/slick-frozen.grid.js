@@ -1248,7 +1248,7 @@ function SlickGrid(container, data, columns, options){
 
 
           if (treeColumns.hasDepth()) {
-            var validPositionInGroup = columnPositionValidInGroup(ui.item);
+            var validPositionInGroup = columnPositionValidInGroup(event.target);
             var limit = validPositionInGroup.limit;
 
             var cancel = !validPositionInGroup.valid;
@@ -1359,6 +1359,9 @@ function SlickGrid(container, data, columns, options){
           }
         }).on('resizeend', function(event){
           event.target.classList.remove('slick-header-column-active');
+          if (treeColumns.hasDepth())
+            createColumnGroupHeaders();
+
           invalidateAllRows();
           updateCanvasWidth(true);
           render();
@@ -3509,7 +3512,6 @@ function SlickGrid(container, data, columns, options){
       scrollRowIntoView(row, doPaging);
     }
 
-    debugger;
     var colspan = getColspan(row, cell);
     var left = columnPosLeft[cell],
       right = columnPosRight[cell + (colspan > 1 ? colspan - 1 : 0)],
@@ -4154,7 +4156,6 @@ function SlickGrid(container, data, columns, options){
     };
     var stepFn = stepFunctions[dir];
     var pos = stepFn(activeRow, activeCell, activePosX);
-    debugger;
     if (pos){
       if (hasFrozenRows && options.frozenBottom & pos.row == getDataLength()){
         return;

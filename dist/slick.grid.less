@@ -11,6 +11,36 @@
   position: relative;
   box-sizing: content-box;
 
+  .slick-group-header-columns {
+    position: relative;
+    white-space: nowrap;
+    cursor: default;
+    overflow: hidden;
+  }
+
+  .slick-group-header {
+    width: 100%;
+    overflow: hidden;
+    border-left: 0px;
+  }
+
+  .slick-group-header-column.ui-state-default {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    height: 16px;
+    line-height: 16px;
+    margin: 0;
+    padding: 4px;
+    border: 1px solid @grid-border-color;
+    order-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    float: left;
+  }
+
   .slick-viewport,
   .slick-top-panel-scroller,
   .slick-header,
