@@ -20,34 +20,34 @@ export default CellCopyManager;
       _grid.onKeyDown.unsubscribe(handleKeyDown);
     }
 
-    function handleKeyDown(e, args){
+    function handleKeyDown(event, args){
       var ranges;
       if (!_grid.getEditorLock().isActive()){
-        if (e.which == keyCode.ESCAPE){
+        if (event.which == keyCode.ESCAPE){
           if (_copiedRanges){
-            e.preventDefault();
+            event.preventDefault();
             clearCopySelection();
-            _self.onCopyCancelled.notify({ranges: _copiedRanges});
+            _self.onCopyCancelled.notify({ranges: _copiedRanges, event});
             _copiedRanges = null;
           }
         }
 
-        if (e.which == 67 && (e.ctrlKey || e.metaKey)){
+        if (event.which == 67 && (event.ctrlKey || event.metaKey)){
           ranges = _grid.getSelectionModel().getSelectedRanges();
           if (ranges.length != 0){
-            e.preventDefault();
+            event.preventDefault();
             _copiedRanges = ranges;
             markCopySelection(ranges);
-            _self.onCopyCells.notify({ranges: ranges});
+            _self.onCopyCells.notify({ranges: ranges, event});
           }
         }
 
-        if (e.which == 86 && (e.ctrlKey || e.metaKey)){
+        if (event.which == 86 && (event.ctrlKey || event.metaKey)){
           if (_copiedRanges){
-            e.preventDefault();
+            event.preventDefault();
             clearCopySelection();
             ranges = _grid.getSelectionModel().getSelectedRanges();
-            _self.onPasteCells.notify({from: _copiedRanges, to: ranges});
+            _self.onPasteCells.notify({from: _copiedRanges, to: ranges, event});
             _copiedRanges = null;
           }
         }

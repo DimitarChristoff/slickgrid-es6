@@ -477,6 +477,7 @@ function SlickGrid(container, data, columns, options){
       $canvas.bind("keydown", handleKeyDown)
         .bind("click", handleClick)
         .bind("dblclick", handleDblClick)
+        .bind("copy", handleCopy)
         .bind("contextmenu", handleContextMenu)
         .delegate(".slick-cell", "mouseenter", handleMouseEnter)
         .delegate(".slick-cell", "mouseleave", handleMouseLeave);
@@ -3281,6 +3282,10 @@ function SlickGrid(container, data, columns, options){
     }
   }
 
+  function handleCopy(e){
+    trigger(self.onCopy, e);
+  }
+
   function handleClick(e){
     if (!currentEditor){
       // if this click resulted in some cell child node getting focus,
@@ -4428,6 +4433,7 @@ function SlickGrid(container, data, columns, options){
     "onMouseEnter": new Slick.Event(),
     "onMouseLeave": new Slick.Event(),
     "onClick": new Slick.Event(),
+    "onCopy": new Slick.Event(),
     "onDblClick": new Slick.Event(),
     "onContextMenu": new Slick.Event(),
     "onKeyDown": new Slick.Event(),

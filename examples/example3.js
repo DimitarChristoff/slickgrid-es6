@@ -1,5 +1,6 @@
-import {Grid, Formatters, Editors} from '../src/';
-import CellSelectionModel from '../plugins/slick.cellselectionmodel/slick.cellselectionmodel';
+import { FrozenGrid as Grid, Formatters, Editors, Data } from '../src/';
+import { CellSelectionModel, CellRangeSelector, CellCopyManager } from '../plugins/';
+import Clipboard from 'clipboard';
 import data from './example-data';
 
 function requiredFieldValidator(value){
@@ -70,6 +71,40 @@ export default {
 
     grid.setSelectionModel(new CellSelectionModel());
 
+    // const selector = new CellRangeSelector();
+    // selector.onCellRangeSelected.subscribe((event, {range}) => {
+    //   console.log(range);
+    // });
+    // grid.registerPlugin(selector);
+
+    const copyManager = new CellCopyManager();
+    grid.registerPlugin(copyManager);
+
+
+    grid.onCopy.subscribe(function(slickEvent, event){
+      console.log(event);
+    })
+
+    copyManager.onCopyCells.subscribe((e, {ranges, event}) => {
+      console.log(event);
+
+      const { fromCell, fromRow, toCell, toRow } = ranges.pop();
+
+      const final = [];
+      for (let j = fromRow; j <= toRow; j++){
+        const rowData = [];
+        for (let i = fromCell; i <= toCell; i++){
+          let val = data[j][columns[i].field];
+          rowData.push(val)
+        }
+        final.push(rowData.join(','));
+      }
+
+      console.log(final);
+    });
+
+    // grid.onKeyDown.subscribe()
+
     grid.onAddNewRow.subscribe(function(e, args){
       const item = args.item;
       grid.invalidateRow(data.length);
@@ -78,7 +113,6 @@ export default {
       grid.render();
     });
 
-    return grid;
     return grid;
   },
   route: '/example3',

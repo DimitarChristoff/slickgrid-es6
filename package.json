@@ -24,6 +24,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "bulma": "^0.1.0",
+    "clipboard": "^1.5.12",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.23.1",
     "eslint": "^2.11.1",
