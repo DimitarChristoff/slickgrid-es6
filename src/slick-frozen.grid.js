@@ -942,7 +942,7 @@ function SlickGrid(container, data, columns, options){
           .attr("title", m.toolTip || "")
           .data("column", m)
           .addClass(m.headerCssClass || "")
-          .addClass(hasFrozenColumns() && (columnsLength - 1) > options.frozenColumn ? 'frozen' : '')
+          .addClass(hasFrozenColumns() && (columnsLength - 1) <= options.frozenColumn ? 'frozen' : '')
           .appendTo(hasFrozenColumns() && (columnsLength - 1) > options.frozenColumn ? $groupHeadersR[index] : $groupHeadersL[index]);
       }
 
@@ -1231,24 +1231,9 @@ function SlickGrid(container, data, columns, options){
         onend: event => {
           x = 0;
           delta = 0;
-          $(event.target).css({
-            position: 'relative',
-            zIndex: '',
-            marginLeft: 0,
-            transform: 'none'
-          });
-
-          placeholder.parentNode.removeChild(placeholder);
-          const newColumns = [];
-
-          $headers.find('.slick-header-column').each(function(index){
-            newColumns.push(columns[$(this).data('index')]);
-            $(this).removeData('index');
-          });
-
 
           if (treeColumns.hasDepth()) {
-            var validPositionInGroup = columnPositionValidInGroup(event.target);
+            var validPositionInGroup = columnPositionValidInGroup($(event.target));
             var limit = validPositionInGroup.limit;
 
             var cancel = !validPositionInGroup.valid;
@@ -1256,6 +1241,27 @@ function SlickGrid(container, data, columns, options){
             if (cancel)
               alert(validPositionInGroup.message);
           }
+
+          placeholder.parentNode.removeChild(placeholder);
+
+          if (cancel){
+            event.target.style.transform = 'none';
+            setColumns(getColumns());
+            return;
+          }
+
+          $(event.target).css({
+            position: 'relative',
+            zIndex: '',
+            marginLeft: 0,
+            transform: 'none'
+          });
+
+          const newColumns = [];
+          $headers.find('.slick-header-column').each(function(index){
+            newColumns.push(columns[$(this).data('index')]);
+            $(this).removeData('index');
+          });
 
           setColumns(newColumns);
 
