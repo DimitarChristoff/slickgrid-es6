@@ -10,9 +10,9 @@
 * Speed improvements where possible, move to `requestAnimationFrame` where makes sense
 * Create adapters for mobx / rxjs as DataViews 
 
-## Changes as per `0.4.0`
+## Changes as per `0.4.1`
 
-* Enabled group header code (issues with reorder known)
+* Enabled grouped headers code, including resize and reorder
 
 ## Changes as per `0.3.0`
 
