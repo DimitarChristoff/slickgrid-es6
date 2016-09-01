@@ -3,7 +3,6 @@ import Slick from '../../src/slick.core';
 const { keyCode } = Slick;
 
 Slick.CellRangeDecorator = CellCopyManager;
-
 export default CellCopyManager;
 
   function CellCopyManager(){

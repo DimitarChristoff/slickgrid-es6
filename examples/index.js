@@ -7,7 +7,7 @@ import { createHistory } from 'history';
 const history = createHistory();
 const router = {};
 
-const examples = new Array(9).join(',').split(',');
+const examples = new Array(8).join(',').split(',');
 let grid;
 
 window.addEventListener('resize', () => grid.resizeCanvas());
