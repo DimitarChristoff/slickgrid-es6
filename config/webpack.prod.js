@@ -1,11 +1,9 @@
 const path                = require('path')
 const webpack             = require('webpack')
-const postcssImport       = require('postcss-import')
-const postcssNext         = require('postcss-cssnext')
 
 const __OUTPUT__          = path.join(__dirname, '..', 'dist')
 const __INPUT__           = path.join(__dirname, '..', 'src')
-const __COMPONENT_NAME__  = 'react-your-component-name'
+const __COMPONENT_NAME__  = 'slickgrid-es6'
 
 module.exports = {
 
@@ -24,9 +22,7 @@ module.exports = {
   output: {
     path: __OUTPUT__,
     publicPath: '/',
-    filename: `${__COMPONENT_NAME__}.min.js`,
-    library: __COMPONENT_NAME__,
-    libraryTarget: 'umd'
+    filename: `${__COMPONENT_NAME__}.min.js`
   },
 
   externals: {
@@ -50,33 +46,19 @@ module.exports = {
       exclude: /(node_modules)/,
       loader: 'babel',
       query: {
-        presets: ['react', 'es2015', 'stage-0']
+        presets: ['es2015', 'stage-0']
       }
     }, {
-      test:   /\.css$/,
-      loader: 'style-loader!css-loader!postcss-loader?sourceMap=inline'
+      test:   /\.less/,
+      loader: 'style-loader!css-loader!less-loader?sourceMap=inline'
     }, {
-      test: /\.woff(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
-    }, {
-      test: /\.woff2(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2'
-    }, {
-      test: /\.ttf(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream'
-    }, {
-      test: /\.eot(\?.*)?$/,
-      loader: 'file-loader?prefix=fonts/&name=fonts/[name].[ext]'
-    }, {
-      test: /\.svg(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml'
-    }, {
-      test: /\.(jpg|png)$/,
-      loader: 'url-loader?limit=25000'
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+      ]
     }]
   },
-
-  postcss: [postcssImport, postcssNext],
 
   plugins: [
     new webpack.DefinePlugin({
@@ -90,10 +72,9 @@ module.exports = {
       beautify: false, //prod
       mangle: {
         screw_ie8: true,
-        keep_fnames: true
       }, //prod
       compress: {
-        screw_ie8: true
+        screw_issse8: true
       }, //prod
       comments: false //prod
     })

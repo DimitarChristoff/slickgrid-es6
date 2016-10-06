@@ -28,31 +28,15 @@ module.exports = {
         presets: ['es2015', 'stage-0']
       }
     }, {
-      test:   /\.css$/,
-      loader: 'style-loader!css-loader!postcss-loader?sourceMap=inline'
-    }, {
       test: /\.less$/,
       loader: 'style-loader!css-loader!less-loader'
-    },
-      {
-      test: /\.woff(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
     }, {
-      test: /\.woff2(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2'
-    }, {
-      test: /\.ttf(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream'
-    }, {
-      test: /\.eot(\?.*)?$/,
-      loader: 'file-loader?prefix=fonts/&name=fonts/[name].[ext]'
-    }, {
-      test: /\.svg(\?.*)?$/,
-      loader: 'url-loader?prefix=fonts/&name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml'
-    }, {
-      test: /\.(jpg|png)$/,
-      loader: 'url-loader?limit=25000'
-    }]
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
+      }]
   },
 
   devServer: {
