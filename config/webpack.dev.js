@@ -1,7 +1,5 @@
 const path                = require('path')
 const webpack             = require('webpack')
-const postcssImport       = require('postcss-import')
-const postcssNext         = require('postcss-cssnext')
 const pkg                 = require('../package.json')
 
 const __DEV_INPUT__       = path.join(__dirname, '..', 'examples')
@@ -56,8 +54,6 @@ module.exports = {
       loader: 'url-loader?limit=25000'
     }]
   },
-
-  postcss: webpack => [postcssImport({addDependencyTo: webpack}), postcssNext],
 
   devServer: {
     contentBase: __DEV_INPUT__,
