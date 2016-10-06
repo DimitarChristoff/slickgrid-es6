@@ -1,3 +1,14 @@
+switch (process.env.NODE_ENV){
+  case 'prod':
+  case 'production':
+    module.exports = require('./config/webpack.prod');
+    break;
+  case 'dev':
+  case 'development':
+  default:
+    module.exports = require('./config/webpack.dev');
+}
+
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -47,13 +58,6 @@ const config = {
         query: {
           presets: ['react', 'es2015', 'stage-0'],
         }
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
       },
       {
         test: /\.json$/,
