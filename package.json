@@ -37,6 +37,7 @@
     "file-loader": "^0.9.0",
     "history": "^3.0.0",
     "html-loader": "^0.4.3",
+    "image-webpack-loader": "^2.0.0",
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
@@ -46,6 +47,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "1.15.0"
+    "webpack-dev-server": "1.15.0",
+    "webpack-node-externals": "^1.5.4"
   }
 }

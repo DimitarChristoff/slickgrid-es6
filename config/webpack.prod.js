@@ -1,5 +1,6 @@
 const path                = require('path')
 const webpack             = require('webpack')
+const nodeExternals       = require('webpack-node-externals')
 
 const __OUTPUT__          = path.join(__dirname, '..', 'dist')
 const __INPUT__           = path.join(__dirname, '..', 'src')
@@ -8,8 +9,6 @@ const __COMPONENT_NAME__  = 'slickgrid-es6'
 module.exports = {
 
   devtool: 'source-map',
-
-  debug: true,
 
   context: __dirname,
 
@@ -22,23 +21,11 @@ module.exports = {
   output: {
     path: __OUTPUT__,
     publicPath: '/',
-    filename: `${__COMPONENT_NAME__}.min.js`
+    filename: `${__COMPONENT_NAME__}.min.js`,
+    target: 'umd'
   },
 
-  externals: {
-    jquery: {
-      root: 'jQuery',
-      commonjs2: 'jquery',
-      commonjs: 'jquery',
-      amd: 'jquery'
-    },
-    flatpickr: {
-      root: 'flatpickr',
-      commonjs2: 'flatpickr',
-      commonjs: 'flatpickr',
-      amd: 'flatpickr'
-    }
-  },
+  externals: [nodeExternals()],
 
   module: {
     loaders: [{
@@ -49,7 +36,7 @@ module.exports = {
         presets: ['es2015', 'stage-0']
       }
     }, {
-      test:   /\.less/,
+      test:   /\.(less|css)/,
       loader: 'style-loader!css-loader!less-loader?sourceMap=inline'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
@@ -74,7 +61,7 @@ module.exports = {
         screw_ie8: true,
       }, //prod
       compress: {
-        screw_issse8: true
+        screw_ie8: true
       }, //prod
       comments: false //prod
     })
