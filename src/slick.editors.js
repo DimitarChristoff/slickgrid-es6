@@ -1,6 +1,6 @@
 import Slick from './slick.core';
 import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css';
+//import 'flatpickr/dist/flatpickr.min.css';
 import $ from 'jquery';
 
 const { keyCode } = Slick;

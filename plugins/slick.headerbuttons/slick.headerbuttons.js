@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Slick from '../../src/slick.core';
 
-import './slick.headerbuttons.css';
+// import './slick.headerbuttons.css';
 
 Slick.HeaderButtons = HeaderButtons;
 export default HeaderButtons;

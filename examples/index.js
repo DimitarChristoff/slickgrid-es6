@@ -28,7 +28,7 @@ class Menu extends React.Component {
 
   render(){
     return <ul className="menu-list">
-      {this.props.examples.map((item, index) =>{
+      {this.props.examples.map((item, index) => {
         const count = index + 1;
         const example = require(`./example${count}`).default;
         router[example.route] = example;
@@ -37,12 +37,11 @@ class Menu extends React.Component {
           <a className="demo-link" href={example.route}>{example.title}</a>
         </li>;
       })}
-    </ul>
+    </ul>;
   }
 };
 
 ReactDOM.render(<Menu examples={examples} />, menuEl);
-
 
 nav(history.getCurrentLocation());
 

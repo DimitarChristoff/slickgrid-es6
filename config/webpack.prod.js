@@ -1,10 +1,11 @@
-const path                = require('path')
-const webpack             = require('webpack')
-const nodeExternals       = require('webpack-node-externals')
+const path                = require('path');
+const webpack             = require('webpack');
+const CopyWebpackPlugin   = require('copy-webpack-plugin');
+const nodeExternals       = require('webpack-node-externals');
 
-const __OUTPUT__          = path.join(__dirname, '..', 'dist')
-const __INPUT__           = path.join(__dirname, '..', 'src')
-const __COMPONENT_NAME__  = 'slickgrid-es6'
+const __OUTPUT__          = path.join(__dirname, '..', 'dist');
+const __INPUT__           = path.join(__dirname, '..', 'src');
+const __COMPONENT_NAME__  = 'slickgrid-es6';
 
 module.exports = {
 
@@ -14,6 +15,7 @@ module.exports = {
 
   entry: {
     index: [
+      'babel-polyfill',
       path.join(__INPUT__, 'index.js')
     ]
   },
@@ -21,7 +23,7 @@ module.exports = {
   output: {
     path: __OUTPUT__,
     publicPath: '/',
-    filename: `${__COMPONENT_NAME__}.min.js`,
+    filename: `slick.es6.min.js`,
     target: 'umd'
   },
 
@@ -36,7 +38,7 @@ module.exports = {
         presets: ['es2015', 'stage-0']
       }
     }, {
-      test:   /\.(less|css)/,
+      test: /\.(less|css)/,
       loader: 'style-loader!css-loader!less-loader?sourceMap=inline'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
@@ -53,21 +55,31 @@ module.exports = {
         NODE_ENV: 'production'
       }
     }),
+    new CopyWebpackPlugin([
+      {
+        flatten: true,
+        from: 'src/*.less'
+      },
+      {
+        from: 'plugins/**/*.css',
+        flatten: true
+      }
+    ]),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      beautify: false, //prod
+      beautify: false, // prod
       mangle: {
-        screw_ie8: true,
-      }, //prod
+        screw_ie8: true
+      }, // prod
       compress: {
         screw_ie8: true
-      }, //prod
-      comments: false //prod
+      }, // prod
+      comments: false // prod
     })
   ],
 
   resolve: {
     extensions: ['', '.js', '.jsx']
   }
-}
+};

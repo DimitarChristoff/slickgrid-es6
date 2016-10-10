@@ -1,8 +1,8 @@
-const path                = require('path')
-const webpack             = require('webpack')
-const pkg                 = require('../package.json')
+const path = require('path');
+const webpack = require('webpack');
+const pkg = require('../package.json');
 
-const __DEV_INPUT__       = path.join(__dirname, '..', 'examples')
+const __DEV_INPUT__ = path.join(__dirname, '..', 'examples');
 
 module.exports = {
 
@@ -16,7 +16,7 @@ module.exports = {
   },
 
   output: {
-    filename: `[name].js`
+    filename: '[name].js'
   },
 
   module: {
@@ -31,12 +31,12 @@ module.exports = {
       test: /\.less$/,
       loader: 'style-loader!css-loader!less-loader'
     }, {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
-      }]
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+      ]
+    }]
   },
 
   devServer: {
@@ -44,7 +44,7 @@ module.exports = {
     historyApiFallback: true,
     host: '0.0.0.0',
     hot: true,
-    staticOptions: {},
+    staticOptions: {}
   },
 
   plugins: [
@@ -60,4 +60,4 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.css']
   }
-}
+};

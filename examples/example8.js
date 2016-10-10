@@ -27,7 +27,7 @@ const options = {
 };
 
 export default {
-  init: id =>{
+  init: id => {
     grid = new Grid(id, dv, columns, options);
     return grid;
   },
