@@ -5,7 +5,7 @@
   "main": "dist/slick.es6.min.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --optimize-occurence-order --optimize-dedupe --hot --inline --debug --compress --port 8888",
-    "build": "rimraf dist && NODE_ENV=production webpack --progress",
+    "build": "rimraf dist && NODE_ENV=production webpack --progress --",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint config",
     "eslint:fix": "npm run eslint -- --fix"

@@ -55,16 +55,6 @@ module.exports = {
         NODE_ENV: 'production'
       }
     }),
-    new CopyWebpackPlugin([
-      {
-        flatten: true,
-        from: 'src/*.less'
-      },
-      {
-        from: 'plugins/**/*.css',
-        flatten: true
-      }
-    ]),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -76,10 +66,20 @@ module.exports = {
         screw_ie8: true
       }, // prod
       comments: false // prod
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        flatten: true,
+        from: `${__INPUT__}/*.less`
+      },
+      {
+        from: 'plugins/**/*.css',
+        flatten: true
+      }
+    ])
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js']
   }
 };
