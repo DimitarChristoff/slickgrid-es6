@@ -5,7 +5,8 @@ const nodeExternals       = require('webpack-node-externals');
 
 const __OUTPUT__          = path.join(__dirname, '..', 'dist');
 const __INPUT__           = path.join(__dirname, '..', 'src');
-const __COMPONENT_NAME__  = 'slickgrid-es6';
+const __PLUGINS__         = path.join(__dirname, '..', 'plugins');
+const __COMPONENT_NAME__  = 'slickgrid';
 
 module.exports = {
 
@@ -24,6 +25,7 @@ module.exports = {
     path: __OUTPUT__,
     publicPath: '/',
     filename: `slick.es6.min.js`,
+    library: __COMPONENT_NAME__,
     target: 'umd'
   },
 
@@ -73,7 +75,7 @@ module.exports = {
         from: `${__INPUT__}/*.less`
       },
       {
-        from: 'plugins/**/*.css',
+        from: `${__PLUGINS__}/**/*.css`,
         flatten: true
       }
     ])
