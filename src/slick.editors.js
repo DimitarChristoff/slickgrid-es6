@@ -79,7 +79,7 @@ function TextEditor(args){
     let valid = true;
     let msg = null;
     if (args.column.validator){
-      let validationResults = args.column.validator($select.val(), args);
+      let validationResults = args.column.validator($input.val(), args);
       valid = validationResults.valid;
       msg = validationResults.msg;
     }
