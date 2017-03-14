@@ -5,8 +5,25 @@ const nodeExternals       = require('webpack-node-externals');
 
 const __OUTPUT__          = path.join(__dirname, '..', 'dist');
 const __INPUT__           = path.join(__dirname, '..', 'src');
+const __IMAGES__          = path.join(__dirname, '..', 'images');
 const __PLUGINS__         = path.join(__dirname, '..', 'plugins');
 const __COMPONENT_NAME__  = 'slickgrid';
+
+const imgquery = JSON.stringify({
+  mozjpeg: {
+    progressive: true,
+  },
+  gifsicle: {
+    interlaced: false,
+  },
+  optipng: {
+    optimizationLevel: 4,
+  },
+  pngquant: {
+    quality: '75-90',
+    speed: 3,
+  }
+})
 
 module.exports = {
 
@@ -16,7 +33,6 @@ module.exports = {
 
   entry: {
     index: [
-      'babel-polyfill',
       path.join(__INPUT__, 'index.js')
     ]
   },
@@ -40,13 +56,13 @@ module.exports = {
         presets: ['es2015', 'stage-0']
       }
     }, {
-      test: /\.(less|css)/,
-      loader: 'style-loader!css-loader!less-loader?sourceMap=inline'
+      test: /\.(less|css)$/,
+      loader: 'style-loader!css-loader!less-loader'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        'file?hash=sha512&digest=hex&name=[hash].[ext]',
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        `file?context=${__IMAGES__}&hash=sha512&digest=hex&name=[hash].[ext]`,
+        `image-webpack?${imgquery}`
       ]
     }]
   },
@@ -54,7 +70,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'production'
+        NODE_ENV: '"production"'
       }
     }),
     new webpack.optimize.OccurenceOrderPlugin(),

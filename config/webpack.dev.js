@@ -12,7 +12,11 @@ module.exports = {
 
   entry: {
     examples: [path.join(__DEV_INPUT__, 'index.js')],
-    vendor: Object.keys(pkg.dependencies)
+    vendor: [
+      'react',
+      'react-dom',
+      'jquery'
+    ]
   },
 
   output: {
@@ -25,10 +29,10 @@ module.exports = {
       exclude: /(node_modules)/,
       loader: 'babel',
       query: {
-        presets: ['es2015', 'stage-0']
+        presets: ['react', 'es2015', 'stage-0']
       }
     }, {
-      test: /\.less$/,
+      test: /\.(less|css)$/,
       loader: 'style-loader!css-loader!less-loader'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,

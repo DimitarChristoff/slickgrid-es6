@@ -2,7 +2,7 @@ import './examples.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createHistory } from 'history';
+import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory();
 const router = {};
@@ -43,5 +43,5 @@ class Menu extends React.Component {
 
 ReactDOM.render(<Menu examples={examples} />, menuEl);
 
-nav(history.getCurrentLocation());
+nav(history.location);
 
