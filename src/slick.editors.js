@@ -25,8 +25,8 @@ Slick.Editors = Editors;
 export default Editors;
 
 function TextEditor(args){
-  var $input;
-  var defaultValue;
+  let $input;
+  let defaultValue;
 
   this.init = function(){
     $input = $("<INPUT type=text class='editor-text' />")
@@ -94,8 +94,8 @@ function TextEditor(args){
 }
 
 function IntegerEditor(args){
-  var $input;
-  var defaultValue;
+  let $input;
+  let defaultValue;
 
   this.init = function(){
     $input = $("<INPUT type=text class='editor-text' />");
@@ -146,7 +146,7 @@ function IntegerEditor(args){
     }
 
     if (args.column.validator){
-      var validationResults = args.column.validator($input.val());
+      let validationResults = args.column.validator($input.val());
       if (!validationResults.valid){
         return validationResults;
       }
@@ -162,9 +162,9 @@ function IntegerEditor(args){
 }
 
 function FloatEditor(args){
-  var $input;
-  var defaultValue;
-  var scope = this;
+  let $input;
+  let defaultValue;
+  let scope = this;
 
   this.init = function(){
     $input = $("<INPUT type=text class='editor-text' />");
@@ -189,7 +189,7 @@ function FloatEditor(args){
 
   function getDecimalPlaces(){
     // returns the number of fixed decimal places or null
-    var rtn = args.column.editorFixedDecimalPlaces;
+    let rtn = args.column.editorFixedDecimalPlaces;
     if (typeof rtn == 'undefined'){
       rtn = FloatEditor.DefaultDecimalPlaces;
     }
@@ -199,7 +199,7 @@ function FloatEditor(args){
   this.loadValue = function(item){
     defaultValue = item[args.column.field];
 
-    var decPlaces = getDecimalPlaces();
+    let decPlaces = getDecimalPlaces();
     if (decPlaces !== null
       && (defaultValue || defaultValue === 0)
       && defaultValue.toFixed){
@@ -212,9 +212,9 @@ function FloatEditor(args){
   };
 
   this.serializeValue = function(){
-    var rtn = parseFloat($input.val()) || 0;
+    let rtn = parseFloat($input.val()) || 0;
 
-    var decPlaces = getDecimalPlaces();
+    let decPlaces = getDecimalPlaces();
     if (decPlaces !== null
       && (rtn || rtn === 0)
       && rtn.toFixed){
@@ -241,7 +241,7 @@ function FloatEditor(args){
     }
 
     if (args.column.validator){
-      var validationResults = args.column.validator($input.val(), args);
+      let validationResults = args.column.validator($input.val(), args);
       if (!validationResults.valid){
         return validationResults;
       }
@@ -264,7 +264,7 @@ FloatEditor.DefaultDecimalPlaces = null;
  * @constructor
  */
 function DateEditor(args){
-  var $input,
+  let $input,
     flatInstance,
     defaultDate,
     options = args.column.options && args.column.options.date ? args.column.options.date : {};
@@ -321,7 +321,7 @@ function DateEditor(args){
 
   this.validate = function(){
     if (args.column.validator){
-      var validationResults = args.column.validator($input.val(), args);
+      let validationResults = args.column.validator($input.val(), args);
       if (!validationResults.valid){
         return validationResults;
       }
@@ -337,9 +337,9 @@ function DateEditor(args){
 }
 
 function YesNoSelectEditor(args){
-  var $select;
-  var defaultValue;
-  var scope = this;
+  let $select;
+  let defaultValue;
+  let scope = this;
 
   this.init = function(){
     $select = $("<select tabIndex='0' class='editor-yesno'><option value='yes'>Yes</option><option value='no'>No</option></select>");
@@ -391,9 +391,9 @@ function YesNoSelectEditor(args){
 }
 
 function CheckboxEditor(args){
-  var $select;
-  var defaultValue;
-  var scope = this;
+  let $select;
+  let defaultValue;
+  let scope = this;
 
   this.init = function(){
     $select = $("<INPUT type=checkbox value='true' class='editor-checkbox' hideFocus>");
@@ -458,21 +458,17 @@ function PercentCompleteEditor(args){
  * KeyDown events are also handled to provide handling for Tab, Shift-Tab, Esc and Ctrl-Enter.
  */
 function LongTextEditor(args){
-  var $input, $wrapper;
-  var defaultValue;
-  var scope = this;
+  let $input, $wrapper;
+  let defaultValue;
+  let scope = this;
 
   this.init = function(){
-    var $container = $('body');
+    let $container = $('body');
 
-    $wrapper = $("<DIV style='z-index:10000;position:absolute;background:white;padding:5px;border:3px solid gray; -moz-border-radius:10px; border-radius:10px;'/>")
-      .appendTo($container);
+    $wrapper = $("<div class='slick-large-editor-text' />").appendTo($container);
+    $input = $("<textarea hidefocus rows=5 />").appendTo($wrapper);
 
-    $input = $("<TEXTAREA hidefocus rows=5 style='backround:white;width:250px;height:80px;border:0;outline:0'>")
-      .appendTo($wrapper);
-
-    $("<DIV style='text-align:right'><BUTTON>Save</BUTTON><BUTTON>Cancel</BUTTON></DIV>")
-      .appendTo($wrapper);
+    $("<div><button>Save</button> <button>Cancel</button></div>").appendTo($wrapper);
 
     $wrapper.find('button:first').bind('click', this.save);
     $wrapper.find('button:last').bind('click', this.cancel);
