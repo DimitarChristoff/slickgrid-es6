@@ -23,7 +23,6 @@ import Slick from './slick.core';
 
 // Slick.Grid globals pretense
 Slick.Grid = SlickGrid;
-global.Slick = Slick;
 
 export default SlickGrid;
 

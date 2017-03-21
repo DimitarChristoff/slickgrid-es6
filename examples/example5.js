@@ -1,4 +1,4 @@
-import { Grid, Formatters } from '../src/';
+import {Grid, Formatters} from '../src/';
 import origData from './example-data';
 import HeaderButtonsPlugin from '../plugins/slick.headerbuttons';
 import Help from '../images/help.png';
@@ -10,7 +10,7 @@ const options = {
   enableCellNavigation: true
 };
 const columns = [];
-const columnsWithHighlightingById = {};
+const columnsWithHighlightingById = [1];
 
 let data = origData.slice();
 
@@ -87,7 +87,7 @@ function highlightingFormatter(row, cell, value, columnDef, dataContext){
 }
 
 export default {
-  init: id => {
+  init: id =>{
     grid = new Grid(id, data, columns, options);
 
     const headerButtonsPlugin = new HeaderButtonsPlugin();

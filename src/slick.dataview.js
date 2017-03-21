@@ -14,7 +14,6 @@ const Data = {
 };
 
 export default Data;
-Slick.Data = Data;
 
 /** *
  * A sample Model implementation.
@@ -225,7 +224,7 @@ function DataView(options){
 
   function setGrouping(groupingInfo){
     if (!options.groupItemMetadataProvider){
-      options.groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider();
+      options.groupItemMetadataProvider = new Data.GroupItemMetadataProvider();
     }
 
     groups = [];

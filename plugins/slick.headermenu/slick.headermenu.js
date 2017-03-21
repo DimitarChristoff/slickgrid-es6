@@ -3,7 +3,6 @@ import Slick from '../../src/slick.core';
 
 // import './slick.headermenu.css';
 
-Slick.HeaderMenu = HeaderMenu;
 export default HeaderMenu;
 
 /** *

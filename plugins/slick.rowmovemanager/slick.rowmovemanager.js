@@ -1,6 +1,5 @@
 import Slick from '../../src/slick.core';
 
-Slick.RowMoveManager = RowMoveManager;
 export default RowMoveManager;
 
 function RowMoveManager(options){

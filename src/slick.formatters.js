@@ -1,32 +1,10 @@
-/** *
- * Contains basic SlickGrid formatters.
- *
- * NOTE:  These are merely examples.  You will most likely need to implement something more
- *        robust/extensible/localizable/etc. for your use!
- *
- * @module Formatters
- * @namespace Slick
- */
-
-import Slick from './slick.core';
-
-const Formatters = {
-  PercentComplete: PercentCompleteFormatter,
-  PercentCompleteBar: PercentCompleteBarFormatter,
-  YesNo: YesNoFormatter,
-  Checkmark: CheckmarkFormatter
-};
-
-Slick.Formatters = Formatters;
-export default Formatters;
-
 function PercentCompleteFormatter(row, cell, value, columnDef, dataContext){
   if (value == null || value === ''){
     return '-';
   } else if (value < 50){
-    return "<span style='color:red;font-weight:bold;'>" + value + '%</span>';
+    return `<span style='color:red;font-weight:bold;'>${value}%</span>`;
   } else {
-    return "<span style='color:green'>" + value + '%</span>';
+    return `<span style='color:green'>${value}%</span>`;
   }
 }
 
@@ -35,7 +13,7 @@ function PercentCompleteBarFormatter(row, cell, value, columnDef, dataContext){
     return '';
   }
 
-  var color;
+  let color;
 
   if (value < 30){
     color = 'red';
@@ -55,3 +33,10 @@ function YesNoFormatter(row, cell, value, columnDef, dataContext){
 function CheckmarkFormatter(row, cell, value, columnDef, dataContext){
   return value ? '✔' : '';
 }
+
+export default {
+  PercentComplete: PercentCompleteFormatter,
+  PercentCompleteBar: PercentCompleteBarFormatter,
+  YesNo: YesNoFormatter,
+  Checkmark: CheckmarkFormatter
+};

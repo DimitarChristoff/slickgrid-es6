@@ -41,8 +41,7 @@ module.exports = {
     path: __OUTPUT__,
     publicPath: '/',
     filename: `slick.es6.min.js`,
-    library: __COMPONENT_NAME__,
-    target: 'umd'
+    libraryTarget: 'commonjs'
   },
 
   externals: [nodeExternals()],

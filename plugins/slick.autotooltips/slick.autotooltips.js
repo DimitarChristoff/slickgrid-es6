@@ -1,7 +1,5 @@
 import $ from 'jquery';
-import Slick from '../../src/slick.core';
 
-Slick.AutoTooltips = AutoTooltips;
 export default AutoTooltips;
 
   /**

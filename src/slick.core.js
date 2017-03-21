@@ -39,7 +39,6 @@ const Slick = {
   }
 };
 
-global.Slick = Slick;
 export default Slick;
 
 /***

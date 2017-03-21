@@ -1,13 +1,17 @@
-// import 'jquery';
-// import 'jquery-ui/ui/widgets/sortable';
-//
-// import './slick.grid.less';
-// import './slick-default-theme.less';
+import Slick from './slick.core';
+import Editors from './slick.editors';
+import Data from './slick.dataview';
+import Grid from './slick.grid';
+import FrozenGrid from './slick-frozen.grid';
+import Formatters from './slick.formatters';
+import * as Plugins from '../plugins';
 
-export Slick from './slick.core';
-export Editors from './slick.editors';
-export Formatters from './slick.formatters';
-export Data from './slick.dataview';
-export Grid from './slick.grid';
-export FrozenGrid from './slick-frozen.grid';
-export Plugins from '../plugins';
+export {
+  Slick,
+  Editors,
+  Formatters,
+  Data,
+  Grid,
+  FrozenGrid,
+  Plugins
+}

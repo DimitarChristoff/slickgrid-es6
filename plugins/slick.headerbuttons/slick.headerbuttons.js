@@ -1,9 +1,6 @@
 import $ from 'jquery';
 import Slick from '../../src/slick.core';
 
-// import './slick.headerbuttons.css';
-
-Slick.HeaderButtons = HeaderButtons;
 export default HeaderButtons;
 /** *
  * A plugin to add custom buttons to column headers.
@@ -133,7 +130,7 @@ function HeaderButtons(options){
       // Removing buttons via jQuery will also clean up any event handlers and data.
       // NOTE: If you attach event handlers directly or using a different framework,
       //       you must also clean them up here to avoid memory leaks.
-      $(args.node).find('.' + options.buttonCssClass).remove();
+      $(args.node).find(`.${options.buttonCssClass}`).remove();
     }
   }
 

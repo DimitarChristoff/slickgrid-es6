@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Slick from '../../src/slick.core';
 
-Slick.CheckboxSelectColumn = CheckboxSelectColumn;
 export default CheckboxSelectColumn;
 
 function CheckboxSelectColumn(options){

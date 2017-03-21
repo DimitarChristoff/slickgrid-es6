@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Slick from '../../src/slick.core';
 
-Slick.RowSelectionModel = RowSelectionModel;
 export default RowSelectionModel;
 
 function RowSelectionModel(options){

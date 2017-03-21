@@ -1,12 +1,29 @@
-const path = require('path');
-const webpack = require('webpack');
-const pkg = require('../package.json');
+const path          = require('path');
+const webpack       = require('webpack');
+const pkg           = require('../package.json');
 
 const __DEV_INPUT__ = path.join(__dirname, '..', 'examples');
+const __IMAGES__    = path.join(__dirname, '..', 'images');
+
+const imgquery      = JSON.stringify({
+  mozjpeg: {
+    progressive: true,
+  },
+  gifsicle: {
+    interlaced: false,
+  },
+  optipng: {
+    optimizationLevel: 4,
+  },
+  pngquant: {
+    quality: '75-90',
+    speed: 3,
+  }
+})
 
 module.exports = {
 
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
 
   context: __dirname,
 
@@ -37,8 +54,7 @@ module.exports = {
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        'file?hash=sha512&digest=hex&name=[hash].[ext]',
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        `file?context=../images&name=images/[path][name].[ext]`
       ]
     }]
   },
