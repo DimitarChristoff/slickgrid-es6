@@ -75,16 +75,16 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false, // prod
-      mangle: {
-        screw_ie8: true
-      }, // prod
-      compress: {
-        screw_ie8: true
-      }, // prod
-      comments: false // prod
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   beautify: false, // prod
+    //   mangle: {
+    //     screw_ie8: true
+    //   }, // prod
+    //   compress: {
+    //     screw_ie8: true
+    //   }, // prod
+    //   comments: false // prod
+    // }),
     new CopyWebpackPlugin([
       {
         flatten: true,
