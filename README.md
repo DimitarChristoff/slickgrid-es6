@@ -10,6 +10,15 @@
 * Speed improvements where possible, move to `requestAnimationFrame` where makes sense
 * Create adapters for mobx / rxjs as DataViews 
 
+## changes as per `2.0.0`
+
+* Skipped 1.0.0 due to previously published tag
+* Changed webpack build
+* BREAKING: deprecated UMD exports
+* BREAKING: deprecated reliance on globals (eg. Slick.Formatters)
+* Fixed some formatters and plugins
+* Slight tweaks to LESS files
+
 ## Changes as per `0.4.1`
 
 * Enabled grouped headers code, including resize and reorder
