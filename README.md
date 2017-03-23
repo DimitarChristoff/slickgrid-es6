@@ -89,7 +89,7 @@ feature additions.
 
 ## Changelog
 
-## `2.0.1`
+### `2.0.1`
  
 * Fixed `.npmrc` to still ship images for custom builds 
 
