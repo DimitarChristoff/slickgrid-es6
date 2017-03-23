@@ -1,5 +1,7 @@
 # SlickGrid ES6 
 
+[![npm version](https://img.shields.io/npm/v/slickgrid-es6.svg?style=flat-square)](https://www.npmjs.com/package/slickgrid-es6) [![npm downloads](https://img.shields.io/npm/dm/slickgrid-es6.svg?style=flat-square)](https://www.npmjs.com/package/slickgrid-es6) ![gzip size](http://img.badgesize.io/https://npmcdn.com/slickgrid-es6/dist/slick.es6.min.js?compression=gzip)
+
 > This is a clone of the [6pac fork](https://github.com/6pac/SlickGrid/) of SlickGrid for some parts and [X-SlickGrid](https://github.com/ddomingues/X-SlickGrid) for the grid itself
 
 ## Goals: 
@@ -71,9 +73,18 @@ const dataView = new Data.DataView();
 dataView.setItems([ ... ]); // some data
 
 const grid = new Grid('someid', dataView, columns, options);
-
 ```
 
+Full list of exports you can de-structure:
+
+ - `Slick` - returns the original namespace (`Slick.core` - events etc)
+ - `Grid` - returns 6pac's SlickGrid
+ - `FrozenGrid` - returns X-SlickGrid (frozen rows/columns)
+ - `Data` - returns the `Slick.Data` model
+ - `Plugins` - returns the default plugins converted/tweaked 
+ - `Editors` - returns the original pre-defined default editors 
+ - `Formatters` - returns the original pre-defined default cell formatters
+ 
 To import stylesheets in LESS (for now):
 ```less
 // some vars like @grid-border-color: red;, see slick.grid.variables.less
