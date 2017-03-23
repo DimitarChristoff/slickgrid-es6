@@ -13,7 +13,9 @@ The main goals are:
 * Remove reliance on `Slick.` object namespace, everything just exports and needs to be imported, no more `Slick.Editors` etc.
 * **Remove `jquery-ui` from deps list** - replaced with Interact.js  
 
-![Imgur](http://i.imgur.com/cDQ9SVt.png)
+![Default Example Styles](https://cloud.githubusercontent.com/assets/119500/24247817/1fda096c-0fc5-11e7-94b7-e71afb520999.png)
+
+![Custom Styles](https://cloud.githubusercontent.com/assets/119500/24247974/7436191a-0fc5-11e7-9df5-86c8c3bfdc74.png)
 
 ## Installing and use
 
