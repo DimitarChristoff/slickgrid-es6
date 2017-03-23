@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/slickgrid-es6.svg?style=flat-square)](https://www.npmjs.com/package/slickgrid-es6) [![npm downloads](https://img.shields.io/npm/dm/slickgrid-es6.svg?style=flat-square)](https://www.npmjs.com/package/slickgrid-es6) ![gzip size](http://img.badgesize.io/https://npmcdn.com/slickgrid-es6/dist/slick.es6.min.js?compression=gzip)
 
-> This is a clone of the two biggest forks of SlickGrid - [6pac fork](https://github.com/6pac/SlickGrid/) and [X-SlickGrid](https://github.com/ddomingues/X-SlickGrid), both of which have been converted to align wiht our build and goals and both of which can be used.  
+> This is a clone of the two biggest forks of SlickGrid - [6pac fork](https://github.com/6pac/SlickGrid/) and [X-SlickGrid](https://github.com/ddomingues/X-SlickGrid), both of which have been converted to align with this project's goals and build strategy, both ready to be used out of the box*  
 
 The main goals are:
 
@@ -12,7 +12,10 @@ The main goals are:
 * Make dependency consumption implicit and not reliant on globals
 * Remove reliance on `Slick.` object namespace, everything just exports and needs to be imported, no more `Slick.Editors` etc.
 * **Remove `jquery-ui` from deps list** - replaced with Interact.js
-  
+
+__
+ * Yes, there are some compatibility issues, such as drag and reorder of columns with X-SlickGrid's frozenRows from frozen to none.  
+ 
 NB: Going forward, the 6pac version may be dropped.  
 
 ![Default Example Styles](https://cloud.githubusercontent.com/assets/119500/24247817/1fda096c-0fc5-11e7-94b7-e71afb520999.png)
