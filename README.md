@@ -13,7 +13,8 @@ The main goals are:
 * Remove reliance on `Slick.` object namespace, everything just exports and needs to be imported, no more `Slick.Editors` etc.
 * **Remove `jquery-ui` from deps list** - replaced with Interact.js
 
---
+______
+
 [1] _Yes, there are some compatibility issues, such as drag and reorder of columns with X-SlickGrid's frozenRows from frozen to none._
  
 NB: Going forward, the 6pac version may be dropped.  
