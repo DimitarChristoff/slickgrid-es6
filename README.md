@@ -4,49 +4,14 @@
 
 > This is a clone of the [6pac fork](https://github.com/6pac/SlickGrid/) of SlickGrid for some parts and [X-SlickGrid](https://github.com/ddomingues/X-SlickGrid) for the grid itself
 
-## Goals: 
+The main goals are:
 
-* Make it easy to consume in Webpack/Babel/ES6 codebases
+* Make it easy to consume in a modern ES2016 codebase
+* Transpile down to ES5
+* Keep the existing SlickGrid API for both grids
 * Make dependency consumption implicit and not reliant on globals
-* Attempt to keep things consistent and backwards compatible by exporting onto the global `Slick` object
-* Speed improvements where possible, move to `requestAnimationFrame` where makes sense
-* Create adapters for mobx / rxjs as DataViews 
-
-## changes as per `2.0.0`
-
-* Skipped 1.0.0 due to previously published tag
-* Changed webpack build
-* BREAKING: deprecated UMD exports
-* BREAKING: deprecated reliance on globals (eg. Slick.Formatters)
-* Fixed some formatters and plugins
-* Slight tweaks to LESS files
-
-## Changes as per `0.4.1`
-
-* Enabled grouped headers code, including resize and reorder
-
-## Changes as per `0.3.0`
-
-* Added X-SlickGrid to exports, available via `Slick.FrozenGrid` or `import { FrozenGrid as Grid } from 'slickgrid-es6'`
-* Added validator support for some editors
-* Fixed plugins yet to be converted
-
-## Changes as per `0.2.3`
-
-* moved to using `slick.frozen.grid.js` from X-SlickGrid for FrozenRows/Columns feature, converted to ES6 and with deprecated jquery-ui
-* Styling fixes, moved to `box-sizing: border-box` for `.slick-cell`
-* Updated examples to use React but grid has no dependency on React
-
-## Changes completed as per `0.1.1`:
-
-The goal is to keep the grid API of the 6pac repository unchanged. Howe 
-
-* converted to ES6
-* dropped IE8 support
-* jquery 3.1.0
-* dropped jquery-ui (replaced with interact.js)
-* dropped event.drag (replaced with interact.js)
-* move to LESS (SCSS soon)
+* Remove reliance on `Slick.` object namespace, everything just exports and needs to be imported, no more `Slick.Editors` etc.
+* **Remove `jquery-ui` from deps list** - replaced with Interact.js  
 
 ![Imgur](http://i.imgur.com/cDQ9SVt.png)
 
@@ -112,12 +77,53 @@ $ npm run build
 
 ## Contributing
 
-Any pull requests and help with this are appreciated - both from conversion stand point and from slickgrid bug fixes or 
+Any pull requests and help with this are appreciated - both from conversion stand point and from SlickGrid bug fixes or 
 feature additions. 
 
+## Changelog
 
-# Original mleibman README follows:
+## `2.0.1`
+ 
+* Fixed `.npmrc` to still ship images for custom builds 
 
+### `2.0.0`
+
+* Skipped 1.0.0 due to previously published tag
+* Changed webpack build
+* BREAKING: deprecated UMD exports
+* BREAKING: deprecated reliance on globals (eg. Slick.Formatters)
+* Fixed some formatters and plugins
+* Slight tweaks to LESS files
+
+### `0.4.1`
+
+* Enabled grouped headers code, including resize and reorder
+
+### `0.3.0`
+
+* Added X-SlickGrid to exports, available via `Slick.FrozenGrid` or `import { FrozenGrid as Grid } from 'slickgrid-es6'`
+* Added validator support for some editors
+* Fixed plugins yet to be converted
+
+### `0.2.3`
+
+* moved to using `slick.frozen.grid.js` from X-SlickGrid for FrozenRows/Columns feature, converted to ES6 and with deprecated jquery-ui
+* Styling fixes, moved to `box-sizing: border-box` for `.slick-cell`
+* Updated examples to use React but grid has no dependency on React
+
+### Changes completed as per `0.1.1`:
+
+The goal is to keep the grid API of the 6pac repository unchanged. Howe 
+
+* converted to ES6
+* dropped IE8 support
+* jquery 3.1.0
+* dropped jquery-ui (replaced with interact.js)
+* dropped event.drag (replaced with interact.js)
+* move to LESS (SCSS soon)
+
+
+## Original mleibman README follows:
 
 
 Find documentation and examples in [the wiki](https://github.com/mleibman/SlickGrid/wiki).
