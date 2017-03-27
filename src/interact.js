@@ -246,7 +246,7 @@
     supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch),
 
         // Does the browser support PointerEvents
-    supportsPointerEvent = !!PointerEvent,
+    supportsPointerEvent = PointerEvent && !/Chrome/.test(navigator.userAgent),
 
         // Less Precision with touch input
     margin = supportsTouch || supportsPointerEvent ? 20 : 10,
@@ -1375,16 +1375,18 @@
           this.matchElements = curMatchElements;
 
           this.pointerHover(pointer, event, this.matches, this.matchElements);
-          events.add(eventTarget,
-                                        PointerEvent ? pEventTypes.move : 'mousemove',
-                                        listeners.pointerHover);
+          events.add(eventTarget, supportsPointerEvent ?
+              pEventTypes.move :
+              'mousemove',
+            listeners.pointerHover);
         }
         else if (this.target){
           if (nodeContains(prevTargetElement, eventTarget)){
             this.pointerHover(pointer, event, this.matches, this.matchElements);
-            events.add(this.element,
-                                            PointerEvent ? pEventTypes.move : 'mousemove',
-                                            listeners.pointerHover);
+            events.add(this.element, supportsPointerEvent ?
+                pEventTypes.move :
+                'mousemove',
+              listeners.pointerHover);
           }
           else {
             this.target = null;
@@ -1434,7 +1436,7 @@
             // Remove temporary event listeners for selector Interactables
       if (!interactables.get(eventTarget)){
         events.remove(eventTarget,
-                                       PointerEvent ? pEventTypes.move : 'mousemove',
+                                       supportsPointerEvent ? pEventTypes.move : 'mousemove',
                                        listeners.pointerHover);
       }
 
@@ -3232,7 +3234,7 @@
     }
 
         // if it's a mouse interaction
-    if (mouseEvent || !(supportsTouch || supportsPointerEvent)){
+    if (mouseEvent || !supportsTouch || supportsPointerEvent){
             // find a mouse interaction that's not in inertia phase
       for (i = 0; i < len; i++){
         if (interactions[i].mouse && !interactions[i].inertiaStatus.active){
@@ -3906,7 +3908,7 @@
       _window = getWindow(element);
 
       if (isElement(element, _window)){
-        if (PointerEvent){
+        if (supportsPointerEvent){
           events.add(this._element, pEventTypes.down, listeners.pointerDown);
           events.add(this._element, pEventTypes.move, listeners.pointerHover);
         }
@@ -5747,7 +5749,7 @@
       events.add(doc, eventType, delegateUseCapture, true);
     }
 
-    if (PointerEvent){
+    if (supportsPointerEvent){
       if (PointerEvent === win.MSPointerEvent){
         pEventTypes = {
           up: 'MSPointerUp', down: 'MSPointerDown', over: 'mouseover',

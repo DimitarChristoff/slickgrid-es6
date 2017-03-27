@@ -1,8 +1,6 @@
-import {Grid, Formatters, Editors} from '../src/';
+import {Grid, Formatters, Editors} from '../';
 import CellSelectionModel from '../plugins/slick.cellselectionmodel/slick.cellselectionmodel';
 import data from './example-data';
-
-console.log(Formatters)
 
 function requiredFieldValidator(value){
   if (value == null || value == undefined || !value.length){
