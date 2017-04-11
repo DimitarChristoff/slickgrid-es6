@@ -1053,15 +1053,10 @@ function SlickGrid(container, data, columns, options){
       unregisterPlugin(plugins[i]);
     }
 
-    if (options.enableColumnReorder){
-      $headers.filter(':ui-sortable').sortable('destroy');
-    }
-
     unbindAncestorScrollEvents();
     $container.unbind('.slickgrid');
     removeCssRules();
 
-    $canvas.unbind('draginit dragstart dragend drag');
     $container.empty().removeClass(uid);
   }
 
