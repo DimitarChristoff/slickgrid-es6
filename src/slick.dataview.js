@@ -1,5 +1,5 @@
-import Slick from './slick.core';
-import $ from 'jquery';
+import Slick  from './slick.core';
+import $      from 'jquery';
 
 const Aggregators = {
   Avg: AvgAggregator,
@@ -666,7 +666,7 @@ function DataView(options){
     tpl = tpl.replace(/\$args\$/gi, filterInfo.params[1]);
 
     var fn = new Function('_items,_args', tpl);
-    fn.displayName = fn.name = 'compiledFilter';
+    fn.displayName = 'compiledFilter';
 
     return fn;
   }

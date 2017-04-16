@@ -1,7 +1,10 @@
-import {FrozenGrid as Grid, Formatters, Editors, Data} from '../src/';
+import {FrozenGrid as Grid, Data} from '../src/';
 import data from './example-data';
+import $ from 'jquery'
 
 const dv = new Data.DataView();
+let value = 0
+dv.setFilter(({percentComplete}) => percentComplete > value)
 dv.setItems(data);
 
 let grid;
@@ -23,14 +26,34 @@ const options = {
   forceFitColumns: false,
   autoEdit: false,
   topPanelHeight: 25,
+  inlineFilter: !true,
   frozenColumn: 1
 };
 
 export default {
   init: id => {
+    const slider = $(`<input value="${value}" type="range" />`)
     grid = new Grid(id, dv, columns, options);
+
+    slider.on('change', ({target}) => {
+      value = Number(target.value);
+      dv.refresh();
+    });
+
+    dv.onRowCountChanged.subscribe(() => {
+      grid.updateRowCount();
+      grid.render();
+    });
+
+    dv.onRowsChanged.subscribe((e, {rows}) => {
+      grid.invalidateRows(rows);
+      grid.render();
+    });
+
+    slider.appendTo($('nav.nav'))
+
     return grid;
   },
   route: '/example8',
-  title: 'Example 8: Frozen Row'
+  title: 'Example 8: DataFilter frozen column'
 };
