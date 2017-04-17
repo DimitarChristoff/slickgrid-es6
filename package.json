@@ -1,6 +1,6 @@
 {
   "name": "slickgrid-es6",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Non-tracking fork of 6pac/SlickGrid and X-SlickGrid that makes it easy to consume via npm under webpack/babel and without jquery-ui",
   "main": "dist/slick.es6.min.js",
   "scripts": {
