@@ -79,7 +79,6 @@ export default {
     });
 
     return grid;
-    return grid;
   },
   route: '/example3',
   title: 'Example 3: Editing'
