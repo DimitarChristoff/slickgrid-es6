@@ -26,9 +26,10 @@
   height: 500px;
   font-size: 14px;
 
-  .editable {
+  .editable-cell {
     border-color: @grid-border-color;
-    box-shadow: -1px 0 0 @grid-border-color;
+    border-right: 1px solid @grid-border-color;
+    box-shadow: -1px 0 0 @grid-border-color, inset -1px 0 0 @grid-border-color;
   }
 
   .slick-header-columns,
@@ -105,8 +106,10 @@
       }
 
       &.active {
-        outline: #3785b6;
+        border-top-width: 0;
+        border-left-width: 0;
         background: @grid-cell-selected-color;
+        //border-style: none;
 
         input.editor-text {
           position: absolute;
@@ -118,6 +121,7 @@
           margin: 0;
           background: transparent;
           padding: @cell-padding-top @cell-padding-right @cell-padding-bottom @cell-padding-left;
+          transform: none;
         }
 
       }

@@ -16,10 +16,12 @@ const columns = [
     field: 'title',
     minWidth: 120,
     maxWidth: 120,
+    cssClass: 'editable-cell',
+    editor: Editors.Text
   },
-  {id: 'description', name: 'Description', field: 'description', minWidth: 200, maxWidth: 200, cssClass: 'editable', editor: Editors.Text},
+  {id: 'description', name: 'Description', field: 'description', minWidth: 200, maxWidth: 200},
   {id: 'sponsor', name: 'Sponsor', field: 'sponsor'},
-  {id: 'duration', name: 'Duration', field: 'duration'},
+  {id: 'duration', name: 'Duration', field: 'duration', cssClass: 'editable-cell', editor: Editors.Text},
 ]
 
 const options = {
@@ -28,8 +30,7 @@ const options = {
   editable: true,
   // enableAddRow: true,
   enableCellNavigation: true,
-  asyncEditorLoading: false,
-  autoEdit: false
+  forceFitColumns: true
 };
 
 const data = [
