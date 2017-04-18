@@ -90,6 +90,18 @@ feature additions.
 
 ## Changelog
 
+### `2.0.4`
+
+* Fixed critical bug with Data and `setFilter`  
+
+### `2.0.3`
+
+* Fixed query-ui legacy exception on `grid.destroy()`
+
+### `2.0.2`
+
+* Fixed critical break in Interact.js with PointerEvent and new Chrome 51+
+
 ### `2.0.1`
  
 * Fixed `.npmrc` to still ship images for custom builds 
