@@ -7,7 +7,7 @@ import createHistory from 'history/createBrowserHistory';
 const history = createHistory();
 const router = {};
 
-const examples = new Array(8).join(',').split(',');
+const examples = new Array(9).join(',').split(',');
 let grid;
 
 window.addEventListener('resize', () => grid.resizeCanvas());
@@ -16,6 +16,7 @@ const nav = ({pathname}) => {
   const route = router[pathname] || router[Object.keys(router)[0]];
   if (route){
     grid = route.init('#myGrid');
+    route.onReady && route.onReady(grid)
     document.title = route.title;
   }
 };

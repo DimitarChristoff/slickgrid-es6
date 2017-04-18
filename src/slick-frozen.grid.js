@@ -1006,7 +1006,7 @@ function SlickGrid(container, data, columns, options){
 
       var header = $("<div class='ui-state-default slick-header-column' />")
         .html("<span class='slick-column-name'>" + m.name + "</span>")
-        .width(m.width - headerColumnWidthDiff)
+        .width(m.width)
         .attr("id", "" + uid + m.id)
         .attr("title", m.toolTip || "")
         .data("column", m)
@@ -1519,18 +1519,31 @@ function SlickGrid(container, data, columns, options){
 
   function createCssRules(){
     $style = $("<style type='text/css' rel='stylesheet' />").appendTo($("head"));
-    var rowHeight = (options.rowHeight - cellHeightDiff);
-    var rules = ["." + uid + " .slick-group-header-column { left: 1000px; }", "." + uid + " .slick-header-column { left: 1000px; }", "." + uid + " .slick-top-panel { height:" + options.topPanelHeight + "px; }", "." + uid + " .slick-headerrow-columns { height:" + options.headerRowHeight + "px; }", "." + uid + " .slick-cell { height:" + rowHeight + "px; }", "." + uid + " .slick-row { height:" + options.rowHeight + "px; }", "." + uid + " .slick-footerrow-columns { height:" + options.footerRowHeight + "px; }"];
 
-    for (var i = 0; i < columns.length; i++){
-      rules.push("." + uid + " .l" + i + " { }");
-      rules.push("." + uid + " .r" + i + " { }");
+    const getRule = rule => `.${uid} ${rule}`
+
+    const rowHeight = (options.rowHeight - cellHeightDiff);
+    const rules = [
+      getRule('.slick-group-header-column { left: 1000px; }'),
+      getRule('.slick-header-column { left: 1000px; }'),
+      getRule(`.slick-top-panel { height: ${options.topPanelHeight}px; }`),
+      getRule(`.slick-headerrow-columns, .${uid} .slick-header-columns { height: ${options.headerRowHeight}px; }`),
+      getRule(`.slick-cell { height: ${rowHeight}px; }`),
+      getRule(`.slick-row { height: ${options.rowHeight}px; }`),
+      getRule(`.slick-footerrow-columns, ${uid} .slick-footer-columns  { height: ${options.footerRowHeight}px; }`)
+    ];
+
+    for (let i = 0; i < columns.length; i++){
+      rules.push(`.${uid} .l${i} { }`);
+      rules.push(`.${uid} .r${i} { }`);
     }
 
+    console.log(rules.join('\n'))
+
     if ($style[0].styleSheet){ // IE
-      $style[0].styleSheet.cssText = rules.join(" ");
+      $style[0].styleSheet.cssText = rules.join(' ');
     } else {
-      $style[0].appendChild(document.createTextNode(rules.join(" ")));
+      $style[0].appendChild(document.createTextNode(rules.join(' ')));
     }
   }
 
