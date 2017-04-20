@@ -40,8 +40,8 @@ module.exports = {
   output: {
     path: __OUTPUT__,
     publicPath: '/',
-    filename: `slick.es6.min.js`,
-    libraryTarget: 'commonjs'
+    filename: 'slick.es6.min.js',
+    libraryTarget: 'commonjs2'
   },
 
   externals: [nodeExternals()],
@@ -50,7 +50,7 @@ module.exports = {
     loaders: [{
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         presets: ['es2015', 'stage-0']
       }
@@ -60,7 +60,7 @@ module.exports = {
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        `file?context=${__IMAGES__}&hash=sha512&digest=hex&name=[hash].[ext]`,
+        `file-loader?context=${__IMAGES__}&hash=sha512&digest=hex&name=[hash].[ext]`,
         `image-webpack?${imgquery}`
       ]
     }]
@@ -72,8 +72,7 @@ module.exports = {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false, // prod
       mangle: {
