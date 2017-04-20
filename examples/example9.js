@@ -64,6 +64,6 @@ export default {
   onReady: (grid) =>{
     grid.getContainerNode().classList.add('example-9')
   },
-  route: '/example9',
+  route: 'example9',
   title: 'Example 9: Custom look and feel'
 };

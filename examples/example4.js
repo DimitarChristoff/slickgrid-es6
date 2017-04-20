@@ -77,6 +77,6 @@ export default {
 
     return grid;
   },
-  route: '/example4',
+  route: 'example4',
   title: 'Example 4: Header Menu Plugin'
 };

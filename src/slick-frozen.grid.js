@@ -1514,8 +1514,6 @@ function SlickGrid(container, data, columns, options){
     }
     r.remove();
 
-
-    console.info(headerColumnWidthDiff)
     absoluteColumnMinWidth = Math.max(headerColumnWidthDiff, cellWidthDiff);
   }
 
@@ -1539,8 +1537,6 @@ function SlickGrid(container, data, columns, options){
       rules.push(`.${uid} .l${i} { }`);
       rules.push(`.${uid} .r${i} { }`);
     }
-
-    console.log(rules.join('\n'))
 
     if ($style[0].styleSheet){ // IE
       $style[0].styleSheet.cssText = rules.join(' ');
@@ -1751,7 +1747,6 @@ function SlickGrid(container, data, columns, options){
     var h;
     for (var i = 0, headers = $headers.children(), ii = headers.length; i < ii; i++){
       h = $(headers[i]);
-      console.log(h.css('width'), h.width())
       if (h.css('width') !== columns[i].width - headerColumnWidthDiff){
         h.css('width', columns[i].width - headerColumnWidthDiff);
       }

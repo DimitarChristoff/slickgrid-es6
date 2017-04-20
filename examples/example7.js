@@ -30,7 +30,7 @@ export default {
     return grid;
   },
   title: 'Example 7: AutoTooltips plugin',
-  route: '/example7',
+  route: 'example7',
   description: '<h2>Instructions:</h2>' +
   '<p>Resize the columns until see ellipsis in column or header.  Hover over cell to see tooltip.</p>' +
   '<h2>Usage:</h2>' +

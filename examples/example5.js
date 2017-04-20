@@ -117,7 +117,7 @@ export default {
     return grid;
   },
   title: 'Example 5: Header Button Plugin',
-  route: '/example5',
+  route: 'example5',
   description: 'This example demonstrates using the <b>Slick.Plugins.HeaderButtons</b> plugin to easily add buttons to colum headers.  These buttons can be specified directly in the column definition, and are very easy to configure and use.'
 };
 

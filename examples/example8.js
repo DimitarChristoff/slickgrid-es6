@@ -54,6 +54,6 @@ export default {
 
     return grid;
   },
-  route: '/example8',
+  route: 'example8',
   title: 'Example 8: DataFilter frozen column'
 };

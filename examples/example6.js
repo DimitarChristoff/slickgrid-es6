@@ -83,7 +83,7 @@ export default {
     return grid;
   },
   title: 'Example 6: Header Menu Plugin',
-  route: '/example6',
+  route: 'example6',
   description: '<p>This example demonstrates using the <b>Slick.Plugins.HeaderMenu</b> plugin to add drop-down menus to column' +
                ' headers.  (Hover over the headers.)</p>'
 };

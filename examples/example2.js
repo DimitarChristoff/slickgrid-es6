@@ -28,5 +28,5 @@ export default {
     return grid;
   },
   title: 'Example 2: Formatters',
-  route: '/example2'
+  route: 'example2'
 };

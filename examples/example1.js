@@ -26,5 +26,5 @@ export default {
     return grid;
   },
   title: 'Simple Example',
-  route: '/example1'
+  route: 'example1'
 };

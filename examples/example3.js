@@ -80,6 +80,6 @@ export default {
 
     return grid;
   },
-  route: '/example3',
+  route: 'example3',
   title: 'Example 3: Editing'
 };
