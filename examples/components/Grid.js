@@ -11,11 +11,11 @@ export default class Grid extends React.Component {
 
   componentDidMount(){
     const { example } = this.props;
-    this.cleanup(example)
+    this.cleanup(example);
   }
 
   componentWillReceiveProps({example}){
-    this.cleanup(example)
+    this.cleanup(example);
   }
 
   componentWillUnmount(){

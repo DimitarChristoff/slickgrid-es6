@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import {FrozenGrid as Grid, Editors, Plugins} from '../src/';
 import './example9.less';
 
-const { CheckboxSelectColumn, RowSelectionModel } = Plugins
+const { CheckboxSelectColumn, RowSelectionModel } = Plugins;
 
 const checkboxSelector = new CheckboxSelectColumn({
-  cssClass: "slick-cell-checkboxsel"
+  cssClass: 'slick-cell-checkboxsel'
 });
 
 const columns = [
@@ -22,7 +22,7 @@ const columns = [
   {id: 'description', name: 'Description', field: 'description', minWidth: 200, maxWidth: 200},
   {id: 'sponsor', name: 'Sponsor', field: 'sponsor'},
   {id: 'duration', name: 'Duration', field: 'duration', cssClass: 'editable-cell', editor: Editors.Text},
-]
+];
 
 const options = {
   rowHeight: 32,
@@ -51,7 +51,7 @@ const data = [
     duration: '3 hr'
   }
 
-]
+];
 
 export default {
   init: id => {
@@ -62,7 +62,7 @@ export default {
     return grid;
   },
   onReady: (grid) =>{
-    grid.getContainerNode().classList.add('example-9')
+    grid.getContainerNode().classList.add('example-9');
   },
   route: 'example9',
   title: 'Example 9: Custom look and feel'

@@ -80,7 +80,7 @@ for (let i = 0; i < 100; i++){
 
 function highlightingFormatter(row, cell, value, columnDef, dataContext){
   if (columnsWithHighlightingById[columnDef.id] && value < 0){
-    return "<div style='color:red; font-weight:bold;'>" + value + '</div>';
+    return '<div style=\'color:red; font-weight:bold;\'>' + value + '</div>';
   } else {
     return value;
   }

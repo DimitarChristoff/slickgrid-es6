@@ -1,5 +1,5 @@
 import React    from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class Menu extends React.Component {
 
@@ -19,8 +19,8 @@ class Menu extends React.Component {
           })}
         </ul>
       </div>
-    </div>
+    </div>;
   }
 }
 
-export default Menu
+export default Menu;

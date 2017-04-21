@@ -36,7 +36,7 @@ for (let i = 0; i < columns.length; i++){
           title: 'Hide Column',
           command: 'hide',
           disabled: true,
-          tooltip: "Can't hide this column"
+          tooltip: 'Can\'t hide this column'
         },
         {
           iconCssClass: 'icon-help',

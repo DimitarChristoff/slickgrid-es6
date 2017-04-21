@@ -1,10 +1,10 @@
 import {FrozenGrid as Grid, Data} from '../src/';
 import data from './example-data';
-import $ from 'jquery'
+import $ from 'jquery';
 
 const dv = new Data.DataView();
-let value = 0
-dv.setFilter(({percentComplete}) => percentComplete > value)
+let value = 0;
+dv.setFilter(({percentComplete}) => percentComplete > value);
 dv.setItems(data);
 
 let grid;
@@ -32,7 +32,7 @@ const options = {
 
 export default {
   init: id => {
-    const slider = $(`<input value="${value}" type="range" />`)
+    const slider = $(`<input value="${value}" type="range" />`);
     grid = new Grid(id, dv, columns, options);
 
     slider.on('change', ({target}) => {
@@ -50,7 +50,7 @@ export default {
       grid.render();
     });
 
-    slider.appendTo($('nav.nav'))
+    slider.appendTo($('nav.nav'));
 
     return grid;
   },
