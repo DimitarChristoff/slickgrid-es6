@@ -74,6 +74,7 @@ module.exports = {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       beautify: false, // prod
       mangle: {
         screw_ie8: true

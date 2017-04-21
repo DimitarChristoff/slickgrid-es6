@@ -1,27 +1,28 @@
 {
-  "parser"  : "babel-eslint",
-  "extends" : [
-    "standard"
-  ],
-  "plugins": [
-    "babel"
-  ],
-  "env"     : {
-    "browser" : true
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "amd": true,
+    "node": true
   },
-  "globals" : {
-    "__DEV__"      : false,
-    "__PROD__"     : false,
-    "__DEBUG__"    : false,
-    "__COVERAGE__" : false,
-    "__BASENAME__" : false
+  "ecmaFeatures": {
+    "modules": true,
+    "jsx": true
   },
   "rules": {
-    "semi" : [2, "always"],
-    "max-len": [2, 120, 2],
-    "generator-star-spacing": 0,
-    "babel/generator-star-spacing": 1,
-    "space-before-blocks": ["error", { "functions": "never", "keywords": "never", "classes": "always" }],
-    "space-before-function-paren": ["error", "never"]
+    "semi": 1,
+    "global-strict": 0,
+    "quotes": [
+      2,
+      "single"
+    ],
+    "no-undef": 1,
+    "key-spacing": 0,
+    "no-trailing-spaces": 0,
+    "eol-last": 0,
+    "no-underscore-dangle": 0,
+    "no-console": 0,
+    "no-alert": 0
   }
 }

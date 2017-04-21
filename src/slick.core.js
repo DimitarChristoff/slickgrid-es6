@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 /** *
  * Contains core SlickGrid classes.
  * @module Core
@@ -47,7 +49,7 @@ export default Slick;
  * @class EventData
  * @constructor
  */
-function EventData() {
+function EventData(){
   var isPropagationStopped = false;
   var isImmediatePropagationStopped = false;
 
@@ -55,7 +57,7 @@ function EventData() {
    * Stops event from propagating up the DOM tree.
    * @method stopPropagation
    */
-  this.stopPropagation = function() {
+  this.stopPropagation = function(){
     isPropagationStopped = true;
   };
 
@@ -64,7 +66,7 @@ function EventData() {
    * @method isPropagationStopped
    * @return {Boolean}
    */
-  this.isPropagationStopped = function() {
+  this.isPropagationStopped = function(){
     return isPropagationStopped;
   };
 
@@ -72,7 +74,7 @@ function EventData() {
    * Prevents the rest of the handlers from being executed.
    * @method stopImmediatePropagation
    */
-  this.stopImmediatePropagation = function() {
+  this.stopImmediatePropagation = function(){
     isImmediatePropagationStopped = true;
   };
 
@@ -81,9 +83,9 @@ function EventData() {
    * @method isImmediatePropagationStopped
    * @return {Boolean}
    */
-  this.isImmediatePropagationStopped = function() {
+  this.isImmediatePropagationStopped = function(){
     return isImmediatePropagationStopped;
-  }
+  };
 }
 
 /***
@@ -91,7 +93,7 @@ function EventData() {
  * @class Event
  * @constructor
  */
-function Event() {
+function Event(){
   var handlers = [];
 
   /***
@@ -101,7 +103,7 @@ function Event() {
    * @method subscribe
    * @param fn {Function} Event handler.
    */
-  this.subscribe = function(fn) {
+  this.subscribe = function(fn){
     handlers.push(fn);
   };
 
@@ -110,9 +112,9 @@ function Event() {
    * @method unsubscribe
    * @param fn {Function} Event handler to be removed.
    */
-  this.unsubscribe = function(fn) {
-    for (var i = handlers.length - 1; i >= 0; i--) {
-      if (handlers[i] === fn) {
+  this.unsubscribe = function(fn){
+    for (var i = handlers.length - 1; i >= 0; i--){
+      if (handlers[i] === fn){
         handlers.splice(i, 1);
       }
     }
@@ -131,12 +133,12 @@ function Event() {
    *      The scope ("this") within which the handler will be executed.
    *      If not specified, the scope will be set to the <code>Event</code> instance.
    */
-  this.notify = function(args, e, scope) {
+  this.notify = function(args, e, scope){
     e = e || new EventData();
     scope = scope || this;
 
     var returnValue;
-    for (var i = 0; i < handlers.length && !(e.isPropagationStopped() || e.isImmediatePropagationStopped()); i++) {
+    for (var i = 0; i < handlers.length && !(e.isPropagationStopped() || e.isImmediatePropagationStopped()); i++){
       returnValue = handlers[i].call(scope, e, args);
     }
 
@@ -144,10 +146,10 @@ function Event() {
   };
 }
 
-function EventHandler() {
+function EventHandler(){
   var handlers = [];
 
-  this.subscribe = function(event, handler) {
+  this.subscribe = function(event, handler){
     handlers.push({
       event: event,
       handler: handler
@@ -157,10 +159,10 @@ function EventHandler() {
     return this; // allow chaining
   };
 
-  this.unsubscribe = function(event, handler) {
+  this.unsubscribe = function(event, handler){
     var i = handlers.length;
-    while (i--) {
-      if (handlers[i].event === event && handlers[i].handler === handler) {
+    while (i--){
+      if (handlers[i].event === event && handlers[i].handler === handler){
         handlers.splice(i, 1);
         event.unsubscribe(handler);
         return;
@@ -170,15 +172,15 @@ function EventHandler() {
     return this; // allow chaining
   };
 
-  this.unsubscribeAll = function() {
+  this.unsubscribeAll = function(){
     var i = handlers.length;
-    while (i--) {
+    while (i--){
       handlers[i].event.unsubscribe(handlers[i].handler);
     }
     handlers = [];
 
     return this; // allow chaining
-  }
+  };
 }
 
 /***
@@ -190,8 +192,8 @@ function EventHandler() {
  * @param toRow {Integer} Optional. Ending row. Defaults to <code>fromRow</code>.
  * @param toCell {Integer} Optional. Ending cell. Defaults to <code>fromCell</code>.
  */
-function Range(fromRow, fromCell, toRow, toCell) {
-  if (toRow === undefined && toCell === undefined) {
+function Range(fromRow, fromCell, toRow, toCell){
+  if (toRow === undefined && toCell === undefined){
     toRow = fromRow;
     toCell = fromCell;
   }
@@ -225,7 +227,7 @@ function Range(fromRow, fromCell, toRow, toCell) {
    * @method isSingleRow
    * @return {Boolean}
    */
-  this.isSingleRow = function() {
+  this.isSingleRow = function(){
     return this.fromRow == this.toRow;
   };
 
@@ -234,7 +236,7 @@ function Range(fromRow, fromCell, toRow, toCell) {
    * @method isSingleCell
    * @return {Boolean}
    */
-  this.isSingleCell = function() {
+  this.isSingleCell = function(){
     return this.fromRow == this.toRow && this.fromCell == this.toCell;
   };
 
@@ -245,7 +247,7 @@ function Range(fromRow, fromCell, toRow, toCell) {
    * @param cell {Integer}
    * @return {Boolean}
    */
-  this.contains = function(row, cell) {
+  this.contains = function(row, cell){
     return row >= this.fromRow && row <= this.toRow && cell >= this.fromCell && cell <= this.toCell;
   };
 
@@ -254,25 +256,23 @@ function Range(fromRow, fromCell, toRow, toCell) {
    * @method toString
    * @return {String}
    */
-  this.toString = function() {
-    if (this.isSingleCell()) {
-      return "(" + this.fromRow + ":" + this.fromCell + ")";
+  this.toString = function(){
+    if (this.isSingleCell()){
+      return '(' + this.fromRow + ':' + this.fromCell + ')';
     } else {
-      return "(" + this.fromRow + ":" + this.fromCell + " - " + this.toRow + ":" + this.toCell + ")";
+      return '(' + this.fromRow + ':' + this.fromCell + ' - ' + this.toRow + ':' + this.toCell + ')';
     }
-  }
+  };
 }
-
 
 /***
  * A base class that all special / non-data rows (like Group and GroupTotals) derive from.
  * @class NonDataItem
  * @constructor
  */
-function NonDataItem() {
+function NonDataItem(){
   this.__nonDataRow = true;
 }
-
 
 /***
  * Information about a group of rows.
@@ -280,7 +280,7 @@ function NonDataItem() {
  * @extends Slick.NonDataItem
  * @constructor
  */
-function Group() {
+function Group(){
   this.__group = true;
 
   /**
@@ -356,7 +356,7 @@ Group.prototype = new NonDataItem();
  * @return {Boolean}
  * @param group {Group} Group instance to compare to.
  */
-Group.prototype.equals = function(group) {
+Group.prototype.equals = function(group){
   return this.value === group.value && this.count === group.count && this.collapsed === group.collapsed && this.title === group.title;
 };
 
@@ -369,7 +369,7 @@ Group.prototype.equals = function(group) {
  * @extends Slick.NonDataItem
  * @constructor
  */
-function GroupTotals() {
+function GroupTotals(){
   this.__groupTotals = true;
 
   /***
@@ -398,7 +398,7 @@ GroupTotals.prototype = new NonDataItem();
  * @class EditorLock
  * @constructor
  */
-function EditorLock() {
+function EditorLock(){
   var activeEditController = null;
 
   /***
@@ -408,7 +408,7 @@ function EditorLock() {
    * @param editController {EditController}
    * @return {Boolean}
    */
-  this.isActive = function(editController) {
+  this.isActive = function(editController){
     return (editController ? activeEditController === editController : activeEditController !== null);
   };
 
@@ -418,18 +418,18 @@ function EditorLock() {
    * @method activate
    * @param editController {EditController} edit controller acquiring the lock
    */
-  this.activate = function(editController) {
-    if (editController === activeEditController) { // already activated?
+  this.activate = function(editController){
+    if (editController === activeEditController){ // already activated?
       return;
     }
-    if (activeEditController !== null) {
-      throw "SlickGrid.EditorLock.activate: an editController is still active, can't activate another editController";
+    if (activeEditController !== null){
+      throw 'SlickGrid.EditorLock.activate: an editController is still active, can\'t activate another editController';
     }
-    if (!editController.commitCurrentEdit) {
-      throw "SlickGrid.EditorLock.activate: editController must implement .commitCurrentEdit()";
+    if (!editController.commitCurrentEdit){
+      throw 'SlickGrid.EditorLock.activate: editController must implement .commitCurrentEdit()';
     }
-    if (!editController.cancelCurrentEdit) {
-      throw "SlickGrid.EditorLock.activate: editController must implement .cancelCurrentEdit()";
+    if (!editController.cancelCurrentEdit){
+      throw 'SlickGrid.EditorLock.activate: editController must implement .cancelCurrentEdit()';
     }
     activeEditController = editController;
   };
@@ -440,9 +440,9 @@ function EditorLock() {
    * @method deactivate
    * @param editController {EditController} edit controller releasing the lock
    */
-  this.deactivate = function(editController) {
-    if (activeEditController !== editController) {
-      throw "SlickGrid.EditorLock.deactivate: specified editController is not the currently active one";
+  this.deactivate = function(editController){
+    if (activeEditController !== editController){
+      throw 'SlickGrid.EditorLock.deactivate: specified editController is not the currently active one';
     }
     activeEditController = null;
   };
@@ -455,7 +455,7 @@ function EditorLock() {
    * @method commitCurrentEdit
    * @return {Boolean}
    */
-  this.commitCurrentEdit = function() {
+  this.commitCurrentEdit = function(){
     return (activeEditController ? activeEditController.commitCurrentEdit() : true);
   };
 
@@ -466,7 +466,7 @@ function EditorLock() {
    * @method cancelCurrentEdit
    * @return {Boolean}
    */
-  this.cancelCurrentEdit = function cancelCurrentEdit() {
+  this.cancelCurrentEdit = function cancelCurrentEdit(){
     return (activeEditController ? activeEditController.cancelCurrentEdit() : true);
   };
 }
@@ -477,25 +477,25 @@ function EditorLock() {
  * @returns {{hasDepth: 'hasDepth', getTreeColumns: 'getTreeColumns', extractColumns: 'extractColumns', getDepth: 'getDepth', getColumnsInDepth: 'getColumnsInDepth', getColumnsInGroup: 'getColumnsInGroup', visibleColumns: 'visibleColumns', filter: 'filter', reOrder: reOrder}}
  * @constructor
  */
-function TreeColumns(treeColumns) {
+function TreeColumns(treeColumns){
 
   var columnsById = {};
 
-  function init() {
+  function init(){
     mapToId(treeColumns);
   }
 
-  function mapToId(columns) {
-    columns.forEach(function(column) {
+  function mapToId(columns){
+    columns.forEach(function(column){
       columnsById[column.id] = column;
 
       if (column.columns) mapToId(column.columns);
     });
   }
 
-  function filter(node, condition) {
+  function filter(node, condition){
 
-    return node.filter(function(column) {
+    return node.filter(function(column){
 
       var valid = condition.call(column);
 
@@ -506,54 +506,54 @@ function TreeColumns(treeColumns) {
 
   }
 
-  function sort(columns, grid) {
-    columns.sort(function(a, b) {
+  function sort(columns, grid){
+    columns.sort(function(a, b){
       var indexA = getOrDefault(grid.getColumnIndex(a.id)),
         indexB = getOrDefault(grid.getColumnIndex(b.id));
 
       return indexA - indexB;
     })
-      .forEach(function(column) {
+      .forEach(function(column){
         if (column.columns) sort(column.columns, grid);
       });
   }
 
-  function getOrDefault(value) {
+  function getOrDefault(value){
     return typeof value === 'undefined' ? -1 : value;
   }
 
-  function getDepth(node) {
+  function getDepth(node){
     if (node.length) for (var i in node)
       return getDepth(node[i]);
     else if (node.columns) return 1 + getDepth(node.columns);
     else return 1;
   }
 
-  function getColumnsInDepth(node, depth, current) {
+  function getColumnsInDepth(node, depth, current){
     var columns = [];
     current = current || 0;
 
-    if (depth == current) {
+    if (depth == current){
 
-      if (node.length) node.forEach(function(n) {
-        if (n.columns) n.extractColumns = function() {
+      if (node.length) node.forEach(function(n){
+        if (n.columns) n.extractColumns = function(){
           return extractColumns(n);
         };
       });
 
       return node;
     } else for (var i in node)
-      if (node[i].columns) {
+      if (node[i].columns){
         columns = columns.concat(getColumnsInDepth(node[i].columns, depth, current + 1));
       }
 
     return columns;
   }
 
-  function extractColumns(node) {
+  function extractColumns(node){
     var result = [];
 
-    if (node.hasOwnProperty('length')) {
+    if (node.hasOwnProperty('length')){
 
       for (var i = 0; i < node.length; i++)
         result = result.concat(extractColumns(node[i]));
@@ -571,13 +571,13 @@ function TreeColumns(treeColumns) {
     return result;
   }
 
-  function cloneTreeColumns() {
+  function cloneTreeColumns(){
     return $.extend(true, [], treeColumns);
   }
 
   init();
 
-  this.hasDepth = function() {
+  this.hasDepth = function(){
 
     for (var i in treeColumns)
       if (treeColumns[i].hasOwnProperty('columns')) return true;
@@ -585,47 +585,47 @@ function TreeColumns(treeColumns) {
     return false;
   };
 
-  this.getTreeColumns = function() {
+  this.getTreeColumns = function(){
     return treeColumns;
   };
 
-  this.extractColumns = function() {
+  this.extractColumns = function(){
     return this.hasDepth() ? extractColumns(treeColumns) : treeColumns;
   };
 
-  this.getDepth = function() {
+  this.getDepth = function(){
     return getDepth(treeColumns);
   };
 
-  this.getColumnsInDepth = function(depth) {
+  this.getColumnsInDepth = function(depth){
     return getColumnsInDepth(treeColumns, depth);
   };
 
-  this.getColumnsInGroup = function(groups) {
+  this.getColumnsInGroup = function(groups){
     return extractColumns(groups);
   };
 
-  this.visibleColumns = function() {
-    return filter(cloneTreeColumns(), function() {
+  this.visibleColumns = function(){
+    return filter(cloneTreeColumns(), function(){
       return this.visible;
     });
   };
 
-  this.filter = function(condition) {
+  this.filter = function(condition){
     return filter(cloneTreeColumns(), condition);
   };
 
-  this.reOrder = function(grid) {
+  this.reOrder = function(grid){
     return sort(treeColumns, grid);
   };
 
-  this.getById = function(id) {
+  this.getById = function(id){
     return columnsById[id];
   };
 
-  this.getInIds = function(ids) {
-    return ids.map(function(id) {
+  this.getInIds = function(ids){
+    return ids.map(function(id){
       return columnsById[id];
     });
-  }
+  };
 }
