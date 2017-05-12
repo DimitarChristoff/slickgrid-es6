@@ -1,5 +1,7 @@
 @import '../src/slick.grid.variables.less';
 @import '../src/slick.grid.less';
+@import '~font-awesome/less/font-awesome.less';
+@import '~flatpickr/dist/flatpickr.min.css';
 
 @grid-border-color: #D6D7D6;
 @grid-border-style: solid;
@@ -22,6 +24,67 @@
  */
 
 .slickgrid-container.example-9 {
+
+  div.slick-cell {
+    div.green {
+      color: green;
+    }
+    div.red {
+      color: darkred;
+    }
+    div.up, div.down {
+      position: relative;
+    }
+    div.up:before {
+      .fa();
+      .fa-fw();
+      color: dodgerblue;
+      position: absolute;
+      left: 0;
+      content: @fa-var-chevron-up;
+    }
+
+    div.down:before {
+      .fa();
+      .fa-fw();
+      color: orange;
+      position: absolute;
+      left: 0;
+      content: @fa-var-chevron-down;
+    }
+    &.full-size {
+      padding: 0;
+    }
+  }
+
+
+  .slick-header-columns,
+  .slick-header-column {
+    background: @grid-header-background;
+    // background-color: #EBECEE;
+  }
+
+  .slick-header-columns {
+    border-bottom: 1px solid @grid-border-color;
+    //background: linear-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,.1));
+    .slick-sort-indicator {
+      .fa();
+      margin: 0;
+      margin-left: .5rem;
+      padding: 0;
+      background: none !important;
+      &:after {
+        content: @fa-var-sort;
+      }
+      &.slick-sort-indicator-asc:after {
+        content: @fa-var-sort-asc;
+      }
+      &.slick-sort-indicator-desc:after {
+        content: @fa-var-sort-desc;
+      }
+    }
+  }
+
   width: 100%;
   height: 500px;
   font-size: 14px;

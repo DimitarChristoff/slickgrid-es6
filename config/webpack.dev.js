@@ -49,6 +49,18 @@ module.exports = {
         presets: ['react', 'es2015', 'stage-0']
       }
     }, {
+      test: /\.ttf(\?.*)?$/,
+      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-ttf'
+    }, {
+      test: /\.woff(\?.*)?$/,
+      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
+    }, {
+      test: /\.woff2(\?.*)?$/,
+      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2'
+    }, {
+      test: /\.eot(\?.*)?$/,
+      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]'
+    }, {
       test: /\.(less|css)$/,
       loader: 'style-loader!css-loader!less-loader'
     }, {
