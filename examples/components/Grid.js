@@ -2,20 +2,24 @@ import React from 'react';
 
 export default class Grid extends React.Component {
 
-  cleanup(example){
+  cleanup(example, id){
     this.grid && this.grid.destroy();
     this.grid = example.init('#myGrid');
+    const node = this.grid.getContainerNode();
+    node.classList.remove(`example-${this.props.id}`);
+    node.classList.add(`example-${id}`);
+
     example.onReady && example.onReady(this.grid);
     document.title = example.title;
   }
 
   componentDidMount(){
-    const { example } = this.props;
-    this.cleanup(example);
+    const { example, id } = this.props;
+    this.cleanup(example, id);
   }
 
-  componentWillReceiveProps({example}){
-    this.cleanup(example);
+  componentWillReceiveProps({example, id}){
+    this.cleanup(example, id);
   }
 
   componentWillUnmount(){

@@ -22,7 +22,7 @@ while (count <= examplesCount){
 ReactDOM.render(<BrowserRouter>
   <div className='columns'>
     <Menu examples={examples} />
-    <Route path='/examples/:example' render={({match}) => <Grid example={examples[match.params.example]} />} />
+    <Route path='/examples/:example' render={({match}) => <Grid example={examples[match.params.example]} id={1 + ~~match.params.example} />} />
   </div>
 </BrowserRouter>, document.querySelector('.root'));
 
