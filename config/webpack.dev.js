@@ -28,10 +28,14 @@ module.exports = {
   context: __dirname,
 
   entry: {
-    examples: [path.join(__DEV_INPUT__, 'index.js')],
+    examples: ['babel-polyfill', path.join(__DEV_INPUT__, 'index.js')],
     vendor: [
+      'faker',
+      'lodash',
       'react',
       'react-dom',
+      'react-router',
+      'interactjs',
       'jquery'
     ]
   },
@@ -49,24 +53,15 @@ module.exports = {
         presets: ['react', 'es2015', 'stage-0']
       }
     }, {
-      test: /\.ttf(\?.*)?$/,
-      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-ttf'
-    }, {
-      test: /\.woff(\?.*)?$/,
-      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'
-    }, {
-      test: /\.woff2(\?.*)?$/,
-      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2'
-    }, {
-      test: /\.eot(\?.*)?$/,
-      loader: 'url-loader?prefix=/fonts&name=fonts/[name].[ext]'
-    }, {
       test: /\.(less|css)$/,
       loader: 'style-loader!css-loader!less-loader'
     }, {
-      test: /\.(jpe?g|png|gif|svg)$/i,
+      test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+      loader: 'url-loader?importLoaders=1&limit=100000'
+    }, {
+      test: /\.(jpe?g|png|gif)$/i,
       loaders: [
-        `file-loader?context=../images&name=images/[path][name].[ext]`
+        `file-loader`
       ]
     }]
   },

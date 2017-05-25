@@ -1,5 +1,6 @@
 @import '../src/slick.grid.variables.less';
 @import '../src/slick.grid.less';
+@fa-font-path: '~/font-awesome/fonts/';
 @import '~font-awesome/less/font-awesome.less';
 @import '~flatpickr/dist/flatpickr.min.css';
 
@@ -23,7 +24,7 @@
  * classes should alter those!
  */
 
-.slickgrid-container.example-9 {
+#myGrid.slickgrid-container.example-9 {
 
   div.slick-cell {
     div.green {
@@ -85,28 +86,6 @@
     }
   }
 
-  width: 100%;
-  height: 500px;
-  font-size: 14px;
-
-  .editable-cell {
-    border-color: @grid-border-color;
-    border-right: 1px solid @grid-border-color;
-    box-shadow: -1px 0 0 @grid-border-color, inset -1px 0 0 @grid-border-color;
-  }
-
-  .slick-header-columns,
-  .slick-header-column {
-    background: @grid-header-background;
-    box-sizing: border-box;
-    // background-color: #EBECEE;
-  }
-
-  .slick-header-columns {
-    border-bottom: 1px solid @grid-border-color;
-    //background: linear-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,.1));
-  }
-
   .slick-header-column {
     //border-right: 1px solid @grid-border-color;
     //border-bottom: 1px solid @grid-border-color;
@@ -119,6 +98,23 @@
     }
   }
 
+  .slick-headerrow, .slick-headerrow-columns {
+    border: none;
+  }
+
+  .slick-headerrow-column {
+
+
+    &.ui-state-default {
+      border: 0;
+      padding-top: @cell-padding-top;
+      padding-bottom: @cell-padding-bottom;
+      padding-left: @cell-padding-left;
+      padding-right: @cell-padding-right;
+    }
+  }
+
+
   .slick-header-column:hover {
     background: darken(@grid-header-background, 2%);
   }
@@ -129,11 +125,26 @@
 
   .slick-headerrow {
     background: @grid-header-background;
+    border-bottom: 1px solid @grid-border-color;
   }
 
   .slick-headerrow-column {
     background: #fafafa;
     border-bottom: 0;
+    input.editor-text {
+      box-sizing: border-box;
+      font-size: 13.3px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      border: 0;
+      margin: 0;
+      background: transparent;
+      padding: @cell-padding-top @cell-padding-right @cell-padding-bottom @cell-padding-left;
+    }
+    padding: 0;
   }
 
   .grid-canvas {
@@ -146,12 +157,15 @@
   }
 
   .slick-row {
-    background: white;
+    background: @grid-cell-color;
     border: 0;
     line-height: 14px;
+    &.buy {
+      background: lightcyan;
+    }
 
     .slick-cell {
-      background: @grid-cell-color;
+      background-color: transparent;
 
       padding-top: @cell-padding-top;
       padding-bottom: @cell-padding-bottom;
@@ -169,12 +183,11 @@
       }
 
       &.active {
-        border-top-width: 0;
-        border-left-width: 0;
+        outline: #3785b6;
         background: @grid-cell-selected-color;
-        //border-style: none;
 
         input.editor-text {
+          font-size: 1em;
           position: absolute;
           width: 100%;
           height: 100%;
@@ -184,7 +197,6 @@
           margin: 0;
           background: transparent;
           padding: @cell-padding-top @cell-padding-right @cell-padding-bottom @cell-padding-left;
-          transform: none;
         }
 
       }
@@ -281,6 +293,14 @@
     border: none;
     outline: black;
   }
+
+  div.slick-cell.amount,  div.slick-header-column.amount {
+    & input.editor-text {
+      text-align: right;
+    }
+    text-align: right;
+  }
+
 }
 
 

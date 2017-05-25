@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import './example9.less';
+import React                                        from 'react';
+import ReactDOM                                     from 'react-dom';
 import {FrozenGrid as Grid, Editors, Plugins, Data} from '../src/';
-import Faker                                                      from 'faker';
-import _                                                          from 'lodash'
+import Faker                                        from 'faker';
+import _                                            from 'lodash'
 import {
   makeArray,
   amountFormatter,
@@ -13,8 +14,6 @@ import {
   rates,
   morphRate
 } from './lib/utils';
-
-import './example9.less';
 
 const { CheckboxSelectColumn, RowSelectionModel } = Plugins;
 
@@ -65,7 +64,7 @@ const columns = [
     field: 'type',
     maxWidth: 120,
   },
-  {id: 'counterparty', name: 'Counterparty', field: 'counterparty', minWidth: 200, maxWidth: 200, cssClass: 'zb-editable', editor: Editors.Text, sortable},
+  {id: 'counterparty', name: 'Counterparty', field: 'counterparty', minWidth: 100, maxWidth: 200, cssClass: 'zb-editable', editor: Editors.Text, sortable},
   {id: 'currency', name: 'GBP-nnn', field: 'currency', minWidth: 120, maxWidth: 120, sortable },
   {
     id: 'price',
@@ -171,7 +170,7 @@ class Filter extends React.Component {
 
 export default {
   init: id => {
-    const grid = this.gridInstance = new Grid(this.grid, dv, columns, options);
+    const grid = new Grid(id, dv, columns, options);
 
     grid.setSelectionModel(new Plugins.RowSelectionModel({selectActiveRow: false}));
     grid.registerPlugin(checkboxSelector);
