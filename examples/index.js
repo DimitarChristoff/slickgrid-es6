@@ -9,7 +9,7 @@ import './examples.less';
 
 
 const examples = [];
-let examplesCount = 9;
+let examplesCount = 10;
 
 let  count = 1;
 while (count <= examplesCount){

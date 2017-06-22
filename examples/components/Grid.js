@@ -29,6 +29,8 @@ export default class Grid extends React.Component {
   render(){
     return <div className="demo column">
       <div id="myGrid" style={{width:'100%',height:'400px'}} className='slickgrid-container' />
+      <div className="log">
+      </div>
     </div>;
   }
 }
