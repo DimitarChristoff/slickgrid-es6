@@ -1,47 +1,28 @@
+import React                          from 'react';
+import ReactDOM                       from 'react-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
+import Menu from './components/Menu';
+import Grid from './components/Grid';
+
 import './examples.less';
-import React from 'react';
-import ReactDOM from 'react-dom';
 
-import createHistory from 'history/createBrowserHistory';
 
-const history = createHistory();
-const router = {};
+const examples = [];
+let examplesCount = 10;
 
-const examples = new Array(8).join(',').split(',');
-let grid;
+let  count = 1;
+while (count <= examplesCount){
+  const example = require(`./example${count}.js`).default;
+  examples.push(example);
+  count++;
+}
 
-window.addEventListener('resize', () => grid.resizeCanvas());
 
-const nav = ({pathname}) => {
-  const route = router[pathname] || router[Object.keys(router)[0]];
-  if (route){
-    grid = route.init('#myGrid');
-    document.title = route.title;
-  }
-};
-
-history.listen(nav);
-
-const menuEl = document.querySelector('.menu-container .menu');
-
-class Menu extends React.Component {
-
-  render(){
-    return <ul className="menu-list">
-      {this.props.examples.map((item, index) => {
-        const count = index + 1;
-        const example = require(`./example${count}`).default;
-        router[example.route] = example;
-
-        return <li key={count}>
-          <a className="demo-link" href={example.route}>{example.title}</a>
-        </li>;
-      })}
-    </ul>;
-  }
-};
-
-ReactDOM.render(<Menu examples={examples} />, menuEl);
-
-nav(history.location);
+ReactDOM.render(<BrowserRouter>
+  <div className='columns'>
+    <Menu examples={examples} />
+    <Route path='/examples/:example' render={({match}) => <Grid example={examples[match.params.example]} id={1 + ~~match.params.example} />} />
+  </div>
+</BrowserRouter>, document.querySelector('.root'));
 

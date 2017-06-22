@@ -1,7 +1,7 @@
-import Slick from './slick.core';
-import flatpickr from 'flatpickr';
+import Slick      from './slick.core';
+import $          from 'jquery';
+import flatpickr  from 'flatpickr';
 //import 'flatpickr/dist/flatpickr.min.css';
-import $ from 'jquery';
 
 const { keyCode } = Slick;
 
@@ -29,7 +29,7 @@ function TextEditor(args){
   let defaultValue;
 
   this.init = function(){
-    $input = $("<INPUT type=text class='editor-text' />")
+    $input = $('<INPUT type=text class="editor-text" />')
       .appendTo(args.container)
       .bind('keydown.nav', function(e){
         if (e.keyCode === keyCode.LEFT || e.keyCode === keyCode.RIGHT){
@@ -98,7 +98,7 @@ function IntegerEditor(args){
   let defaultValue;
 
   this.init = function(){
-    $input = $("<INPUT type=text class='editor-text' />");
+    $input = $('<INPUT type=text class="editor-text" />');
 
     $input.bind('keydown.nav', function(e){
       if (e.keyCode === keyCode.LEFT || e.keyCode === keyCode.RIGHT){
@@ -167,7 +167,7 @@ function FloatEditor(args){
   let scope = this;
 
   this.init = function(){
-    $input = $("<INPUT type=text class='editor-text' />");
+    $input = $('<INPUT type=text class="editor-text" />');
 
     $input.bind('keydown.nav', function(e){
       if (e.keyCode === keyCode.LEFT || e.keyCode === keyCode.RIGHT){
@@ -272,7 +272,7 @@ function DateEditor(args){
   this.init = function(){
     defaultDate = options.defaultDate = args.item[args.column.field];
 
-    $input = $('<input type=text data-default-date="'+defaultDate+'" class="editor-text" />');
+    $input = $(`<input type=text data-default-date="${defaultDate}" class="editor-text" />`);
     $input.appendTo(args.container);
     $input.focus().val(defaultDate).select();
     flatInstance = flatpickr($input[0], options);
@@ -284,8 +284,7 @@ function DateEditor(args){
   };
 
   this.show = function(){
-    flatInstance.open();
-    flatInstance.positionCalendar();
+    flatInstance.open()
   };
 
   this.hide = function(){
@@ -294,7 +293,7 @@ function DateEditor(args){
 
   this.position = function(position){
     //todo: fix how scrolling is affected
-    flatInstance.positionCalendar();
+    flatInstance.redraw();
   };
 
   this.focus = function(){
@@ -342,7 +341,7 @@ function YesNoSelectEditor(args){
   let scope = this;
 
   this.init = function(){
-    $select = $("<select tabIndex='0' class='editor-yesno'><option value='yes'>Yes</option><option value='no'>No</option></select>");
+    $select = $('<select tabIndex="0" class="editor-yesno"><option value="yes">Yes</option><option value="no">No</option></select>');
     $select.appendTo(args.container);
     $select.focus();
   };
@@ -396,7 +395,7 @@ function CheckboxEditor(args){
   let scope = this;
 
   this.init = function(){
-    $select = $("<INPUT type=checkbox value='true' class='editor-checkbox' hideFocus>");
+    $select = $('<INPUT type=checkbox value="true" class="editor-checkbox" hideFocus>');
     $select.appendTo(args.container);
     $select.focus();
   };
@@ -465,10 +464,10 @@ function LongTextEditor(args){
   this.init = function(){
     let $container = $('body');
 
-    $wrapper = $("<div class='slick-large-editor-text' />").appendTo($container);
-    $input = $("<textarea hidefocus rows=5 />").appendTo($wrapper);
+    $wrapper = $('<div class="slick-large-editor-text" />').appendTo($container);
+    $input = $('<textarea hidefocus rows=5 />').appendTo($wrapper);
 
-    $("<div><button>Save</button> <button>Cancel</button></div>").appendTo($wrapper);
+    $('<div><button>Save</button> <button>Cancel</button></div>').appendTo($wrapper);
 
     $wrapper.find('button:first').bind('click', this.save);
     $wrapper.find('button:last').bind('click', this.cancel);
@@ -545,7 +544,7 @@ function LongTextEditor(args){
     let valid = true;
     let msg = null;
     if (args.column.validator){
-      let validationResults = args.column.validator($select.val(), args);
+      let validationResults = args.column.validator($input.val(), args);
       valid = validationResults.valid;
       msg = validationResults.msg;
     }

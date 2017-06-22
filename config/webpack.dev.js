@@ -28,10 +28,14 @@ module.exports = {
   context: __dirname,
 
   entry: {
-    examples: [path.join(__DEV_INPUT__, 'index.js')],
+    examples: ['babel-polyfill', path.join(__DEV_INPUT__, 'index.js')],
     vendor: [
+      'faker',
+      'lodash',
       'react',
       'react-dom',
+      'react-router',
+      'interactjs',
       'jquery'
     ]
   },
@@ -44,7 +48,7 @@ module.exports = {
     loaders: [{
       test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         presets: ['react', 'es2015', 'stage-0']
       }
@@ -52,9 +56,12 @@ module.exports = {
       test: /\.(less|css)$/,
       loader: 'style-loader!css-loader!less-loader'
     }, {
-      test: /\.(jpe?g|png|gif|svg)$/i,
+      test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+      loader: 'url-loader?importLoaders=1&limit=100000'
+    }, {
+      test: /\.(jpe?g|png|gif)$/i,
       loaders: [
-        `file?context=../images&name=images/[path][name].[ext]`
+        `file-loader`
       ]
     }]
   },
@@ -63,6 +70,7 @@ module.exports = {
     contentBase: __DEV_INPUT__,
     historyApiFallback: true,
     host: '0.0.0.0',
+    port: 8888,
     hot: true,
     staticOptions: {}
   },
@@ -73,11 +81,11 @@ module.exports = {
         'NODE_ENV': '"development"'
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js'}),
+    new webpack.optimize.OccurrenceOrderPlugin()
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css']
+    extensions: ['.js', '.jsx', '.css']
   }
 };

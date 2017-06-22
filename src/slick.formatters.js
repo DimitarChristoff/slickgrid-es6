@@ -1,4 +1,4 @@
-function PercentCompleteFormatter(row, cell, value, columnDef, dataContext){
+const percentCompleteFormatter = (row, cell, value, columnDef, dataContext) => {
   if (value == null || value === ''){
     return '-';
   } else if (value < 50){
@@ -6,9 +6,9 @@ function PercentCompleteFormatter(row, cell, value, columnDef, dataContext){
   } else {
     return `<span style='color:green'>${value}%</span>`;
   }
-}
+};
 
-function PercentCompleteBarFormatter(row, cell, value, columnDef, dataContext){
+const percentCompleteBarFormatter = (row, cell, value, columnDef, dataContext) => {
   if (value == null || value === ''){
     return '';
   }
@@ -23,20 +23,15 @@ function PercentCompleteBarFormatter(row, cell, value, columnDef, dataContext){
     color = 'green';
   }
 
-  return "<span class='percent-complete-bar' style='background:" + color + ';width:' + value + "%'></span>";
-}
+  return `<span class="percent-complete-bar" style="background: ${color};width:${value}%"></span>`;
+};
 
-function YesNoFormatter(row, cell, value, columnDef, dataContext){
-  return value ? 'Yes' : 'No';
-}
-
-function CheckmarkFormatter(row, cell, value, columnDef, dataContext){
-  return value ? '✔' : '';
-}
+const yesNoFormatter = (row, cell, value) => value ? 'Yes' : 'No';
+const checkmarkFormatter = (row, cell, value) => value ? '✔' : '';
 
 export default {
-  PercentComplete: PercentCompleteFormatter,
-  PercentCompleteBar: PercentCompleteBarFormatter,
-  YesNo: YesNoFormatter,
-  Checkmark: CheckmarkFormatter
+  PercentComplete: percentCompleteFormatter,
+  PercentCompleteBar: percentCompleteBarFormatter,
+  YesNo: yesNoFormatter,
+  Checkmark: checkmarkFormatter
 };
