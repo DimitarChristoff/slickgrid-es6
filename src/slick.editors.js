@@ -284,8 +284,7 @@ function DateEditor(args){
   };
 
   this.show = function(){
-    flatInstance.open();
-    flatInstance.positionCalendar();
+    flatInstance.open()
   };
 
   this.hide = function(){
@@ -294,7 +293,7 @@ function DateEditor(args){
 
   this.position = function(position){
     //todo: fix how scrolling is affected
-    flatInstance.positionCalendar();
+    flatInstance.redraw();
   };
 
   this.focus = function(){

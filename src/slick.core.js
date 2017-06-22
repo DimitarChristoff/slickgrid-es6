@@ -37,7 +37,8 @@ const Slick = {
     PAGE_UP: 33,
     RIGHT: 39,
     TAB: 9,
-    UP: 38
+    UP: 38,
+    SPACE: 32
   }
 };
 

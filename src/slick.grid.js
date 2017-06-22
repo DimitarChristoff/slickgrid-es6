@@ -347,7 +347,7 @@ function SlickGrid(container, data, columns, options){
         onmove: handleDrag,
         onstart: handleDragStart,
         onend: handleDragEnd
-      });
+      }).styleCursor(false);
 
       // Work around http://crbug.com/312427.
       if (navigator.userAgent.toLowerCase().match(/webkit/) &&
@@ -858,7 +858,7 @@ function SlickGrid(container, data, columns, options){
           event.relatedTarget.classList.remove('interact-can-drop');
           $(event.target)[x > 0 ? 'after' : 'before'](event.relatedTarget);
         }
-      });
+      }).styleCursor(false);
   }
 
   function setupColumnResize(){

@@ -93,7 +93,8 @@ module.exports = {
         from: `${__PLUGINS__}/**/*.css`,
         flatten: true
       }
-    ])
+    ]),
+    new webpack.optimize.ModuleConcatenationPlugin()
   ],
 
   resolve: {
