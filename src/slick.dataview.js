@@ -1,6 +1,6 @@
 import Slick                  from './slick.core';
 import $                      from 'jquery';
-import GroupMetaDataProvider  from './slick.groupmetadataprovider';
+import GroupItemMetaDataProvider  from './slick.groupmetadataprovider';
 
 const Aggregators = {
   Avg: AvgAggregator,
@@ -11,7 +11,7 @@ const Aggregators = {
 
 const Data = {
   DataView,
-  GroupMetaDataProvider,
+  GroupItemMetaDataProvider,
   Aggregators
 };
 
