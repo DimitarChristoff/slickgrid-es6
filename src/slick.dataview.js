@@ -226,7 +226,7 @@ function DataView(options){
 
   function setGrouping(groupingInfo){
     if (!options.groupItemMetadataProvider){
-      options.groupItemMetadataProvider = new Data.GroupItemMetadataProvider();
+      options.groupItemMetadataProvider = new GroupItemMetadataProvider();
     }
 
     groups = [];
