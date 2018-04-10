@@ -559,7 +559,7 @@ function SlickGrid(container, data, columns, options){
   }
 
   function getActiveViewportNode(element){
-    setActiveViewPortNode(element);
+    setActiveViewportNode(element);
 
     return $activeViewportNode[0];
   }
