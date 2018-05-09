@@ -4,6 +4,8 @@
 
 > This is a clone of the two biggest forks of SlickGrid - [6pac fork](https://github.com/6pac/SlickGrid/) and [X-SlickGrid](https://github.com/ddomingues/X-SlickGrid), both of which have been converted to align with this project's goals and build strategy, both ready to be used out of the box[1]  
 
+> **NEW** See it running in a create-react-app here: https://dimitarchristoff.github.io/slickgrid-example/
+
 The main goals are:
 
 * Make it easy to consume in a modern ES2016 codebase
