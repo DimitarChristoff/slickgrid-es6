@@ -6,6 +6,8 @@
 
 > **NEW** See it running in a create-react-app here: https://dimitarchristoff.github.io/slickgrid-example/
 
+![image](https://user-images.githubusercontent.com/119500/39813726-711c9d86-5389-11e8-886a-27e9250955f1.png)
+
 The main goals are:
 
 * Make it easy to consume in a modern ES2016 codebase
