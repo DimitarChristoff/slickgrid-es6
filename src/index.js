@@ -14,4 +14,4 @@ export {
   Grid,
   FrozenGrid,
   Plugins
-}
+};

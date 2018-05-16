@@ -8,30 +8,30 @@
 .slickgrid-container {
   .slick-header-columns,
   .slick-header-column {
-    background: @grid-header-background;
+    background: $grid-header-background;
     // background-color: #EBECEE;
   }
 
   .slick-header-columns {
-    border-bottom: 1px solid @grid-border-color;
+    border-bottom: 1px solid $grid-border-color;
     //background: linear-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,.1));
   }
 
   .slick-header-column {
-    border-right: 1px solid @grid-border-color;
-    border-bottom: 1px solid @grid-border-color;
+    border-right: 1px solid $grid-border-color;
+    border-bottom: 1px solid $grid-border-color;
   }
 
   .slick-header-column:hover {
-    background: darken(@grid-header-background, 2%);
+    background: darken($grid-header-background, 2%);
   }
 
   .slick-header-column-active {
-    background: darken(@grid-header-background, 5%) !important;
+    background: darken($grid-header-background, 5%) !important;
   }
 
   .slick-headerrow {
-    background: @grid-header-background;
+    background: $grid-header-background;
   }
 
   .slick-headerrow-column {
@@ -51,10 +51,10 @@
     .slick-cell {
       background: white;
 
-      padding-top: @cell-padding-top;
-      padding-bottom: @cell-padding-bottom;
-      padding-left: @cell-padding-left;
-      padding-right: @cell-padding-right;
+      padding-top: $cell-padding-top;
+      padding-bottom: $cell-padding-bottom;
+      padding-left: $cell-padding-left;
+      padding-right: $cell-padding-right;
       box-sizing: border-box;
 
       &.invalid {
@@ -66,7 +66,7 @@
       }
 
       &.selected {
-        background-color: @grid-cell-selected-color;
+        background-color: $grid-cell-selected-color;
       }
 
       &.active {
@@ -93,11 +93,11 @@
     }
 
     &.odd .slick-cell {
-      background: darken(@grid-cell-color, 2%);
+      background: darken($grid-cell-color, 2%);
 
       // make sure we override the regular background color:
       &.selected {
-        background-color: @grid-cell-selected-color;
+        background-color: $grid-cell-selected-color;
       }
     }
 
@@ -106,7 +106,7 @@
 
       // make sure we override the regular background color:
       &.selected {
-        background-color: @grid-cell-selected-color;
+        background-color: $grid-cell-selected-color;
       }
     }
 
@@ -181,7 +181,7 @@
     display: inline-block;
     position: absolute;
 
-    // The next few items are already defined in the slick-headermenu.less file and it should stay that way, *unless* you also replace the button image included there.
+    // The next few items are already defined in the slick-headermenu.scss file and it should stay that way, *unless* you also replace the button image included there.
     //bottom: 0;
     //right: 0;
     //top: 0;
@@ -295,7 +295,7 @@
 div.slick-large-editor-text {
   z-index: 10000;
   position: absolute;
-  background: @grid-cell-color;
+  background: $grid-cell-color;
   padding: 5px;
   border: 1px solid rgba(0, 0, 0, .5);
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, .3);
@@ -309,8 +309,8 @@ div.slick-large-editor-text {
   div {
     text-align: right;
     button {
-      background-color: darken(@grid-cell-color, 10%);
-      border: 1px solid @grid-border-color;
+      background-color: darken($grid-cell-color, 10%);
+      border: 1px solid $grid-border-color;
       cursor: pointer;
       justify-content: center;
       padding-left: 0.75em;

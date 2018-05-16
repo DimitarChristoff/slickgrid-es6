@@ -1,6 +1,6 @@
-@import '../src/slick.grid.variables.less';
-@import '../src/slick.grid.less';
-@import '../src/slick-default-theme.less';
+@import '../src/slick.grid.variables.scss';
+@import '../src/slick.grid.scss';
+@import '../src/slick-default-theme.scss';
 @import '~flatpickr/dist/flatpickr.min.css';
 
 .container {
@@ -10,7 +10,7 @@
 #myGrid {
   background: white;
   outline: 0;
-  border: 1px solid @grid-border-color;
+  border: 1px solid $grid-border-color;
 }
 
 .grid-header label {

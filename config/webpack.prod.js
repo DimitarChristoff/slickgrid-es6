@@ -55,8 +55,8 @@ module.exports = {
         presets: ['es2015', 'stage-0']
       }
     }, {
-      test: /\.(less|css)$/,
-      loader: 'style-loader!css-loader!less-loader'
+      test: /\.(scss|css)$/,
+      loader: 'style-loader!css-loader!scss-loader'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
@@ -87,7 +87,7 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         flatten: true,
-        from: `${__INPUT__}/*.less`
+        from: `${__INPUT__}/*.scss`
       },
       {
         from: `${__PLUGINS__}/**/*.css`,
