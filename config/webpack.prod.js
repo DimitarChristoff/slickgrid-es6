@@ -34,7 +34,8 @@ module.exports = {
   entry: {
     index: [
       path.join(__INPUT__, 'index.js')
-    ]
+    ],
+    // 'slick.grid.css': path.join(__INPUT__, 'slick.build.scss')
   },
 
   output: {
@@ -56,7 +57,7 @@ module.exports = {
       }
     }, {
       test: /\.(scss|css)$/,
-      loader: 'style-loader!css-loader!scss-loader'
+      loader: 'style-loader!css-loader!sass-loader'
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
