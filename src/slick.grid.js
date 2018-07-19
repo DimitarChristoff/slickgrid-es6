@@ -779,7 +779,7 @@ function SlickGrid(container, data, columns, options){
 
     placeholder.className = 'interact-placeholder';
 
-    interact('.slick-header-column')
+    interact('.slick-header-column', {context: $container[0]})
       .ignoreFrom('.slick-resizable-handle')
       .draggable({
         inertia: true,

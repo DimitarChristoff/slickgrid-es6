@@ -1,4 +1,4 @@
-import {Grid, Formatters, Editors} from '../';
+import {Grid, Formatters, Editors} from '../src';
 import CellSelectionModel from '../plugins/slick.cellselectionmodel/slick.cellselectionmodel';
 import data from './example-data';
 
