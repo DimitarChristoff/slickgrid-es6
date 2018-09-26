@@ -1,0 +1,11 @@
+{
+    "js": {
+        "brace_style": "collapse,preserve-inline",
+        "space_after_anon_function": true,
+        "end_with_newline": true,
+        "indent_size": 4
+    },
+    "html": {
+        "wrap_line_length": 220
+    }
+}

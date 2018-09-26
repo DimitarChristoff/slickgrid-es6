@@ -68,6 +68,9 @@ function SlickGrid(container, data, columns, options){
     createFooterRow: false,
     showFooterRow: false,
     footerRowHeight: 25,
+    createPreHeaderPanel: false,
+    showPreHeaderPanel: false,
+    preHeaderPanelHeight: 25,
     showTopPanel: false,
     topPanelHeight: 25,
     formatterFactory: null,
@@ -117,6 +120,7 @@ function SlickGrid(container, data, columns, options){
   var $headers;
   var $headerRow, $headerRowScroller, $headerRowSpacer;
   var $footerRow, $footerRowScroller, $footerRowSpacer;
+  var $preHeaderPanel, $preHeaderPanelScroller, $preHeaderPanelSpacer;
   var $topPanelScroller;
   var $topPanel;
   var $viewport;
@@ -237,6 +241,18 @@ function SlickGrid(container, data, columns, options){
 
     $focusSink = $("<div tabIndex='0' hideFocus style='position:fixed;width:0;height:0;top:0;left:0;outline:0;'></div>").appendTo($container);
 
+    if (options.createPreHeaderPanel) {
+      $preHeaderPanelScroller = $("<div class='slick-preheader-panel ui-state-default' style='overflow:hidden;position:relative;' />").appendTo($container);
+      $preHeaderPanel = $("<div />").appendTo($preHeaderPanelScroller);
+      $preHeaderPanelSpacer = $("<div style='display:block;height:1px;position:absolute;top:0;left:0;'></div>")
+          .css("width", getCanvasWidth() + scrollbarDimensions.width + "px")
+          .appendTo($preHeaderPanelScroller);
+
+      if (!options.showPreHeaderPanel) {
+        $preHeaderPanelScroller.hide();
+      }
+    }
+
     $headerScroller = $("<div class='slick-header ui-state-default' style='overflow:hidden;position:relative;' />").appendTo($container);
     $headers = $("<div class='slick-header-columns' />").appendTo($headerScroller);
     $headers.width(getHeadersWidth());
@@ -330,6 +346,11 @@ function SlickGrid(container, data, columns, options){
       if (options.createFooterRow){
         $footerRowScroller
           .bind('scroll', handleFooterRowScroll);
+      }
+
+      if (options.createPreHeaderPanel) {
+        $preHeaderPanelScroller
+            .on("scroll", handlePreHeaderPanelScroll);
       }
 
       $focusSink.add($focusSink2)
@@ -462,6 +483,9 @@ function SlickGrid(container, data, columns, options){
       if (options.createFooterRow){
         $footerRow.width(canvasWidth);
       }
+      if (options.createPreHeaderPanel) { 
+        $preHeaderPanel.width(canvasWidth); 
+      }
       $headers.width(getHeadersWidth());
       viewportHasHScroll = (canvasWidth > viewportW - scrollbarDimensions.width);
     }
@@ -471,10 +495,21 @@ function SlickGrid(container, data, columns, options){
     if (options.createFooterRow){
       $footerRowSpacer.width(w);
     }
+    if (options.createPreHeaderPanel) { 
+      $preHeaderPanelSpacer.width(w); 
+    }
 
     if (canvasWidth != oldCanvasWidth || forceColumnWidthsUpdate){
       applyColumnWidths();
     }
+  }
+
+  function getHeaderColumnWidthDiff() {
+    return headerColumnWidthDiff;
+  }
+
+  function getScrollbarDimensions() {
+    return scrollbarDimensions;
   }
 
   function disableSelection($target){
@@ -576,6 +611,10 @@ function SlickGrid(container, data, columns, options){
 
   function getFooterRow(){
     return $footerRow[0];
+  }
+
+  function getPreHeaderPanel() {
+    return $preHeaderPanel[0];
   }
 
   function getHeaderRowColumn(columnId){
@@ -981,8 +1020,9 @@ function SlickGrid(container, data, columns, options){
     $style = $("<style type='text/css' rel='stylesheet' />").appendTo($('head'));
     var rowHeight = (options.rowHeight - cellHeightDiff);
     var rules = [
-      '.' + uid + ' .slick-header-column { left: 0; }',
+      '.' + uid + ' .slick-header-column { left: 0px; }',
       '.' + uid + ' .slick-top-panel { height:' + options.topPanelHeight + 'px; }',
+      "." + uid + " .slick-preheader-panel { height:" + options.preHeaderPanelHeight + "px; }",
       '.' + uid + ' .slick-headerrow-columns { height:' + options.headerRowHeight + 'px; }',
       '.' + uid + ' .slick-footerrow-columns { height:' + options.footerRowHeight + 'px; }',
       '.' + uid + ' .slick-cell { height:' + rowHeight + 'px; }',
@@ -1390,6 +1430,18 @@ function SlickGrid(container, data, columns, options){
     }
   }
 
+  function setPreHeaderPanelVisibility(visible) {
+    if (options.showPreHeaderPanel != visible) {
+      options.showPreHeaderPanel = visible;
+      if (visible) {
+        $preHeaderPanelScroller.slideDown("fast", resizeCanvas);
+      } else {
+        $preHeaderPanelScroller.slideUp("fast", resizeCanvas);
+      }
+    }
+  }
+
+
   function getContainerNode(){
     return $container.get(0);
   }
@@ -1723,7 +1775,8 @@ function SlickGrid(container, data, columns, options){
       parseFloat($.css($headerScroller[0], 'height')) - getVBoxDelta($headerScroller) -
       (options.showTopPanel ? options.topPanelHeight + getVBoxDelta($topPanelScroller) : 0) -
       (options.showHeaderRow ? options.headerRowHeight + getVBoxDelta($headerRowScroller) : 0) -
-      (options.createFooterRow && options.showFooterRow ? options.footerRowHeight + getVBoxDelta($footerRowScroller) : 0);
+      (options.createFooterRow && options.showFooterRow ? options.footerRowHeight + getVBoxDelta($footerRowScroller) : 0) -
+      (options.createPreHeaderPanel && options.showPreHeaderPanel ? options.preHeaderPanelHeight + getVBoxDelta($preHeaderPanelScroller) : 0);
   }
 
   function resizeCanvas(){
@@ -2140,6 +2193,13 @@ function SlickGrid(container, data, columns, options){
       $viewport[0].scrollLeft = scrollLeft;
     }
   }
+  
+  function handlePreHeaderPanelScroll() {
+    var scrollLeft = $preHeaderPanelScroller[0].scrollLeft;
+    if (scrollLeft != $viewport[0].scrollLeft) {
+      $viewport[0].scrollLeft = scrollLeft;
+    }
+  }
 
   function handleScroll(){
     scrollTop = $viewport[0].scrollTop;
@@ -2154,6 +2214,9 @@ function SlickGrid(container, data, columns, options){
       $headerRowScroller[0].scrollLeft = scrollLeft;
       if (options.createFooterRow){
         $footerRowScroller[0].scrollLeft = scrollLeft;
+      }
+      if (options.createPreHeaderPanel) {
+        $preHeaderPanelScroller[0].scrollLeft = scrollLeft;
       }
     }
 
@@ -3593,6 +3656,9 @@ function SlickGrid(container, data, columns, options){
     'scrollRowToTop': scrollRowToTop,
     'scrollCellIntoView': scrollCellIntoView,
     'getCanvasNode': getCanvasNode,
+    'getHeadersWidth': getHeadersWidth,
+    'getHeaderColumnWidthDiff': getHeaderColumnWidthDiff,
+    'getScrollbarDimensions': getScrollbarDimensions,
     'focus': setFocus,
 
     'getCellFromPoint': getCellFromPoint,
@@ -3619,6 +3685,8 @@ function SlickGrid(container, data, columns, options){
     'gotoCell': gotoCell,
     'getTopPanel': getTopPanel,
     'setTopPanelVisibility': setTopPanelVisibility,
+    'getPreHeaderPanel': getPreHeaderPanel,
+    'setPreHeaderPanelVisibility': setPreHeaderPanelVisibility,
     'setHeaderRowVisibility': setHeaderRowVisibility,
     'getHeaderRow': getHeaderRow,
     'getHeaderRowColumn': getHeaderRowColumn,
