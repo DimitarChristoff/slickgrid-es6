@@ -357,6 +357,8 @@ function SlickGrid(container, data, columns, options){
         .bind('keydown', handleKeyDown);
       $canvas
         .bind('keydown', handleKeyDown)
+        .bind('mousedown', handleMouseDown)
+        .bind('mouseup', handleMouseUp)
         .bind('click', handleClick)
         .bind('dblclick', handleDblClick)
         .bind('contextmenu', handleContextMenu)
@@ -2530,6 +2532,14 @@ function SlickGrid(container, data, columns, options){
     }
   }
 
+  function handleMouseDown(e){
+    trigger(self.onMouseDown, {grid: self}, e);
+  }
+
+  function handleMouseUp(e){
+    trigger(self.onMouseUp, {grid: self}, e);
+  }
+
   function handleClick(e){
     if (!currentEditor){
       // if this click resulted in some cell child node getting focus,
@@ -3596,6 +3606,8 @@ function SlickGrid(container, data, columns, options){
     'onBeforeFooterRowCellDestroy': new Slick.Event(),
     'onMouseEnter': new Slick.Event(),
     'onMouseLeave': new Slick.Event(),
+    'onMouseDown': new Slick.Event(),
+    'onMouseUp': new Slick.Event(),
     'onClick': new Slick.Event(),
     'onDblClick': new Slick.Event(),
     'onContextMenu': new Slick.Event(),
