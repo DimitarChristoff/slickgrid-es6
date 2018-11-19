@@ -1,4 +1,5 @@
 import Slick from '../../src/slick.core';
+import $ from 'jquery';
 
 export default RowMoveManager;
 
@@ -6,6 +7,11 @@ function RowMoveManager(options){
   let _grid;
   let _canvas;
   let _dragging;
+  let selectedRows;
+  let selectionProxy;
+  let guide;
+  let insertBefore;
+  let canMove;
   const _self = this;
   const _handler = new Slick.EventHandler();
   const _defaults = {
@@ -46,7 +52,7 @@ function RowMoveManager(options){
     _dragging = true;
     e.stopImmediatePropagation();
 
-    let selectedRows = _grid.getSelectedRows();
+    selectedRows = _grid.getSelectedRows();
 
     if (selectedRows.length == 0 || $.inArray(cell.row, selectedRows) == -1){
       selectedRows = [cell.row];
@@ -55,23 +61,21 @@ function RowMoveManager(options){
 
     const rowHeight = _grid.getOptions().rowHeight;
 
-    dd.selectedRows = selectedRows;
-
-    dd.selectionProxy = $("<div class='slick-reorder-proxy'/>")
+    selectionProxy = $("<div class='slick-reorder-proxy'/>")
       .css('position', 'absolute')
       .css('zIndex', '99999')
       .css('width', $(_canvas).innerWidth())
       .css('height', rowHeight * selectedRows.length)
       .appendTo(_canvas);
 
-    dd.guide = $("<div class='slick-reorder-guide'/>")
+    guide = $("<div class='slick-reorder-guide'/>")
       .css('position', 'absolute')
       .css('zIndex', '99998')
       .css('width', $(_canvas).innerWidth())
       .css('top', -1000)
       .appendTo(_canvas);
 
-    dd.insertBefore = -1;
+    insertBefore = -1;
   }
 
   function handleDrag(e, dd){
@@ -82,24 +86,26 @@ function RowMoveManager(options){
     e.stopImmediatePropagation();
 
     const top = e.pageY - $(_canvas).offset().top;
-    dd.selectionProxy.css('top', top - 5);
+    selectionProxy.css('top', top - 5);
 
-    const insertBefore = Math.max(0, Math.min(Math.round(top / _grid.getOptions().rowHeight), _grid.getDataLength()));
-    if (insertBefore !== dd.insertBefore){
+    const insertBeforeNew = Math
+      .max(0, Math.min(Math.round(top / _grid.getOptions().rowHeight), _grid.getDataLength()));
+
+    if (insertBeforeNew !== insertBefore){
       const eventData = {
-        'rows': dd.selectedRows,
-        'insertBefore': insertBefore
+        'rows': selectedRows,
+        'insertBefore': insertBeforeNew
       };
 
       if (_self.onBeforeMoveRows.notify(eventData) === false){
-        dd.guide.css('top', -1000);
-        dd.canMove = false;
+        guide.css('top', -1000);
+        canMove = false;
       } else {
-        dd.guide.css('top', insertBefore * _grid.getOptions().rowHeight);
-        dd.canMove = true;
+        guide.css('top', insertBeforeNew * _grid.getOptions().rowHeight);
+        canMove = true;
       }
 
-      dd.insertBefore = insertBefore;
+      insertBefore = insertBeforeNew;
     }
   }
 
@@ -110,13 +116,13 @@ function RowMoveManager(options){
     _dragging = false;
     e.stopImmediatePropagation();
 
-    dd.guide.remove();
-    dd.selectionProxy.remove();
+    guide.remove();
+    selectionProxy.remove();
 
-    if (dd.canMove){
+    if (canMove){
       const eventData = {
-        'rows': dd.selectedRows,
-        'insertBefore': dd.insertBefore
+        'rows': selectedRows,
+        'insertBefore': insertBefore
       };
       // TODO:  _grid.remapCellCssClasses ?
       _self.onMoveRows.notify(eventData);
