@@ -2439,13 +2439,13 @@ function SlickGrid(container, data, columns, options){
   }
 
   function handleDragStart(interactEvent){
-    var event = $.Event(interactEvent.originalEvent.type, interactEvent.originalEvent);
-    var cell = getCellFromEvent(event);
+    const event = $.Event(interactEvent.originalEvent.type, { target: interactEvent.originalEvent.target });
+    const cell = getCellFromEvent(event);
     if (!cell || !cellExists(cell.row, cell.cell)){
       return false;
     }
 
-    var retval = trigger(self.onDragStart, interactEvent, event);
+    const retval = trigger(self.onDragStart, interactEvent, event);
     if (event.isImmediatePropagationStopped()){
       return retval;
     }
@@ -2454,7 +2454,13 @@ function SlickGrid(container, data, columns, options){
   }
 
   function handleDrag(interactEvent){
-    var event = $.Event(interactEvent.originalEvent.type, interactEvent.originalEvent);
+    const event = $.Event(
+      interactEvent.originalEvent.type,
+      {
+        target: interactEvent.originalEvent.target,
+        pageX: interactEvent.originalEvent.pageX,
+        pageY: interactEvent.originalEvent.pageY
+      });
     return trigger(self.onDrag, interactEvent, event);
   }
 
