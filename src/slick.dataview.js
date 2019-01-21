@@ -226,7 +226,7 @@ function DataView(options){
 
   function setGrouping(groupingInfo){
     if (!options.groupItemMetadataProvider){
-      options.groupItemMetadataProvider = GroupItemMetadataProvider();
+      options.groupItemMetadataProvider = GroupItemMetaDataProvider();
     }
 
     groups = [];
@@ -998,7 +998,11 @@ function DataView(options){
     this.onRowCountChanged.subscribe(update);
   }
 
-  $.extend(this, {
+  function getRows(){
+    return rows;
+  }
+
+  $.extend(this,{
     // methods
     'beginUpdate': beginUpdate,
     'endUpdate': endUpdate,
@@ -1039,6 +1043,7 @@ function DataView(options){
     'getLength': getLength,
     'getItem': getItem,
     'getItemMetadata': getItemMetadata,
+    'getRows': getRows,
 
     // events
     'onRowCountChanged': onRowCountChanged,
