@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "flatpickr": "^1.9.1",
-    "jquery": "^3.1.0"
+    "jquery": "^3.4.1"
   },
   "devDependencies": {
     "babel": "^6.1.18",
@@ -39,16 +39,16 @@
     "file-loader": "^0.10.1",
     "history": "^4.6.0",
     "html-loader": "^0.4.3",
-    "image-webpack-loader": "^3.2.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
+    "image-webpack-loader": "^5.0.0",
+    "node-sass": "^4.12.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "rimraf": "^2.5.3",
+    "sass-loader": "^7.0.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "1.15.0",
+    "webpack": "^1.15.0",
+    "webpack-dev-server": "1.16.5",
     "webpack-node-externals": "^1.5.4"
   }
 }
