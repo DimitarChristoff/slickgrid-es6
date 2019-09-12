@@ -95,6 +95,14 @@ feature additions.
 
 ## Changelog
 
+### `3.0.3` 
+
+* Fix of the Frozen (X-SlickGrid) keyboard scrolling problem here https://github.com/ddomingues/X-SlickGrid/issues/21
+
+### `3.0.2`
+
+* SCSS tweaks
+
 ### `3.0.0`
 
 * Moved to SCSS
