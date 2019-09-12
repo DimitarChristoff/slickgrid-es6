@@ -3504,11 +3504,14 @@ function SlickGrid(container, data, columns, options){
 
   function scrollCellIntoView(row, cell, doPaging){
     // Don't scroll to frozen cells
-    if (cell <= options.frozenColumn){
+    if (cell < options.frozenColumn){
       return;
     }
 
-    if (row < actualFrozenRow){
+    if (options.frozenRow > 0 && row < actualFrozenRow){
+      scrollRowIntoView(row, doPaging);
+    } else {
+      // always scroll like normal slickgrid.
       scrollRowIntoView(row, doPaging);
     }
 
@@ -4103,6 +4106,7 @@ function SlickGrid(container, data, columns, options){
   }
 
   function navigateDown(){
+    console.log('down');
     return navigate("down");
   }
 
