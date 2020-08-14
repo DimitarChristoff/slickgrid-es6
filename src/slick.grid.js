@@ -362,15 +362,20 @@ function SlickGrid(container, data, columns, options){
         .bind('click', handleClick)
         .bind('dblclick', handleDblClick)
         .bind('contextmenu', handleContextMenu)
+        .bind('dragover', handleDrag)
+        .bind('drop', handleDrop)
         .delegate('.slick-cell', 'mouseenter', handleMouseEnter)
-        .delegate('.slick-cell', 'mouseleave', handleMouseLeave);
-
+        .delegate('.slick-cell', 'mouseleave', handleMouseLeave)
+        .delegate('.slick-row', 'dragstart', handleDragStart)
+        .delegate('.slick-row', 'dragend', handleDragEnd)
+       
       // legacy support for drag events
-      interact($canvas[0]).allowFrom('div.slick-cell').draggable({
-        onmove: handleDrag,
-        onstart: handleDragStart,
-        onend: handleDragEnd
-      }).styleCursor(false);
+      // We have now moved to HTML 5 drag events handling
+      // interact($canvas[0]).allowFrom('div.slick-cell').draggable({
+      //   onmove: handleDrag,
+      //   onstart: handleDragStart,
+      //   onend: handleDragEnd
+      // }).styleCursor(false);
 
       // Work around http://crbug.com/312427.
       if (navigator.userAgent.toLowerCase().match(/webkit/) &&
@@ -1546,7 +1551,7 @@ function SlickGrid(container, data, columns, options){
       rowCss += ' ' + metadata.cssClasses;
     }
 
-    stringArray.push("<div class='ui-widget-content " + rowCss + "' style='top:" + getRowTop(row) + "px'>");
+    stringArray.push("<div draggable=\"true\" class='ui-widget-content " + rowCss + "' style='top:" + getRowTop(row) + "px'>");
 
     var colspan, m;
     for (var i = 0, ii = columns.length; i < ii; i++){
@@ -2450,7 +2455,7 @@ function SlickGrid(container, data, columns, options){
       return retval;
     }
 
-    return false;
+    return true;
   }
 
   function handleDrag(interactEvent){
@@ -2465,7 +2470,11 @@ function SlickGrid(container, data, columns, options){
   }
 
   function handleDragEnd(interactEvent){
-    trigger(self.onDragEnd, interactEvent, $.Event('mousedown'));
+    return trigger(self.onDragEnd, interactEvent, $.Event('mousedown'));
+  }
+
+  function handleDrop(interactEvent){
+    return trigger(self.onDrop, interactEvent, $.Event('mousedown'));
   }
 
   function handleKeyDown(e){
@@ -2681,6 +2690,21 @@ function SlickGrid(container, data, columns, options){
   }
 
   function getCellFromEvent(e){
+    // Drag now happens on rows too, so we will return early
+    // when we would normally exit with null
+    if ($(e.target).hasClass('slick-row')){
+      const row = getRowFromNode(e.target);
+
+      if (row == null){
+        return null;
+      } else {
+        return {
+          'row': row,
+          'cell': 0,
+        };
+      }
+    }
+
     var $cell = $(e.target).closest('.slick-cell', $canvas);
     if (!$cell.length){
       return null;
@@ -3633,6 +3657,7 @@ function SlickGrid(container, data, columns, options){
     'onDragStart': new Slick.Event(),
     'onDrag': new Slick.Event(),
     'onDragEnd': new Slick.Event(),
+    'onDrop': new Slick.Event(),
     'onSelectedRowsChanged': new Slick.Event(),
     'onCellCssStylesChanged': new Slick.Event(),
 

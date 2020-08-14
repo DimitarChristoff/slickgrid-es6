@@ -8,7 +8,6 @@ function RowMoveManager(options){
   let _canvas;
   let _dragging;
   let selectedRows;
-  let selectionProxy;
   let guide;
   let insertBefore;
   let canMove;
@@ -23,19 +22,14 @@ function RowMoveManager(options){
     _grid = grid;
     _canvas = _grid.getCanvasNode();
     _handler
-      .subscribe(_grid.onDragInit, handleDragInit)
       .subscribe(_grid.onDragStart, handleDragStart)
       .subscribe(_grid.onDrag, handleDrag)
-      .subscribe(_grid.onDragEnd, handleDragEnd);
+      .subscribe(_grid.onDragEnd, handleDragEnd)
+      .subscribe(_grid.onDrop, handleDrop);
   }
 
   function destroy(){
     _handler.unsubscribeAll();
-  }
-
-  function handleDragInit(e, dd){
-    // prevent the grid from cancelling drag'n'drop by default
-    e.stopImmediatePropagation();
   }
 
   function handleDragStart(e, dd){
@@ -50,7 +44,6 @@ function RowMoveManager(options){
     }
 
     _dragging = true;
-    e.stopImmediatePropagation();
 
     selectedRows = _grid.getSelectedRows();
 
@@ -58,15 +51,6 @@ function RowMoveManager(options){
       selectedRows = [cell.row];
       _grid.setSelectedRows(selectedRows);
     }
-
-    const rowHeight = _grid.getOptions().rowHeight;
-
-    selectionProxy = $("<div class='slick-reorder-proxy'/>")
-      .css('position', 'absolute')
-      .css('zIndex', '99999')
-      .css('width', $(_canvas).innerWidth())
-      .css('height', rowHeight * selectedRows.length)
-      .appendTo(_canvas);
 
     guide = $("<div class='slick-reorder-guide'/>")
       .css('position', 'absolute')
@@ -76,17 +60,22 @@ function RowMoveManager(options){
       .appendTo(_canvas);
 
     insertBefore = -1;
+
+    _self.onMoveStart.notify({ originalEvent: dd.originalEvent });
+
+    return true;
   }
 
   function handleDrag(e, dd){
+    dd.originalEvent.preventDefault();
+    if (dd.originalEvent.dataTransfer) {
+      dd.originalEvent.dataTransfer.dropEffect = "move";
+    }
     if (!_dragging){
       return;
     }
 
-    e.stopImmediatePropagation();
-
     const top = e.pageY - $(_canvas).offset().top;
-    selectionProxy.css('top', top - 5);
 
     const insertBeforeNew = Math
       .max(0, Math.min(Math.round(top / _grid.getOptions().rowHeight), _grid.getDataLength()));
@@ -113,11 +102,23 @@ function RowMoveManager(options){
     if (!_dragging){
       return;
     }
+    
     _dragging = false;
-    e.stopImmediatePropagation();
 
     guide.remove();
-    selectionProxy.remove();
+
+    return true;
+  }
+
+  function handleDrop(e, dd){
+    dd.originalEvent.preventDefault();
+    if (!_dragging){
+      return;
+    }
+    
+    _dragging = false;
+
+    guide.remove();
 
     if (canMove){
       const eventData = {
@@ -132,6 +133,7 @@ function RowMoveManager(options){
   Object.assign(this, {
     'onBeforeMoveRows': new Slick.Event(),
     'onMoveRows': new Slick.Event(),
+    'onMoveStart': new Slick.Event(),
     init,
     destroy
   });
