@@ -62,12 +62,13 @@ Full list of exports you can de-structure:
  - `Editors` - returns the original pre-defined default editors 
  - `Formatters` - returns the original pre-defined default cell formatters
  
-To import stylesheets in LESS (for now):
-```less
-// some vars like @grid-border-color: red;, see slick.grid.variables.less
+To import stylesheets in SCSS:
 
-@import "~slickgrid-es6/dist/slick.grid.less";
-@import "~slickgrid-es6/dist/slick-default-theme.less";
+```scss
+// some vars like $grid-border-color: red;, see slick.grid.variables.scss
+
+@import "~slickgrid-es6/dist/slick.grid.scss";
+@import "~slickgrid-es6/dist/slick-default-theme.scss";
 ...
 ```
 
@@ -93,6 +94,10 @@ Any pull requests and help with this are appreciated - both from conversion stan
 feature additions. 
 
 ## Changelog
+
+### `3.0.0`
+
+* Moved to SCSS
 
 ### `2.0.4`
 
