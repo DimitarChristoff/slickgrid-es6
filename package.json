@@ -40,7 +40,7 @@
     "history": "^4.6.0",
     "html-loader": "^0.4.3",
     "image-webpack-loader": "^5.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "rimraf": "^2.5.3",
